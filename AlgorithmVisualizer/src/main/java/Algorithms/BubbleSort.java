@@ -4,6 +4,9 @@ import javafx.scene.shape.Rectangle;
 
 import java.util.ArrayList;
 
+/**
+ * Bubblesort algorithm
+ */
 public class BubbleSort extends AbstractAlgorithm{
 
     private Rectangle[] nodes;

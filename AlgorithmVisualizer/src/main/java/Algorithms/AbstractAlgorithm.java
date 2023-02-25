@@ -11,6 +11,16 @@ import javafx.util.Duration;
 
 import java.util.ArrayList;
 
+/**
+ * An abstract algorithm class.
+ *
+ * Contains functionality to swap and highlight nodes.
+ * For every swap or highlight that is made, the resulting transition and state of algorithm
+ * should be saved in the transitions list. This list of transition will then be played back in the UI.
+ *
+ * The run algorithm function is where the sorting/searching is meant to be done and should be implemented
+ * by a child class.
+ */
 public abstract class AbstractAlgorithm {
 
     //Gap between blocks.
