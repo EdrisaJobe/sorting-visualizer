@@ -60,11 +60,8 @@ public class VisualizerController implements Initializable {
      */
     @FXML
     protected void StepForward() {
-        statusText.setText("Running Algorithm: " + dropdown.getValue());
-        statusText.setStyle("-fx-background-color: #32a852");
-        if(move_right.getStatus() != Animation.Status.RUNNING) {
-
-        }
+        //Needs to be implemented.
+        // it should just increment the index and play the next transition
     }
 
 
