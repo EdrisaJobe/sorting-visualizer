@@ -5,9 +5,9 @@ import javafx.scene.shape.Rectangle;
 import java.util.ArrayList;
 
 /**
- * Bubblesort algorithm
+ * InsertionSort algorithm variables currently are not stored
  */
-public class BubbleSort extends AbstractAlgorithm{
+public class InsertionSort extends AbstractAlgorithm{
 
     private Rectangle[] nodes;
     private ArrayList<AlgoState> transitions;
@@ -17,7 +17,7 @@ public class BubbleSort extends AbstractAlgorithm{
      *
      * @param nodes Array of boxes
      */
-    public BubbleSort(Rectangle[] nodes) {
+    public InsertionSort(Rectangle[] nodes) {
         super(nodes);
         this.nodes = super.nodes;
         this.transitions = super.transitions;
@@ -33,19 +33,25 @@ public class BubbleSort extends AbstractAlgorithm{
      */
     @Override
     public ArrayList<AlgoState> RunAlgorithm() {
-
         int n = nodes.length;
-        for (int i = 0; i < n - 1; i++)
-            for (int j = 0; j < n - i - 1; j++)
-                if (nodes[j].getHeight() > nodes[j + 1].getHeight()) {
+        for (int i = 1; i < n; i++) {
+            double temp = nodes[i].getHeight();
+            int j = i - 1;
+            int iloc = i;
+            while (temp < nodes[j].getHeight()) {
                     //Here we are doing a swap, so we are saving everything.
                     AlgoState currState = new AlgoState();
-                    currState.StoreTransition(SwapNodes(j,j+1));
+                    currState.StoreTransition(SwapNodes(iloc, j));
+                    iloc = j;
                     //currState.StoreVariable("i", i);
                     //currState.StoreVariable("j", j);
                     transitions.add(currState);
-                }
+                    j--;
+                    if(j<0)
+                        break;
 
+            }
+        }
         return transitions;
     }
 }
