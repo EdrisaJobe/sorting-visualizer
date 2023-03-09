@@ -1,5 +1,6 @@
 package Algorithms;
 
+import javafx.animation.ParallelTransition;
 import javafx.scene.shape.Rectangle;
 
 import java.util.ArrayList;
@@ -40,12 +41,17 @@ public class InsertionSort extends AbstractAlgorithm{
             int iloc = i;
             while (temp < nodes[j].getHeight()) {
                     //Here we are doing a swap, so we are saving everything.
+                    transitions.add(new AlgoState(PrimaryHighlightNode(j)));
+                    transitions.add(new AlgoState(SecondaryHighlightNode(iloc)));
+
                     AlgoState currState = new AlgoState();
-                    currState.StoreTransition(SwapNodes(iloc, j));
-                    iloc = j;
-                    //currState.StoreVariable("i", i);
-                    //currState.StoreVariable("j", j);
+                    ParallelTransition swap = new ParallelTransition(SwapNodes(iloc,j), BaseColorNode(iloc), BaseColorNode(j));
+                    currState.StoreTransition(swap);
+                    currState.StoreVariable("i", iloc);
+                    currState.StoreVariable("j", j);
                     transitions.add(currState);
+
+                    iloc = j;
                     j--;
                     if(j<0)
                         break;

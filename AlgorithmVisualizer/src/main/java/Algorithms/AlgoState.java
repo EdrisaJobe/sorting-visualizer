@@ -13,6 +13,13 @@ public class AlgoState {
     //The last transition that was made.
     public Transition lastTransition;
 
+    public AlgoState(){
+    }
+
+    public AlgoState(Transition transition){
+        lastTransition = transition;
+    }
+
     //The state of the current variables, such as i,j,k.
     //for example:  (i, 5), (j,8), (k,3)
     public ArrayList<Pair<String, Integer>> variables = new ArrayList<>();

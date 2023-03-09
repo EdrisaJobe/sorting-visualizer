@@ -24,7 +24,8 @@ import java.util.ArrayList;
 public abstract class AbstractAlgorithm {
 
     //Gap between blocks.
-    private final static int X_GAP = 20;
+    public static int x_gap = 20;
+    public static int box_width = 30;
 
     //Duration of the transitions.
     private final static float SWAP_ANIM_DURATION = 0.95f;
@@ -32,8 +33,9 @@ public abstract class AbstractAlgorithm {
     private final static float FILL_ANIM_DURATION = 0.95f;
 
     //Highlight Colors.
-    private final Color PRIMARY_COLOR = Color.web("#b4ff6e");
-    private final Color SECONDARY_COLOR = Color.web("#ffaf6e");
+    private final Color BASE_COLOR = Color.web("#000000");
+    private final Color PRIMARY_COLOR = Color.web("#aeff80");
+    private final Color SECONDARY_COLOR = Color.web("#fc6868");
 
     public Rectangle[] nodes;
 
@@ -78,8 +80,8 @@ public abstract class AbstractAlgorithm {
         nodes[index1] = node2;
         nodes[index2] = node1;
 
-        double trans_right_amt = (index2 - index1) * X_GAP;
-        double trans_left_amt = (index2 - index1) * X_GAP * -1;
+        double trans_right_amt = (index2 - index1) * (x_gap + box_width);
+        double trans_left_amt = (index2 - index1) * (x_gap + box_width) * -1;
 
         move_right.setByX(trans_right_amt);
         move_left.setByX(trans_left_amt);
@@ -93,6 +95,15 @@ public abstract class AbstractAlgorithm {
         //A Parallel transition contains the two above transitions and can play them at the same time.
         //Think of it as storing multiple transitions in one transition.
         return new ParallelTransition(move_right, move_left);
+    }
+
+    /**
+     * Returns a transition of highlighting a node with the base color.
+     * @param index Index of the node to highlight.
+     * @return The transition highlighting the node.
+     */
+    final public Transition BaseColorNode(int index){
+        return ColorNode(BASE_COLOR, nodes[index]);
     }
 
 
@@ -116,6 +127,7 @@ public abstract class AbstractAlgorithm {
     }
 
 
+
     /**
      * Utility function returning a transition coloring a node.
      * @param color New Color of the node.
@@ -125,9 +137,10 @@ public abstract class AbstractAlgorithm {
     private Transition ColorNode(Color color, Shape node){
         FillTransition ft = new FillTransition(Duration.seconds(FILL_ANIM_DURATION));
         ft.setShape(node);
-        ft.setFromValue((Color)node.getFill());
+        ft.setFromValue((Color) node.getFill());
         ft.setToValue(color);
         ft.setCycleCount(1);
+        node.setFill(color);
         return ft;
     }
 }
