@@ -1,0 +1,58 @@
+* {
+    -fx-primary-color: #272727;
+    -fx-secondary-color: #353535;
+
+    -fx-focus-color: -fx-secondary-color;
+}
+
+.tab-header-area .tab-header-background {
+    -fx-background-color: -fx-primary-color;
+}
+.tab-pane .tab:selected {
+    -fx-background-color: -fx-secondary-color;
+    -fx-background-insets: 0 0 0 0;
+    -fx-background-radius: 0 0 0 0;
+}
+.tab .tab-label {
+    -fx-alignment: CENTER;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 0 5 0 5;
+}
+.tab-pane:top *.tab-header-area {
+    -fx-padding: 0 0 0 0;
+}
+.tab-pane {
+    -fx-background-color: transparent;
+    -fx-tab-min-width: 100px;
+    -fx-tab-min-height: 40px;
+    -fx-tab-max-height: 40px;
+}
+.tab-pane .tab {
+    -fx-background-color: transparent;
+}
+.tab-pane:focused .tab-header-area .headers-region .tab:selected .focus-indicator {
+    -fx-border-width: 0;
+    -fx-border-insets: 0 0 0 0;
+    -fx-border-radius: 0;
+}
+
+.side_label{
+    -fx-background-color: #363636;
+    /*-fx-padding: 10 0;*/
+    /*-fx-min-width: 100px;*/
+}
+
+.combo-box .list-cell{
+    -fx-text-fill: white;
+}
+
+.combo-box .list-view .list-cell {
+    -fx-text-fill: white;
+    -fx-background-color: #272727;
+}
+
+.combo-box .list-view .list-cell:hover {
+    -fx-text-fill: white;
+    -fx-background-color: -fx-secondary-color;
+}
