@@ -10,15 +10,15 @@ import java.io.IOException;
 public class MainApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("visualizer-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("main-view.fxml"));
 
         Scene scene = new Scene(fxmlLoader.load(), 1000, 800);
-        VisualizerController controller = fxmlLoader.getController();
+        MainController controller = fxmlLoader.getController();
         scene.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
 
-        //Generate a new array once the scene is fully loaded.
+//        Generate a new array once the scene is fully loaded.
         stage.setOnShown((event) -> {
-            controller.DropdownHandler();
+            controller.SetupVisualizer();
         });
 
         stage.setTitle("Algorithm Visualizer");

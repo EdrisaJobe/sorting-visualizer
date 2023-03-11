@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+
+
+<TabPane minWidth="700.0" prefHeight="573.0" prefWidth="875.0" style="-fx-background-color: #313933;" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="1080.0" tabMaxWidth="1920.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserInterface.MainController">
+     <tabs>
+       <Tab text="Visualize" >
+           <content>
+               <fx:include source="visualizer-view.fxml" fx:id="visualizer"/>
+           </content>
+       </Tab>
+       <Tab text="Compare">
+         <content>
+             <fx:include source="compare-view.fxml"/>
+         </content>
+       </Tab>
+         <Tab text="Quiz">
+             <content>
+                 <fx:include source="quiz-view.fxml"/>
+             </content>
+         </Tab>
+     </tabs>
+   </TabPane>

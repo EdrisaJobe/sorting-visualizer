@@ -1,0 +1,11 @@
+UserInterface\QuizController.class
+UserInterface\MainApplication.class
+Algorithms\AbstractAlgorithm.class
+Algorithms\AlgoState.class
+UserInterface\CompareController.class
+UserInterface\MainController.class
+module-info.class
+UserInterface\VisualizerController$AnimTimer.class
+Algorithms\BubbleSort.class
+Algorithms\InsertionSort.class
+UserInterface\VisualizerController.class
