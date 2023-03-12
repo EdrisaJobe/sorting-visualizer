@@ -1,9 +1,6 @@
 package UserInterface;
 
 import Algorithms.AbstractAlgorithm;
-import Algorithms.AlgoState;
-import Algorithms.BubbleSort;
-import Algorithms.InsertionSort;
 import javafx.animation.Animation;
 import javafx.animation.AnimationTimer;
 import javafx.animation.TranslateTransition;
@@ -34,7 +31,5 @@ public class QuizController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
-
-
 
 }
