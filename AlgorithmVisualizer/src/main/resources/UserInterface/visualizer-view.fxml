@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 
-<HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="570.0" prefWidth="1240.0" spacing="30.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserInterface.VisualizerController">
+<HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="570.0" prefWidth="1240.0" spacing="30.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserInterface.VisualizerController">
                   <children>
 
                           <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #1D1D1D;">
@@ -45,12 +50,12 @@
                            </children>
                         </HBox>
                                 <Label fx:id="statusText" />
-                                <Button onAction="#GenerateRandomArray" text="Generate Random Array" />
+                                <Button fx:id="btnGenArray" onAction="#GenerateRandomArray" text="Generate Random Array" />
                                 <HBox alignment="CENTER" fillHeight="false" spacing="20.0">
                                     <Slider fx:id="slider" blockIncrement="1.0" majorTickUnit="1.0" max="5.0" min="1.0" minorTickCount="0" onMouseDragged="#SpeedUpdate" showTickLabels="true" showTickMarks="true" />
-                                    <Button onAction="#StepForward" text="Step Forward" />
-                                    <Button onAction="#AnimateOnTimer" text="Animate on timer" />
-                                    <Button onAction="#StopTimer" text="Stop Anim" />
+                                    <Button fx:id="btnStep" onAction="#StepForward" text="Step Forward" />
+                                    <Button fx:id="btnStart" onAction="#AnimateOnTimer" text="Start Animation" />
+                                    <Button fx:id="btnStop" onAction="#StopTimer" text="Stop Animation" />
                                 </HBox>
                            </children>
                         </VBox>

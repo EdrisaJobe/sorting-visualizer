@@ -12,6 +12,7 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -40,6 +41,7 @@ public class VisualizerController implements Initializable {
     private ComboBox<String> dropdown;
     @FXML
     private Slider slider;
+
 
     private Rectangle[] boxes;
     private AnimationTimer timer;

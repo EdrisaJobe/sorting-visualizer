@@ -3,7 +3,11 @@ package UserInterface;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.scene.control.MenuBar;
 
 import java.io.IOException;
 
@@ -27,7 +31,6 @@ public class MainApplication extends Application {
         stage.setScene(scene);
         stage.show();
     }
-
 
 
     public static void main(String[] args) {
