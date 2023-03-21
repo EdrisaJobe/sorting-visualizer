@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="570.0" prefWidth="1240.0" spacing="30.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserInterface.VisualizerController">
+                  <children>
+
+                          <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #1D1D1D;">
+                     <Label alignment="CENTER" prefHeight="17.0" prefWidth="300.0" styleClass="side_label" stylesheets="@styles.css" text="Sorting" textAlignment="CENTER" textFill="WHITE" VBox.vgrow="ALWAYS">
+                        <VBox.margin>
+                           <Insets top="40.0" />
+                        </VBox.margin>
+                        <padding>
+                           <Insets bottom="5.0" top="5.0" />
+                        </padding>
+                     </Label>
+                              <ComboBox fx:id="dropdown" onAction="#DropdownHandler" prefHeight="25.0" prefWidth="300.0" promptText="Sorting" style="-fx-background-color: #272727;">
+                        <VBox.margin>
+                           <Insets />
+                        </VBox.margin></ComboBox>
+                     <Label alignment="CENTER" layoutX="40.0" layoutY="50.0" prefHeight="17.0" prefWidth="300.0" styleClass="side_label" stylesheets="@styles.css" text="Searching" textAlignment="CENTER" textFill="WHITE">
+                        <padding>
+                           <Insets bottom="5.0" top="5.0" />
+                        </padding>
+                        <VBox.margin>
+                           <Insets top="100.0" />
+                        </VBox.margin>
+                     </Label>
+                     <ComboBox layoutX="10.0" layoutY="255.0" prefHeight="25.0" prefWidth="300.0" promptText="Searching" style="-fx-background-color: #272727;">
+                        <VBox.margin>
+                           <Insets />
+                        </VBox.margin>
+                     </ComboBox>
+                          </VBox>
+                        <VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
+                           <children>
+                        <HBox alignment="CENTER" fillHeight="false" prefHeight="337.0" prefWidth="580.0" VBox.vgrow="NEVER">
+                           <children>
+                        
+                        
+                                      <Pane fx:id="visualizerPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="529.0" prefHeight="337.0" prefWidth="529.0" style="-fx-background-color: #32a852;" HBox.hgrow="NEVER">
+        </Pane>
+                           </children>
+                        </HBox>
+                                <Label fx:id="statusText" />
+                                <Button fx:id="btnGenArray" onAction="#GenerateRandomArray" text="Generate Random Array" />
+                                <HBox alignment="CENTER" fillHeight="false" spacing="20.0">
+                                    <Slider fx:id="slider" blockIncrement="1.0" majorTickUnit="1.0" max="5.0" min="1.0" minorTickCount="0" onMouseDragged="#SpeedUpdate" showTickLabels="true" showTickMarks="true" />
+                                    <Button fx:id="btnStep" onAction="#StepForward" text="Step Forward" />
+                                    <Button fx:id="btnStart" onAction="#AnimateOnTimer" text="Start Animation" />
+                                    <Button fx:id="btnStop" onAction="#StopTimer" text="Stop Animation" />
+                                </HBox>
+                           </children>
+                        </VBox>
+                        <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #1D1D1D;">
+                     <children>
+                        <Label alignment="CENTER" prefHeight="17.0" prefWidth="300.0" styleClass="side_label" stylesheets="@styles.css" text="Pseudo Code" textAlignment="CENTER" textFill="WHITE">
+                           <padding>
+                              <Insets bottom="5.0" top="5.0" />
+                           </padding>
+                           <VBox.margin>
+                              <Insets top="40.0" />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                        </VBox>
+                  </children>
+</HBox>

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserInterface.MainController">
+   <children>
+      <TabPane layoutX="10.0" layoutY="10.0" minWidth="700.0" prefHeight="573.0" prefWidth="875.0" style="-fx-background-color: #313933;" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="1080.0" tabMaxWidth="1920.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
+         <tabs>
+            <Tab text="Visualize">
+               <content>
+                  <fx:include fx:id="visualizer" source="visualizer-view.fxml" />
+               </content>
+            </Tab>
+            <Tab text="Compare">
+               <content>
+                  <fx:include source="compare-view.fxml" />
+               </content>
+            </Tab>
+            <Tab text="Quiz">
+               <content>
+                  <fx:include source="quiz-view.fxml" />
+               </content>
+            </Tab>
+         </tabs>
+      </TabPane>
+      <MenuBar AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="Sorting">
+            <items>
+              <MenuItem mnemonicParsing="false" text="BubbleSort" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Searching">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Binary Search" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <StackPane fx:id="tutorialPane" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Pane opacity="0.47" style="-fx-background-color: #313933;" />
+            <Pane>
+               <children>
+                  <Button fx:id="btnNext" layoutX="14.0" layoutY="761.0" mnemonicParsing="false" onAction="#nextWelcome" text="Next" />
+                  <Button fx:id="btnSkip" layoutX="91.0" layoutY="761.0" mnemonicParsing="false" onAction="#hideTutorial" text="Skip Tutorial" />
+                  <TextArea fx:id="genArrayBtnText" editable="false" layoutX="212.0" layoutY="341.0" prefHeight="209.0" prefWidth="576.0" text="&quot;Generate Random Array&quot; will generate a range of values.&#10;This array is shown as a bar graph.&#10;The values determine the size of each bar.&#10;The taller the bar the larger the value." visible="false" wrapText="true">
+                     <font>
+                        <Font size="22.0" />
+                     </font>
+                  </TextArea>
+                  <TextArea fx:id="animationBtnText" editable="false" layoutX="296.0" layoutY="193.0" prefHeight="366.0" prefWidth="469.0" text="&quot;Step Forward&quot;: This will execute one line of code of the algorithm.&#10;&#10;&quot;Start Animation&quot;: Will run the algorithm at the set speed. You may use the slider on the left to set the speed.&#10;&#10;&quot;Stop Animation&quot;: Will stop the algorithm at its current state.&#10;" visible="false" wrapText="true">
+                     <font>
+                        <Font size="22.0" />
+                     </font>
+                  </TextArea>
+                  <TextArea fx:id="welcomeText" editable="false" layoutX="279.0" layoutY="166.0" prefHeight="262.0" prefWidth="442.0" text="Welcome to the algorithm visualizer.&#10;This quick tutorial will show you how to use the app.&#10;&#10;You may select &quot;Skip Tutorial&quot; at any time to end the tutorial." wrapText="true">
+                     <font>
+                        <Font size="22.0" />
+                     </font>
+                  </TextArea>
+                  <TextArea fx:id="leftMenuText" editable="false" layoutX="225.0" layoutY="14.0" prefHeight="200.0" prefWidth="305.0" text="From the left menu you may&#10;select what algorithm you&#10;are interested in.&#10;" visible="false" wrapText="true">
+                     <font>
+                        <Font size="22.0" />
+                     </font>
+                  </TextArea>
+                  <TextArea fx:id="pseudoText" editable="false" layoutX="432.0" layoutY="138.0" prefHeight="262.0" prefWidth="356.0" text="The Pseudo Code for the&#10;current algorithm is&#10;displayed here on the right.&#10;&#10;This is to give you a general idea&#10;of how the algorithm works.&#10;" visible="false" wrapText="true">
+                     <font>
+                        <Font size="22.0" />
+                     </font>
+                  </TextArea>
+                  <TextArea fx:id="tabText" editable="false" layoutX="25.0" layoutY="66.0" prefHeight="325.0" prefWidth="449.0" text="The &quot;Visualize&quot; tab contains all the&#10;contents for displaying algorithms.&#10;&#10;The &quot;Compare&quot; tab contains info&#10;about runtime and space analysis.&#10;&#10;The &quot;Quiz&quot; tab allows you to take&#10;a short quiz to test your understanding." visible="false" wrapText="true">
+                     <font>
+                        <Font size="22.0" />
+                     </font>
+                  </TextArea>
+                  <TextArea fx:id="finalText" editable="false" layoutX="352.0" layoutY="223.0" prefHeight="151.0" prefWidth="296.0" text="Any other inforamation you may need will be found in the &quot;Help&quot; menu at the top." visible="false" wrapText="true">
+                     <font>
+                        <Font size="22.0" />
+                     </font>
+                  </TextArea>
+                  <Button fx:id="doneBtn" layoutX="474.0" layoutY="416.0" mnemonicParsing="false" onAction="#hideTutorial" text="Done" visible="false" />
+               </children>
+            </Pane>
+         </children>
+      </StackPane>
+   </children>
+</AnchorPane>

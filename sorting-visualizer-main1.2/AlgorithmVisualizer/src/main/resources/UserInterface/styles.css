@@ -1,0 +1,101 @@
+* {
+    -fx-primary-color: #272727;
+    -fx-secondary-color: #353535;
+
+    -fx-focus-color: -fx-secondary-color;
+}
+
+.tab-header-area .tab-header-background {
+    -fx-background-color: -fx-primary-color;
+}
+.tab-pane .tab:selected {
+    -fx-background-color: -fx-secondary-color;
+    -fx-background-insets: 0 0 0 0;
+    -fx-background-radius: 0 0 0 0;
+}
+.tab .tab-label {
+    -fx-alignment: CENTER;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 0 5 0 5;
+}
+.tab-pane:top *.tab-header-area {
+    -fx-padding: 0 0 0 0;
+}
+.tab-pane {
+    -fx-background-color: transparent;
+    -fx-tab-min-width: 100px;
+    -fx-tab-min-height: 40px;
+    -fx-tab-max-height: 40px;
+}
+.tab-pane .tab {
+    -fx-background-color: transparent;
+}
+.tab-pane:focused .tab-header-area .headers-region .tab:selected .focus-indicator {
+    -fx-border-width: 0;
+    -fx-border-insets: 0 0 0 0;
+    -fx-border-radius: 0;
+}
+
+.side_label{
+    -fx-background-color: #363636;
+    /*-fx-padding: 10 0;*/
+    /*-fx-min-width: 100px;*/
+}
+
+.combo-box .list-cell{
+    -fx-text-fill: white;
+}
+
+.combo-box .list-view .list-cell {
+    -fx-text-fill: white;
+    -fx-background-color: #272727;
+}
+
+.combo-box .list-view .list-cell:hover {
+    -fx-text-fill: white;
+    -fx-background-color: -fx-secondary-color;
+}
+
+
+.menu-bar {
+    -fx-background-color: #363636;
+
+}
+.menu-bar .label {
+-fx-background-color: #363636;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+
+}
+
+.menu-bar .menu-button:hover, .menu-bar .menu-button:focused, .menu-bar .menu-button:showing {
+    -fx-background: #363636;
+    -fx-opacity: 0.5;
+    -fx-text-fill: white;
+}
+
+.menu-item {
+    -fx-text-fill: white;
+    -fx-background:  #363636 ;
+}
+.menu-item .label{
+    -fx-text-fill: white;
+}
+.menu-item:focused {
+    -fx-background:  black ;
+}
+
+.context-menu {
+    -fx-background-color: #363636 ;
+    /** -fx-background-insets: 0.0, 1.0, 2.0;
+    -fx-background-radius: 0.0 6.0 6.0 6.0, 0.0 5.0 5.0 5.0, 0.0 4.0 4.0 4.0;
+    -fx-padding: 0.333333em 0.083333em 0.666667em 0.083333em;
+    -fx-opacity: 0.9;*/
+}
+
+
+.text-area *.text {
+    -fx-text-alignment: center;
+
+}
