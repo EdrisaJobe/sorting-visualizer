@@ -1,6 +1,5 @@
 package Algorithms;
 
-import javafx.animation.ParallelTransition;
 import javafx.scene.shape.Rectangle;
 
 import java.util.ArrayList;
@@ -8,7 +7,7 @@ import java.util.ArrayList;
 /**
  * Bubblesort algorithm
  */
-public class BubbleSort extends AbstractAlgorithm{
+public class SelectionSort extends AbstractAlgorithm{
 
     private Rectangle[] nodes;
     private ArrayList<AlgoState> transitions;
@@ -18,7 +17,7 @@ public class BubbleSort extends AbstractAlgorithm{
      *
      * @param nodes Array of boxes
      */
-    public BubbleSort(Rectangle[] nodes) {
+    public SelectionSort(Rectangle[] nodes) {
         super(nodes);
         this.nodes = super.nodes;
         this.transitions = super.transitions;
@@ -36,14 +35,26 @@ public class BubbleSort extends AbstractAlgorithm{
     public ArrayList<AlgoState> RunAlgorithm() {
 
         int n = nodes.length;
-        for (int i = 0; i < n - 1; i++)
-            for (int j = 0; j < n - i - 1; j++)
-                if (nodes[j].getHeight() > nodes[j + 1].getHeight()) {
-                    ArrayList<AlgoState> swap_transitions = FullSwapProcedure(j, j+1);
-                    swap_transitions.get(swap_transitions.size() - 1).StoreVariable("i", i);
-                    swap_transitions.get(swap_transitions.size() - 1).StoreVariable("j", j);
-                    transitions.addAll(swap_transitions);
-                }
+
+        // One by one move boundary of unsorted subarray
+        for (int i = 0; i < n-1; i++)
+        {
+            // Find the minimum element in unsorted array
+            int min_idx = i;
+            for (int j = i+1; j < n; j++)
+                if (nodes[j].getHeight() < nodes[min_idx].getHeight())
+                    min_idx = j;
+
+            ArrayList<AlgoState> swap_transitions = FullSwapProcedure(i, min_idx);
+            swap_transitions.get(swap_transitions.size() - 1).StoreVariable("i", i);
+            swap_transitions.get(swap_transitions.size() - 1).StoreVariable("min", min_idx);
+            transitions.addAll(swap_transitions);
+        }
+
+
+
+
+
 
         return transitions;
     }

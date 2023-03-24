@@ -36,6 +36,7 @@ public abstract class AbstractAlgorithm {
     private final Color BASE_COLOR = Color.web("#000000");
     private final Color PRIMARY_COLOR = Color.web("#aeff80");
     private final Color SECONDARY_COLOR = Color.web("#fc6868");
+    private final Color TARGET_COLOR = Color.web("#96f6ff");
 
     public Rectangle[] nodes;
 
@@ -116,6 +117,14 @@ public abstract class AbstractAlgorithm {
         return ColorNode(PRIMARY_COLOR, nodes[index]);
     }
 
+    /**
+     * Returns a transition of highlighting a node with the primary color.
+     * @param index Index of the node to highlight.
+     * @return The transition highlighting the node.
+     */
+    final public Transition SearchTargetHighlightNode(int index){
+        return ColorNode(TARGET_COLOR, nodes[index]);
+    }
 
     /**
      * Returns a transition of highlighting a node with the secondary color.
@@ -127,6 +136,23 @@ public abstract class AbstractAlgorithm {
     }
 
 
+    /** UTILITY FUNCTION
+     * Does a full swap procedure with swap animations and highlights between nodes i and j.
+     * @param i Index of the node to swap.
+     * @param j Index of the node to swap.
+     */
+    final public ArrayList<AlgoState> FullSwapProcedure(int nodeOne, int nodeTwo){
+        ArrayList<AlgoState> swap_transitions = new ArrayList<>();
+
+        swap_transitions.add(new AlgoState(PrimaryHighlightNode(nodeOne)));
+        swap_transitions.add(new AlgoState(SecondaryHighlightNode(nodeTwo)));
+
+        AlgoState swapState = new AlgoState();
+        ParallelTransition swap = new ParallelTransition(SwapNodes(nodeOne,nodeTwo), BaseColorNode(nodeOne), BaseColorNode(nodeTwo));
+        swapState.StoreTransition(swap);
+        swap_transitions.add(swapState);
+        return swap_transitions;
+    }
 
     /**
      * Utility function returning a transition coloring a node.

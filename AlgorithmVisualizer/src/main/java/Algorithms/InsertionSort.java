@@ -6,7 +6,7 @@ import javafx.scene.shape.Rectangle;
 import java.util.ArrayList;
 
 /**
- * InsertionSort algorithm variables currently are not stored
+ * InsertionSort algorithm
  */
 public class InsertionSort extends AbstractAlgorithm{
 
@@ -41,17 +41,11 @@ public class InsertionSort extends AbstractAlgorithm{
             int iloc = i;
             while (temp < nodes[j].getHeight()) {
                     //Here we are doing a swap, so we are saving everything.
-                    transitions.add(new AlgoState(PrimaryHighlightNode(j)));
-                    transitions.add(new AlgoState(SecondaryHighlightNode(iloc)));
-
-                    AlgoState currState = new AlgoState();
-                    ParallelTransition swap = new ParallelTransition(SwapNodes(iloc,j), BaseColorNode(iloc), BaseColorNode(j));
-                    currState.StoreTransition(swap);
-                    currState.StoreVariable("i", iloc);
-                    currState.StoreVariable("j", j);
-                    transitions.add(currState);
-
-                    iloc = j;
+                    ArrayList<AlgoState> swap_transitions = FullSwapProcedure(j, iloc);
+                    swap_transitions.get(swap_transitions.size() - 1).StoreVariable("i", i);
+                    swap_transitions.get(swap_transitions.size() - 1).StoreVariable("j", j);
+                    transitions.addAll(swap_transitions);
+                iloc = j;
                     j--;
                     if(j<0)
                         break;

@@ -2,14 +2,12 @@ package UserInterface;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.StackPane;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -45,7 +43,7 @@ public class MainController implements Initializable {
     }
 
     public void SetupVisualizer(){
-        visualizerController.GenerateRandomArray();
+        visualizerController.GenerateArray();
     }
 
     public void hideTutorial(ActionEvent actionEvent) throws IOException {

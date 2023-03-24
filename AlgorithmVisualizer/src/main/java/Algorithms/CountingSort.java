@@ -1,14 +1,15 @@
 package Algorithms;
 
-import javafx.animation.ParallelTransition;
 import javafx.scene.shape.Rectangle;
 
 import java.util.ArrayList;
 
+//TODO::Make a new viz for this.
+
 /**
- * Bubblesort algorithm
+ * CountingSort algorithm
  */
-public class BubbleSort extends AbstractAlgorithm{
+public class CountingSort extends AbstractAlgorithm {
 
     private Rectangle[] nodes;
     private ArrayList<AlgoState> transitions;
@@ -18,7 +19,7 @@ public class BubbleSort extends AbstractAlgorithm{
      *
      * @param nodes Array of boxes
      */
-    public BubbleSort(Rectangle[] nodes) {
+    public CountingSort(Rectangle[] nodes) {
         super(nodes);
         this.nodes = super.nodes;
         this.transitions = super.transitions;
@@ -35,15 +36,12 @@ public class BubbleSort extends AbstractAlgorithm{
     @Override
     public ArrayList<AlgoState> RunAlgorithm() {
 
-        int n = nodes.length;
-        for (int i = 0; i < n - 1; i++)
-            for (int j = 0; j < n - i - 1; j++)
-                if (nodes[j].getHeight() > nodes[j + 1].getHeight()) {
-                    ArrayList<AlgoState> swap_transitions = FullSwapProcedure(j, j+1);
-                    swap_transitions.get(swap_transitions.size() - 1).StoreVariable("i", i);
-                    swap_transitions.get(swap_transitions.size() - 1).StoreVariable("j", j);
-                    transitions.addAll(swap_transitions);
-                }
+
+//        ArrayList<AlgoState> swap_transitions = FullSwapProcedure(j, j + 1);
+//        swap_transitions.get(swap_transitions.size() - 1).StoreVariable("i", i);
+//        swap_transitions.get(swap_transitions.size() - 1).StoreVariable("j", j);
+//        transitions.addAll(swap_transitions);
+
 
         return transitions;
     }
