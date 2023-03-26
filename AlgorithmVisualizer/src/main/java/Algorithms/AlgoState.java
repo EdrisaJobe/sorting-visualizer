@@ -15,6 +15,10 @@ public class AlgoState {
     public Transition forwardTransition;
     public Transition reverseTransition;
 
+    //The state of the current variables, such as i,j,k.
+    //for example:  (i, 5), (j,8), (k,3)
+    public ArrayList<Pair<String, Integer>> variables = new ArrayList<>();
+
     public AlgoState(){
     }
 
@@ -40,14 +44,10 @@ public class AlgoState {
         reverseTransition = reverseTranstionContainer;
     }
 
-    //The state of the current variables, such as i,j,k.
-    //for example:  (i, 5), (j,8), (k,3)
-    public ArrayList<Pair<String, Integer>> variables = new ArrayList<>();
 
     public void StoreVariable(String variable, int value){
         variables.add(new Pair<>(variable, value));
     }
-
 
 
     public void StoreTransition(Pair<Transition, Transition>... transitions){

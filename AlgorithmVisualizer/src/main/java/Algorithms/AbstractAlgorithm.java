@@ -178,23 +178,19 @@ public abstract class AbstractAlgorithm {
     private Pair<Transition, Transition> ColorNode(Color color, Shape node){
         FillTransition forward = new FillTransition(Duration.seconds(FILL_ANIM_DURATION));
         FillTransition reverse = new FillTransition(Duration.seconds(FILL_ANIM_DURATION));
-
+        Color currentColor = (Color) node.getFill();
         forward.setShape(node);
-        forward.setFromValue((Color) node.getFill());
+        forward.setFromValue(currentColor);
         forward.setToValue(color);
 
         reverse.setShape(node);
         reverse.setFromValue(color);
-        reverse.setToValue(BASE_COLOR);
+        reverse.setToValue(currentColor);
 
-        forward.setOnFinished(evnt -> {
-            node.setFill(color);
-            System.out.println("PLAYED FORWARDS");
-        });
+        node.setFill(color);
 
         reverse.setOnFinished(evnt -> {
-            node.setFill(BASE_COLOR);
-            System.out.println("PLAYED REVERSE");
+            node.setFill(currentColor);
         });
 
         return new Pair<>(forward, reverse);

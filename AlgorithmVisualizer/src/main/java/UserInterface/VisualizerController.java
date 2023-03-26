@@ -87,10 +87,6 @@ public class VisualizerController implements Initializable {
             transitions.get(currentTransitionIndex).reverseTransition.setRate(speed);
             transitions.get(currentTransitionIndex).reverseTransition.play();
         }
-        else if(currentTransitionIndex == 0){
-            transitions.get(currentTransitionIndex).reverseTransition.setRate(speed);
-            transitions.get(currentTransitionIndex).reverseTransition.play();
-        }
     }
 
     /**
@@ -280,7 +276,8 @@ public class VisualizerController implements Initializable {
         if(transitions != null) {
             if (currentTransitionIndex == 0)
                 return false;
-            if (transitions.get(currentTransitionIndex - 1).forwardTransition.getStatus().toString().equals("RUNNING"))
+            if (transitions.get(currentTransitionIndex - 1).forwardTransition.getStatus().toString().equals("RUNNING")
+                    || transitions.get(currentTransitionIndex).reverseTransition.getStatus().toString().equals("RUNNING"))
                 return true;
         }
         return false;
