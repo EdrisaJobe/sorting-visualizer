@@ -78,6 +78,23 @@ public class VisualizerController implements Initializable {
     }
 
     /**
+     * Moves one step forward in the animation.
+     */
+    @FXML
+    protected void StepBackward() {
+        // Ignores if a transition is currently running
+        if(transitions != null && !lastTransitionsIsRunning() && currentTransitionIndex > 0){
+            currentTransitionIndex--;
+            transitions.get(currentTransitionIndex).lastTransition.setRate(-1);
+            transitions.get(currentTransitionIndex).lastTransition.play();
+        }
+        else if(currentTransitionIndex == 0){
+            transitions.get(currentTransitionIndex).lastTransition.setRate(-1);
+            transitions.get(currentTransitionIndex).lastTransition.play();
+        }
+    }
+
+    /**
      * Reset to allow for change to the array or algorithm
      */
     protected void ResetAlgorithm()
