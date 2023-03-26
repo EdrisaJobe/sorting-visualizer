@@ -21,7 +21,7 @@
                            <Insets bottom="5.0" top="5.0" />
                         </padding>
                      </Label>
-                              <ComboBox fx:id="dropdown" onAction="#DropdownHandler" prefHeight="25.0" prefWidth="300.0" promptText="Sorting" style="-fx-background-color: #272727;">
+                              <ComboBox fx:id="sortDropdown" onAction="#SortDropdownHandler" prefHeight="25.0" prefWidth="300.0" promptText="Sorting" style="-fx-background-color: #272727;">
                         <VBox.margin>
                            <Insets />
                         </VBox.margin></ComboBox>
@@ -33,7 +33,7 @@
                            <Insets top="100.0" />
                         </VBox.margin>
                      </Label>
-                     <ComboBox layoutX="10.0" layoutY="255.0" prefHeight="25.0" prefWidth="300.0" promptText="Searching" style="-fx-background-color: #272727;">
+                     <ComboBox layoutX="10.0" layoutY="255.0" fx:id="searchDropdown" onAction="#SearchDropdownHandler" prefHeight="25.0" prefWidth="300.0" promptText="Searching" style="-fx-background-color: #272727;">
                         <VBox.margin>
                            <Insets />
                         </VBox.margin>
@@ -50,7 +50,7 @@
                            </children>
                         </HBox>
                                 <Label fx:id="statusText" />
-                                <Button fx:id="btnGenArray" onAction="#GenerateRandomArray" text="Generate Random Array" />
+                                <Button fx:id="btnGenArray" onAction="#GenerateArray" text="Generate Random Array" />
                                 <HBox alignment="CENTER" fillHeight="false" spacing="20.0">
                                     <Slider fx:id="slider" blockIncrement="1.0" majorTickUnit="1.0" max="5.0" min="1.0" minorTickCount="0" onMouseDragged="#SpeedUpdate" showTickLabels="true" showTickMarks="true" />
                                     <Button fx:id="btnStep" onAction="#StepForward" text="Step Forward" />
