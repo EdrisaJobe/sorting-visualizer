@@ -1,13 +1,11 @@
 package Algorithms;
 
-import javafx.animation.FillTransition;
-import javafx.animation.ParallelTransition;
-import javafx.animation.Transition;
-import javafx.animation.TranslateTransition;
+import javafx.animation.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 import javafx.util.Duration;
+import javafx.util.Pair;
 
 import java.util.ArrayList;
 
@@ -67,12 +65,17 @@ public abstract class AbstractAlgorithm {
      * Swaps the locations of two nodes in the array and on screen.
      * @param index1 Index of node1
      * @param index2 Index of node2
+     * @return
      */
-    final public ParallelTransition SwapNodes(int index1, int index2){
+    final public Pair<Transition, Transition> SwapNodes(int index1, int index2){
 
         //Right and left movement transitions.
         TranslateTransition move_right = new TranslateTransition();
         TranslateTransition move_left = new TranslateTransition();
+
+        //Reverse transitions
+        TranslateTransition move_right_reverse = new TranslateTransition();
+        TranslateTransition move_left_reverse = new TranslateTransition();
 
         Rectangle node1 = nodes[index1];
         Rectangle node2 = nodes[index2];
@@ -90,12 +93,23 @@ public abstract class AbstractAlgorithm {
         move_left.setNode(node2);
         move_right.setDuration(Duration.seconds(SWAP_ANIM_DURATION));
         move_left.setDuration(Duration.seconds(SWAP_ANIM_DURATION));
-        move_right.setCycleCount(1);
-        move_left.setCycleCount(1);
 
-        //A Parallel transition contains the two above transitions and can play them at the same time.
+        // Set the reverse transitions
+        move_right_reverse.setByX(trans_left_amt);
+        move_left_reverse.setByX(trans_right_amt);
+        move_right_reverse.setNode(node1);
+        move_left_reverse.setNode(node2);
+        move_right_reverse.setDuration(Duration.seconds(SWAP_ANIM_DURATION));
+        move_left_reverse.setDuration(Duration.seconds(SWAP_ANIM_DURATION));
+
+        // Store the transitions and their reverse
+        ParallelTransition forward = new ParallelTransition(move_right, move_left);
+        ParallelTransition reverse = new ParallelTransition(move_right_reverse, move_left_reverse);
+
+        Pair<Transition, Transition> anims = new Pair<>(forward, reverse);
+
         //Think of it as storing multiple transitions in one transition.
-        return new ParallelTransition(move_right, move_left);
+        return anims;
     }
 
     /**
@@ -103,7 +117,7 @@ public abstract class AbstractAlgorithm {
      * @param index Index of the node to highlight.
      * @return The transition highlighting the node.
      */
-    final public Transition BaseColorNode(int index){
+    final public Pair<Transition, Transition> BaseColorNode(int index){
         return ColorNode(BASE_COLOR, nodes[index]);
     }
 
@@ -113,7 +127,7 @@ public abstract class AbstractAlgorithm {
      * @param index Index of the node to highlight.
      * @return The transition highlighting the node.
      */
-    final public Transition PrimaryHighlightNode(int index){
+    final public Pair<Transition, Transition> PrimaryHighlightNode(int index){
         return ColorNode(PRIMARY_COLOR, nodes[index]);
     }
 
@@ -122,7 +136,7 @@ public abstract class AbstractAlgorithm {
      * @param index Index of the node to highlight.
      * @return The transition highlighting the node.
      */
-    final public Transition SearchTargetHighlightNode(int index){
+    final public Pair<Transition, Transition> SearchTargetHighlightNode(int index){
         return ColorNode(TARGET_COLOR, nodes[index]);
     }
 
@@ -131,27 +145,28 @@ public abstract class AbstractAlgorithm {
      * @param index Index of the node to highlight.
      * @return The transition highlighting the node.
      */
-    final public Transition SecondaryHighlightNode(int index){
+    final public Pair<Transition, Transition> SecondaryHighlightNode(int index){
         return ColorNode(SECONDARY_COLOR, nodes[index]);
     }
 
 
     /** UTILITY FUNCTION
      * Does a full swap procedure with swap animations and highlights between nodes i and j.
-     * @param i Index of the node to swap.
-     * @param j Index of the node to swap.
+     * @param nodeOne Index of the node to swap.
+     * @param nodeTwo Index of the node to swap.
      */
     final public ArrayList<AlgoState> FullSwapProcedure(int nodeOne, int nodeTwo){
-        ArrayList<AlgoState> swap_transitions = new ArrayList<>();
+        ArrayList<AlgoState> stages = new ArrayList<>();
 
-        swap_transitions.add(new AlgoState(PrimaryHighlightNode(nodeOne)));
-        swap_transitions.add(new AlgoState(SecondaryHighlightNode(nodeTwo)));
+        stages.add(new AlgoState(PrimaryHighlightNode(nodeOne)));
+        stages.add(new AlgoState(SecondaryHighlightNode(nodeTwo)));
 
         AlgoState swapState = new AlgoState();
-        ParallelTransition swap = new ParallelTransition(SwapNodes(nodeOne,nodeTwo), BaseColorNode(nodeOne), BaseColorNode(nodeTwo));
-        swapState.StoreTransition(swap);
-        swap_transitions.add(swapState);
-        return swap_transitions;
+
+        swapState.StoreTransition(SwapNodes(nodeOne,nodeTwo), BaseColorNode(nodeOne), BaseColorNode(nodeTwo));
+
+        stages.add(swapState);
+        return stages;
     }
 
     /**
@@ -160,13 +175,28 @@ public abstract class AbstractAlgorithm {
      * @param node The node to color.
      * @return The transition containing the filling of the node.
      */
-    private Transition ColorNode(Color color, Shape node){
-        FillTransition ft = new FillTransition(Duration.seconds(FILL_ANIM_DURATION));
-        ft.setShape(node);
-        ft.setFromValue((Color) node.getFill());
-        ft.setToValue(color);
-        ft.setCycleCount(1);
-        node.setFill(color);
-        return ft;
+    private Pair<Transition, Transition> ColorNode(Color color, Shape node){
+        FillTransition forward = new FillTransition(Duration.seconds(FILL_ANIM_DURATION));
+        FillTransition reverse = new FillTransition(Duration.seconds(FILL_ANIM_DURATION));
+
+        forward.setShape(node);
+        forward.setFromValue((Color) node.getFill());
+        forward.setToValue(color);
+
+        reverse.setShape(node);
+        reverse.setFromValue(color);
+        reverse.setToValue(BASE_COLOR);
+
+        forward.setOnFinished(evnt -> {
+            node.setFill(color);
+            System.out.println("PLAYED FORWARDS");
+        });
+
+        reverse.setOnFinished(evnt -> {
+            node.setFill(BASE_COLOR);
+            System.out.println("PLAYED REVERSE");
+        });
+
+        return new Pair<>(forward, reverse);
     }
 }

@@ -3,6 +3,7 @@ package Algorithms;
 import javafx.animation.ParallelTransition;
 import javafx.animation.Transition;
 import javafx.scene.shape.Rectangle;
+import javafx.util.Pair;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -37,7 +38,8 @@ public class BinarySearch extends AbstractAlgorithm{
     @Override
     public ArrayList<AlgoState> RunAlgorithm() {
         AlgoState state;
-        ParallelTransition highlights;
+        ParallelTransition highlightsForward;
+        ParallelTransition highlightsReverse;
         Random rand = new Random();
         int targetIndex = rand.nextInt(6) + 4;
         double target =  nodes[targetIndex].getHeight();
@@ -50,15 +52,13 @@ public class BinarySearch extends AbstractAlgorithm{
         int old_last = last;
 
         state = new AlgoState();
-        highlights = new ParallelTransition(SearchTargetHighlightNode(targetIndex));
-        state.StoreTransition(highlights);
+        state.StoreTransition(SearchTargetHighlightNode(targetIndex));
         transitions.add(state);
 
         while( first <= last ){
 
             state = new AlgoState();
-            highlights = new ParallelTransition(BaseColorNode(old_last), BaseColorNode(old_first), SecondaryHighlightNode(last), SecondaryHighlightNode(first));
-            state.StoreTransition(highlights);
+            state.StoreTransition(BaseColorNode(old_last), BaseColorNode(old_first), SecondaryHighlightNode(last), SecondaryHighlightNode(first));
             transitions.add(state);
 
             if ( nodes[mid].getHeight() < target){
@@ -66,8 +66,7 @@ public class BinarySearch extends AbstractAlgorithm{
                 first = mid + 1;
             }else if ( nodes[mid].getHeight() == target){
                 state = new AlgoState();
-                highlights = new ParallelTransition(BaseColorNode(last), BaseColorNode(first), PrimaryHighlightNode(targetIndex));
-                state.StoreTransition(highlights);
+                state.StoreTransition(BaseColorNode(last), BaseColorNode(first), PrimaryHighlightNode(targetIndex));
                 transitions.add(state);
                 break;
             }else{

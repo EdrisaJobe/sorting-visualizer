@@ -1,5 +1,6 @@
 package Algorithms;
 
+import javafx.animation.ParallelTransition;
 import javafx.animation.Transition;
 import javafx.util.Pair;
 
@@ -11,13 +12,32 @@ import java.util.ArrayList;
  */
 public class AlgoState {
     //The last transition that was made.
-    public Transition lastTransition;
+    public Transition forwardTransition;
+    public Transition reverseTransition;
 
     public AlgoState(){
     }
 
-    public AlgoState(Transition transition){
-        lastTransition = transition;
+    public AlgoState(Transition forward, Transition reverse){
+        forwardTransition = forward;
+        reverseTransition = reverse;
+    }
+
+    public AlgoState(Pair<Transition, Transition> transitions){
+        forwardTransition = transitions.getKey();
+        reverseTransition = transitions.getValue();
+    }
+
+    public AlgoState(Pair<Transition, Transition>... transitions){
+        ParallelTransition forwardTranstionContainer = new ParallelTransition();
+        ParallelTransition reverseTranstionContainer = new ParallelTransition();
+
+        for (Pair<Transition, Transition> transition: transitions) {
+            forwardTranstionContainer.getChildren().add(transition.getKey());
+            reverseTranstionContainer.getChildren().add(transition.getValue());
+        }
+        forwardTransition = forwardTranstionContainer;
+        reverseTransition = reverseTranstionContainer;
     }
 
     //The state of the current variables, such as i,j,k.
@@ -28,7 +48,17 @@ public class AlgoState {
         variables.add(new Pair<>(variable, value));
     }
 
-    public void StoreTransition(Transition transition){
-        lastTransition = transition;
+
+
+    public void StoreTransition(Pair<Transition, Transition>... transitions){
+        ParallelTransition forwardTranstionContainer = new ParallelTransition();
+        ParallelTransition reverseTranstionContainer = new ParallelTransition();
+
+        for (Pair<Transition, Transition> transition: transitions) {
+            forwardTranstionContainer.getChildren().add(transition.getKey());
+            reverseTranstionContainer.getChildren().add(transition.getValue());
+        }
+        forwardTransition = forwardTranstionContainer;
+        reverseTransition = reverseTranstionContainer;
     }
 }

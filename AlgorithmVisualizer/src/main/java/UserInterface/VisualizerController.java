@@ -13,7 +13,6 @@ import javafx.scene.shape.Rectangle;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class VisualizerController implements Initializable {
@@ -71,8 +70,8 @@ public class VisualizerController implements Initializable {
     protected void StepForward() {
         // Ignores if a transition is currently running
         if(transitions != null && !lastTransitionsIsRunning() && currentTransitionIndex < transitions.size()){
-            transitions.get(currentTransitionIndex).lastTransition.setRate(speed);
-            transitions.get(currentTransitionIndex).lastTransition.play();
+            transitions.get(currentTransitionIndex).forwardTransition.setRate(speed);
+            transitions.get(currentTransitionIndex).forwardTransition.play();
             currentTransitionIndex++;
         }
     }
@@ -85,12 +84,12 @@ public class VisualizerController implements Initializable {
         // Ignores if a transition is currently running
         if(transitions != null && !lastTransitionsIsRunning() && currentTransitionIndex > 0){
             currentTransitionIndex--;
-            transitions.get(currentTransitionIndex).lastTransition.setRate(-1);
-            transitions.get(currentTransitionIndex).lastTransition.play();
+            transitions.get(currentTransitionIndex).reverseTransition.setRate(speed);
+            transitions.get(currentTransitionIndex).reverseTransition.play();
         }
         else if(currentTransitionIndex == 0){
-            transitions.get(currentTransitionIndex).lastTransition.setRate(-1);
-            transitions.get(currentTransitionIndex).lastTransition.play();
+            transitions.get(currentTransitionIndex).reverseTransition.setRate(speed);
+            transitions.get(currentTransitionIndex).reverseTransition.play();
         }
     }
 
@@ -208,7 +207,7 @@ public class VisualizerController implements Initializable {
         for (int i = 0; i < poss_values.length; i++) {
             double height = vals_list.get(i);
             boxes[i] = new Rectangle(BOX_WIDTH, height);
-            boxes[i].setX((X_GAP+BOX_WIDTH) * i + (visualizerPane.getWidth()/2.0f - (X_GAP+BOX_WIDTH) * (poss_values.length/2.0f)) + 10);
+            boxes[i].setTranslateX((X_GAP+BOX_WIDTH) * i + (visualizerPane.getWidth()/2.0f - (X_GAP+BOX_WIDTH) * (poss_values.length/2.0f)) + 10);
 
             //Boxes are normally displayed on the top,
             //this line moves them down.
@@ -234,7 +233,7 @@ public class VisualizerController implements Initializable {
             if (lastTransitionsIsRunning()) {
                 if (currentTransitionIndex < transitions.size()) {
                     // Waits until currently running transition is finished
-                    transitions.get(currentTransitionIndex-1).lastTransition.setOnFinished(e -> {
+                    transitions.get(currentTransitionIndex-1).forwardTransition.setOnFinished(e -> {
                         this.speed = (float) slider.getValue();
                     });
                 }
@@ -263,8 +262,8 @@ public class VisualizerController implements Initializable {
         private void doHandle() {
 
             if(currentTransitionIndex < transitions.size()) {
-                transitions.get(currentTransitionIndex).lastTransition.setRate(speed);
-                transitions.get(currentTransitionIndex).lastTransition.play();
+                transitions.get(currentTransitionIndex).forwardTransition.setRate(speed);
+                transitions.get(currentTransitionIndex).forwardTransition.play();
                 currentTransitionIndex++;
             }
             else{
@@ -281,7 +280,7 @@ public class VisualizerController implements Initializable {
         if(transitions != null) {
             if (currentTransitionIndex == 0)
                 return false;
-            if (transitions.get(currentTransitionIndex - 1).lastTransition.getStatus().toString().equals("RUNNING"))
+            if (transitions.get(currentTransitionIndex - 1).forwardTransition.getStatus().toString().equals("RUNNING"))
                 return true;
         }
         return false;

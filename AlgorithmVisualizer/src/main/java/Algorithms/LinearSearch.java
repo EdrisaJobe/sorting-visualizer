@@ -47,8 +47,7 @@ public class LinearSearch extends AbstractAlgorithm{
         for (int i = 0; i < nodes.length; i++) {
 
             state = new AlgoState();
-            ParallelTransition base_colors = new ParallelTransition(BaseColorNode(i > 0 ? i-1 : (0)), SecondaryHighlightNode(i));
-            state.StoreTransition(base_colors);
+            state.StoreTransition(BaseColorNode(i > 0 ? i-1 : (0)), SecondaryHighlightNode(i));
             transitions.add(state);
 
             if (nodes[i].getHeight() == nodes[targetIndex].getHeight()) {
