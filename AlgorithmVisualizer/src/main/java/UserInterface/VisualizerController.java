@@ -10,6 +10,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.TextFlow;
+
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -34,7 +36,11 @@ public class VisualizerController implements Initializable {
     @FXML
     private ComboBox<String> searchDropdown;
     @FXML
+    private ComboBox<String> speedDropdown;
+    @FXML
     private Slider slider;
+    @FXML
+    private TextFlow pseudoText;
 
 
     private Rectangle[] boxes;
@@ -59,6 +65,10 @@ public class VisualizerController implements Initializable {
 
         searchDropdown.getItems().setAll("Binary Search", "Linear Search");
         searchDropdown.setValue("Pick Search Algorithm");
+
+        speedDropdown.getItems().setAll("1x", "2x", "3x", "5x", "10x");
+        speedDropdown.setValue("1x");
+
         timer = new AnimTimer();
     }
 
@@ -106,8 +116,11 @@ public class VisualizerController implements Initializable {
      */
     @FXML
     public void SortDropdownHandler(){
-        algorithmName = sortDropdown.getValue();
-        GenerateArray();
+        String dropDownVal = sortDropdown.getValue();
+        if(!algorithmName.equals(dropDownVal)) {
+            algorithmName = sortDropdown.getValue();
+            GenerateArray();
+        }
     }
 
     /**
@@ -115,8 +128,34 @@ public class VisualizerController implements Initializable {
      */
     @FXML
     public void SearchDropdownHandler(){
-        algorithmName = searchDropdown.getValue();
-        GenerateArray();
+        String dropDownVal = searchDropdown.getValue();
+        if(!algorithmName.equals(dropDownVal)) {
+            algorithmName = searchDropdown.getValue();
+            GenerateArray();
+        }
+    }
+
+    /**
+     * Prepares the transitions for the given algorithm on the given array
+     */
+    @FXML
+    public void SpeedDropdownHandler(){
+        int value = Integer.parseInt(speedDropdown.getValue().replaceAll("[^0-9]", ""));
+
+        // If a transition is currently running
+        if (lastTransitionsIsRunning()) {
+            if (currentTransitionIndex < transitions.size()) {
+                // Waits until currently running transition is finished
+                transitions.get(currentTransitionIndex-1).forwardTransition.setOnFinished(e -> {
+                    this.speed = value;
+                });
+            }
+            else
+                this.speed = value;
+        }
+        else {
+            this.speed = value;
+        }
     }
 
     /**
@@ -220,27 +259,6 @@ public class VisualizerController implements Initializable {
             timer.stop();
     }
 
-    /**
-     * Listens to slider and changes speed of animation
-     */
-    @FXML
-    void SpeedUpdate(Event event) {
-            // If a transition is currently running
-            if (lastTransitionsIsRunning()) {
-                if (currentTransitionIndex < transitions.size()) {
-                    // Waits until currently running transition is finished
-                    transitions.get(currentTransitionIndex-1).forwardTransition.setOnFinished(e -> {
-                        this.speed = (float) slider.getValue();
-                    });
-                }
-                else
-                    this.speed = (float) slider.getValue();
-            }
-        else {
-            this.speed = (float) slider.getValue();
-        }
-    }
-
 
     /**
      * Timer to auto animate swaps.
@@ -274,7 +292,7 @@ public class VisualizerController implements Initializable {
      */
     private boolean lastTransitionsIsRunning(){
         if(transitions != null) {
-            if (currentTransitionIndex == 0)
+            if (currentTransitionIndex == 0 || currentTransitionIndex > transitions.size() -1)
                 return false;
             if (transitions.get(currentTransitionIndex - 1).forwardTransition.getStatus().toString().equals("RUNNING")
                     || transitions.get(currentTransitionIndex).reverseTransition.getStatus().toString().equals("RUNNING"))
