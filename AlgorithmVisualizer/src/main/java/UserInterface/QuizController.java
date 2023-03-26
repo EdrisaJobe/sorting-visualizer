@@ -33,7 +33,7 @@ public class QuizController implements Initializable {
 
                 // title and question displays
                 qTitle.setText("Question 1");
-                qQuestion.setText("What is Bubble sort's time best case time complexity?");
+                qQuestion.setText("What is Bubble sort's best case time complexity?");
 
                 // question answers to choose from
                 qA.setText("A. O(log n) Logarithmic");
