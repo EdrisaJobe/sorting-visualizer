@@ -8,9 +8,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.*?>
 
-<Pane minHeight="0.0" minWidth="0.0" prefHeight="744.0" prefWidth="1013.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserInterface.QuizController">
+<Pane minHeight="0.0" minWidth="0.0" prefHeight="744.0" prefWidth="1182.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserInterface.QuizController">
    <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00000063" height="710.0" layoutX="13.0" layoutY="13.0" stroke="BLACK" strokeWidth="2.0" width="202.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00000063" height="720.0" layoutX="12.0" layoutY="12.0" stroke="BLACK" strokeWidth="2.0" width="204.0" />
       <Button fx:id="q1" layoutX="39.0" layoutY="81.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" text="Question 1" />
       <Button fx:id="q2" disable="true" layoutX="40.0" layoutY="131.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" text="Question 2" />
       <Button fx:id="q3" disable="true" layoutX="39.0" layoutY="181.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" text="Question 3" />
@@ -38,13 +38,13 @@
       </Label>
       <Button fx:id="resetButton" disable="true" layoutX="24.0" layoutY="690.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="180.0" text="Reset Quiz" textFill="RED" />
       <Line endX="80.0" layoutX="124.0" layoutY="679.0" startX="-100.0" strokeWidth="3.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00000063" height="712.0" layoutX="222.0" layoutY="13.0" stroke="BLACK" strokeType="INSIDE" width="776.0" />
-      <Label fx:id="qTitle" alignment="CENTER" layoutX="241.0" layoutY="28.0" prefHeight="30.0" prefWidth="744.0" styleClass="side_label" stylesheets="@styles.css" text="Question number displays here" textAlignment="CENTER" textFill="#19da00" wrapText="true">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00000063" height="722.0" layoutX="222.0" layoutY="13.0" stroke="BLACK" strokeType="INSIDE" width="948.0" />
+      <Label fx:id="qTitle" alignment="CENTER" layoutX="241.0" layoutY="28.0" prefHeight="30.0" prefWidth="913.0" styleClass="side_label" stylesheets="@styles.css" text="Question number displays here" textAlignment="CENTER" textFill="#19da00" wrapText="true">
          <padding>
             <Insets bottom="5.0" top="5.0" />
          </padding>
       </Label>
-      <Label fx:id="qQuestion" alignment="CENTER" contentDisplay="CENTER" layoutX="241.0" layoutY="76.0" prefHeight="409.0" prefWidth="744.0" style="-fx-border-color: black;" text="Questions will be shown here when selected." textAlignment="CENTER" textFill="WHITE" wrapText="true">
+      <Label fx:id="qQuestion" alignment="CENTER" contentDisplay="CENTER" layoutX="241.0" layoutY="76.0" prefHeight="409.0" prefWidth="913.0" style="-fx-border-color: black;" text="Questions will be shown here when selected." textAlignment="CENTER" textFill="WHITE" wrapText="true">
          <font>
             <Font name="SansSerif Regular" size="28.0" />
          </font>
@@ -56,9 +56,9 @@
             </DropShadow>
          </effect>
       </Label>
-      <Button fx:id="qA" layoutX="241.0" layoutY="508.0" mnemonicParsing="false" prefHeight="67.0" prefWidth="340.0" text="A. Answer A" />
-      <Button fx:id="qC" layoutX="241.0" layoutY="613.0" mnemonicParsing="false" prefHeight="67.0" prefWidth="340.0" text="C. Answer C" />
-      <Button fx:id="qB" layoutX="645.0" layoutY="502.0" mnemonicParsing="false" prefHeight="67.0" prefWidth="340.0" text="B. Answer B" />
-      <Button fx:id="qD" layoutX="645.0" layoutY="613.0" mnemonicParsing="false" prefHeight="67.0" prefWidth="340.0" text="D. Answer D" />
+      <Button fx:id="qA" layoutX="261.0" layoutY="514.0" mnemonicParsing="false" prefHeight="67.0" prefWidth="350.0" text="A. Answer A" />
+      <Button fx:id="qC" layoutX="261.0" layoutY="626.0" mnemonicParsing="false" prefHeight="67.0" prefWidth="350.0" text="C. Answer C" />
+      <Button fx:id="qB" layoutX="785.0" layoutY="514.0" mnemonicParsing="false" prefHeight="67.0" prefWidth="350.0" text="B. Answer B" />
+      <Button fx:id="qD" layoutX="785.0" layoutY="626.0" mnemonicParsing="false" prefHeight="67.0" prefWidth="350.0" text="D. Answer D" />
    </children>
 </Pane>
