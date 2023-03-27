@@ -49,11 +49,11 @@
             <Font name="SansSerif Regular" size="28.0" />
          </font>
          <effect>
-            <DropShadow height="29.9" radius="12.9675" width="23.97">
-               <input>
-                  <Bloom />
-               </input>
-            </DropShadow>
+            <Blend>
+               <topInput>
+                  <ColorAdjust />
+               </topInput>
+            </Blend>
          </effect>
       </Label>
       <Button fx:id="qA" layoutX="261.0" layoutY="514.0" mnemonicParsing="false" prefHeight="67.0" prefWidth="350.0" text="A. Answer A" />
