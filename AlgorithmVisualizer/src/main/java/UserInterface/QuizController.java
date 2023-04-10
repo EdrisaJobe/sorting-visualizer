@@ -12,7 +12,7 @@ import java.util.ResourceBundle;
 public class QuizController implements Initializable {
 
     @FXML
-    private Label qTitle, qQuestion;
+    private Label qTitle, qQuestion, qEasy, qMedium, qHard;
 
     @FXML
     private Button q1, q2, q3, q4, q5, q6, q7, q8, q9, q10, qA, qB, qC, qD, resetButton;
@@ -47,11 +47,17 @@ public class QuizController implements Initializable {
                     public void handle(ActionEvent event) {
                         Button selectedButton = (Button) event.getSource(); // Get the button that was clicked
                         if (selectedButton == qC) { // if qC button was clicked
+
                             q1.setStyle("-fx-background-color: green;");
                             qC.setStyle("-fx-background-color: green;"); // set the background color to green if correct
                             q2.setDisable(false);
                             resetButton.setDisable(false);
+
+                            // explanation
+                            qQuestion.setText("Explanation: If the input array is already sorted or nearly sorted, Bubble Sort can achieve a best-case time complexity of O(n), which is linear.");
+
                         } else { // if any other button was clicked
+
                             selectedButton.setStyle("-fx-background-color: red;"); // set the background color to red if wrong
                             q1.setStyle("-fx-background-color: red;");
                         }
@@ -81,7 +87,7 @@ public class QuizController implements Initializable {
                 qQuestion.setText("A stable sorting algorithm must...");
 
                 // question answers to choose from
-                qA.setText("A. Maintains order of items with equal sort keys");
+                qA.setText("A. Maintain order of items with equal sort keys");
                 qB.setText("B. Does not crash at all");
                 qC.setText("C. Never runs out of memory");
                 qD.setText("D. Does not exist");
@@ -92,12 +98,17 @@ public class QuizController implements Initializable {
                     public void handle(ActionEvent event) {
                         Button selectedButton = (Button) event.getSource(); // Get the button that was clicked
                         if (selectedButton == qA) { // if qC button was clicked
+
                             q2.setStyle("-fx-background-color: green;");
                             qA.setStyle("-fx-background-color: green;"); // set the background color to green if correct
                             q3.setDisable(false);
+
+                            qQuestion.setText("Explanation: A stable sorting algorithm like bubble sort, does not change the sequence of appearance of similar element in the sorted list.");
                         } else { // if any other button was clicked
+
                             selectedButton.setStyle("-fx-background-color: red;"); // set the background color to red if wrong
                             q2.setStyle("-fx-background-color: red;");
+                            
                         }
                     }
                 };
@@ -138,6 +149,9 @@ public class QuizController implements Initializable {
                             q3.setStyle("-fx-background-color: green;");
                             qB.setStyle("-fx-background-color: green;"); // set the background color to green if correct
                             q4.setDisable(false);
+
+                            qQuestion.setText("Explanation: In the worst case scenario, the input array is in reverse order, and every element needs to be compared and swapped. In the average case scenario, the input array is randomly ordered, so there are likely to be some inversions as well.");
+
                         } else { // if any other button was clicked
                             selectedButton.setStyle("-fx-background-color: red;"); // set the background color to red if wrong
                             q3.setStyle("-fx-background-color: red;");
@@ -181,6 +195,9 @@ public class QuizController implements Initializable {
                             q4.setStyle("-fx-background-color: green;");
                             qC.setStyle("-fx-background-color: green;"); // set the background color to green if correct
                             q5.setDisable(false);
+
+                            qQuestion.setText("Explanation: An in-place algorithm is an algorithm that does not require any additional memory space to perform its operations.");
+
                         } else { // if any other button was clicked
                             selectedButton.setStyle("-fx-background-color: red;"); // set the background color to red if wrong
                             q4.setStyle("-fx-background-color: red;");
@@ -224,6 +241,9 @@ public class QuizController implements Initializable {
                             q5.setStyle("-fx-background-color: green;");
                             qD.setStyle("-fx-background-color: green;"); // set the background color to green if correct
                             q6.setDisable(false);
+
+                            qQuestion.setText("Explanation: Binary heap heapify operation has time-complexity of Ο(n), while other operations have time-complexity of Ο(1) only.");
+
                         } else { // if any other button was clicked
                             selectedButton.setStyle("-fx-background-color: red;"); // set the background color to red if wrong
                             q5.setStyle("-fx-background-color: red;");
@@ -267,6 +287,9 @@ public class QuizController implements Initializable {
                             q6.setStyle("-fx-background-color: green;");
                             qB.setStyle("-fx-background-color: green;"); // set the background color to green if correct
                             q7.setDisable(false);
+
+                            qQuestion.setText("Explanantion: Insertion Sort has a time complexity of O(n) for nearly sorted arrays, meaning that it can efficiently sort an array with a small number of inversions, such as an already sorted array.");
+
                         } else { // if any other button was clicked
                             selectedButton.setStyle("-fx-background-color: red;"); // set the background color to red if wrong
                             q6.setStyle("-fx-background-color: red;");
@@ -310,6 +333,9 @@ public class QuizController implements Initializable {
                             q7.setStyle("-fx-background-color: green;");
                             qA.setStyle("-fx-background-color: green;"); // set the background color to green if correct
                             q8.setDisable(false);
+
+                            qQuestion.setText("Explanation: A heap is a complete binary tree that satisfies the heap property, which means that the value of each node is greater than or equal to the values of its children.");
+
                         } else { // if any other button was clicked
                             selectedButton.setStyle("-fx-background-color: red;"); // set the background color to red if wrong
                             q7.setStyle("-fx-background-color: red;");
@@ -350,10 +376,13 @@ public class QuizController implements Initializable {
                     @Override
                     public void handle(ActionEvent event) {
                         Button selectedButton = (Button) event.getSource(); // Get the button that was clicked
-                        if (selectedButton == qD) { // if qC button was clicked
+                        if (selectedButton == qA) { // if qC button was clicked
                             q8.setStyle("-fx-background-color: green;");
-                            qD.setStyle("-fx-background-color: green;"); // set the background color to green if correct
+                            qA.setStyle("-fx-background-color: green;"); // set the background color to green if correct
                             q9.setDisable(false);
+
+                            qQuestion.setText("Explanation: Linear search has a worst-case time complexity of O(n) because it may need to examine all n elements in the array before finding the target element.");
+
                         } else { // if any other button was clicked
                             selectedButton.setStyle("-fx-background-color: red;"); // set the background color to red if wrong
                             q8.setStyle("-fx-background-color: red;");
@@ -380,23 +409,26 @@ public class QuizController implements Initializable {
             @Override
             public void handle(ActionEvent actionEvent) {
                 qTitle.setText("Question 9");
-                qQuestion.setText("Which of the following search algorithms has a worst-case time complexity of O(n) for searching an array of size n?");
+                qQuestion.setText("Which of the following sorting algorithms has a worst-case time complexity of O(n) for searching an array of size n?");
 
                 // question answers to choose from
                 qA.setText("A. Merge sort");
                 qB.setText("B. Heap sort");
                 qC.setText("C. Insertion sort");
-                qD.setText("D. Quick sort");
+                qD.setText("D. None of the above");
 
                 // change the background color based on selection
                 EventHandler<ActionEvent> answerHandler = new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
                         Button selectedButton = (Button) event.getSource(); // Get the button that was clicked
-                        if (selectedButton == qC) { // if qC button was clicked
+                        if (selectedButton == qD) { // if qC button was clicked
                             q9.setStyle("-fx-background-color: green;");
-                            qC.setStyle("-fx-background-color: green;"); // set the background color to green if correct
+                            qD.setStyle("-fx-background-color: green;"); // set the background color to green if correct
                             q10.setDisable(false);
+
+                            qQuestion.setText("Explanation: Merge sort has a worst-case time complexity of O(n log n), Heap sort has a worst-case time complexity of O(n log n), Insertion sort has a best-case time complexity of O(n) when the array is already sorted, but it has a worst-case time complexity of O(n^2).");
+
                         } else { // if any other button was clicked
                             selectedButton.setStyle("-fx-background-color: red;"); // set the background color to red if wrong
                             q9.setStyle("-fx-background-color: red;");
@@ -439,6 +471,9 @@ public class QuizController implements Initializable {
                         if (selectedButton == qD) { // if qC button was clicked
                             q10.setStyle("-fx-background-color: green;");
                             qD.setStyle("-fx-background-color: green;"); // set the background color to green if correct
+
+                            qQuestion.setText("Explanation: Radix sort is suitable for sorting data that is too large to fit into memory because it does not require all the data to be stored in memory at the same time. Instead, it can read and sort the data in small portions, which can be processed independently.");
+
                         } else { // if any other button was clicked
                             selectedButton.setStyle("-fx-background-color: red;"); // set the background color to red if wrong
                             q10.setStyle("-fx-background-color: red;");
