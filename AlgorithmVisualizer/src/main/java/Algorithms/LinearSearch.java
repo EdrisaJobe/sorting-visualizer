@@ -14,6 +14,10 @@ public class LinearSearch extends AbstractAlgorithm{
 
     private Rectangle[] nodes;
     private ArrayList<AlgoState> transitions;
+
+    private int x_gap;
+
+    private int box_width;
     private String code =   "    index = 0\n" +
                             "    while (index < n)\n" +
                             "        if (list[index] == target)\n" +
@@ -27,8 +31,8 @@ public class LinearSearch extends AbstractAlgorithm{
      *
      * @param nodes Array of boxes
      */
-    public LinearSearch(Rectangle[] nodes) {
-        super(nodes);
+    public LinearSearch(Rectangle[] nodes, int x_gap, int box_width) {
+        super(nodes, x_gap, box_width);
         super.pseudoCode = code;
         bestTime = "Ω(1)";
         averageTime = "θ(n)";
@@ -36,6 +40,8 @@ public class LinearSearch extends AbstractAlgorithm{
         spaceComplexity = "O(1)";
         this.nodes = super.nodes;
         this.transitions = super.transitions;
+        this.x_gap = super.x_gap;
+        this.box_width = super.box_width;
     }
 
     /**

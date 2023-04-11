@@ -12,6 +12,10 @@ public class MergeSort extends AbstractAlgorithm{
 
     private Rectangle[] nodes;
     private ArrayList<AlgoState> transitions;
+
+    private int x_gap;
+
+    private int box_width;
     private String code =   "      if left > right" +
                             "\n             return" +
                             "\n     mid= (left+right)/2" +
@@ -24,8 +28,8 @@ public class MergeSort extends AbstractAlgorithm{
      *
      * @param nodes Array of boxes
      */
-    public MergeSort(Rectangle[] nodes) {
-        super(nodes);
+    public MergeSort(Rectangle[] nodes, int x_gap, int box_width) {
+        super(nodes, x_gap, box_width);
         super.pseudoCode = code;
         bestTime = "Ω(n log n)";
         averageTime = "θ(n log n)";
@@ -33,6 +37,8 @@ public class MergeSort extends AbstractAlgorithm{
         spaceComplexity = "O(n)";
         this.nodes = super.nodes;
         this.transitions = super.transitions;
+        this.x_gap = super.x_gap;
+        this.box_width = super.box_width;
     }
 
     private int nextGap(int gap)

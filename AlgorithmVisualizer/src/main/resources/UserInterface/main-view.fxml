@@ -28,7 +28,7 @@
             </Tab>
             <Tab text="Algorithm Ranking">
                <content>
-                  <fx:include source="compare-view.fxml" />
+                  <fx:include source="algorithmranking-view.fxml" />
                </content>
             </Tab>
             <Tab text="Quiz">
