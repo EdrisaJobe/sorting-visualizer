@@ -18,6 +18,4 @@ public class AlgorithmRankingController implements Initializable {
 
     }
 
-
-
 }
