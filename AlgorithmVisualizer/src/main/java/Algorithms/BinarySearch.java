@@ -15,6 +15,18 @@ public class BinarySearch extends AbstractAlgorithm{
 
     private Rectangle[] nodes;
     private ArrayList<AlgoState> transitions;
+    private String code =   "    left = lowest\n" +
+                            "    right = highest\n" +
+                            "    while (left <= right)\n" +
+                            "        middle = (left + right) / 2\n" +
+                            "        if(target = array[middle])\n" +
+                            "            RETURN middle\n" +
+                            "        else if(target < array[middle])\n" +
+                            "           right = middle - 1\n" +
+                            "        else\n" +
+                            "           left = middle + 1\n" +
+                            "    RETURN -1";
+
 
     /**
      * Constructor, sets the array of nodes.
@@ -23,6 +35,11 @@ public class BinarySearch extends AbstractAlgorithm{
      */
     public BinarySearch(Rectangle[] nodes) {
         super(nodes);
+        super.pseudoCode = code;
+        bestTime = "Ω(1)";
+        averageTime = "θ(log n)";
+        worstTime = "O(log n)";
+        spaceComplexity = "O(1)";
         this.nodes = super.nodes;
         this.transitions = super.transitions;
     }
@@ -53,12 +70,20 @@ public class BinarySearch extends AbstractAlgorithm{
 
         state = new AlgoState();
         state.StoreTransition(SearchTargetHighlightNode(targetIndex));
+        state.StoreVariable("left", first);
+        state.StoreVariable("middle", mid);
+        state.StoreVariable("right", last);
+        state.StoreVariable("target", targetIndex);
         transitions.add(state);
 
         while( first <= last ){
 
             state = new AlgoState();
             state.StoreTransition(BaseColorNode(old_last), BaseColorNode(old_first), SecondaryHighlightNode(last), SecondaryHighlightNode(first));
+            state.StoreVariable("left", first);
+            state.StoreVariable("middle", mid);
+            state.StoreVariable("right", last);
+            state.StoreVariable("target", targetIndex);
             transitions.add(state);
 
             if ( nodes[mid].getHeight() < target){
@@ -67,6 +92,10 @@ public class BinarySearch extends AbstractAlgorithm{
             }else if ( nodes[mid].getHeight() == target){
                 state = new AlgoState();
                 state.StoreTransition(BaseColorNode(last), BaseColorNode(first), PrimaryHighlightNode(targetIndex));
+                state.StoreVariable("left", first);
+                state.StoreVariable("middle", mid);
+                state.StoreVariable("right", last);
+                state.StoreVariable("target", targetIndex);
                 transitions.add(state);
                 break;
             }else{

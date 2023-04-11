@@ -1,6 +1,7 @@
 package Algorithms;
 
 import javafx.animation.ParallelTransition;
+import javafx.animation.TranslateTransition;
 import javafx.scene.shape.Rectangle;
 
 import java.util.ArrayList;
@@ -12,6 +13,15 @@ public class InsertionSort extends AbstractAlgorithm{
 
     private Rectangle[] nodes;
     private ArrayList<AlgoState> transitions;
+    private String code = " n = length(A)" +
+            "\n for i = 1 to n - 1" +
+            "\n     j = i" +
+            "\n         while j > 0 and A[j-1] > A[j]" +
+            "\n             swap(A[j], A[j-1])" +
+            "\n             j = j - 1" +
+            "\n         end while" +
+            "\n end for";
+
 
     /**
      * Constructor, sets the array of nodes.
@@ -20,6 +30,11 @@ public class InsertionSort extends AbstractAlgorithm{
      */
     public InsertionSort(Rectangle[] nodes) {
         super(nodes);
+        super.pseudoCode = code;
+        bestTime = "Ω(n)";
+        averageTime = "θ(n^2)";
+        worstTime = "O(n^2)";
+        spaceComplexity = "O(1)";
         this.nodes = super.nodes;
         this.transitions = super.transitions;
     }
@@ -34,6 +49,7 @@ public class InsertionSort extends AbstractAlgorithm{
      */
     @Override
     public ArrayList<AlgoState> RunAlgorithm() {
+
         int n = nodes.length;
         for (int i = 1; i < n; i++) {
             double temp = nodes[i].getHeight();

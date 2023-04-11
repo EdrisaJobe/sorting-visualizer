@@ -1,6 +1,8 @@
 package Algorithms;
 
 import javafx.animation.ParallelTransition;
+import javafx.animation.Transition;
+import javafx.animation.TranslateTransition;
 import javafx.scene.shape.Rectangle;
 
 import java.util.ArrayList;
@@ -12,6 +14,11 @@ public class BubbleSort extends AbstractAlgorithm{
 
     private Rectangle[] nodes;
     private ArrayList<AlgoState> transitions;
+    private String code =   "     for all elements of list" +
+                            "\n         if list[i] > list[i+1]" +
+                            "\n         swap(list[i], list[i+1])" +
+                            "\n         end if " +
+                            "\n      end for";
 
     /**
      * Constructor, sets the array of nodes.
@@ -20,6 +27,13 @@ public class BubbleSort extends AbstractAlgorithm{
      */
     public BubbleSort(Rectangle[] nodes) {
         super(nodes);
+        super.pseudoCode = code;
+
+        bestTime = "Ω(n)";
+        averageTime = "θ(n^2)";
+        worstTime = "O(n^2)";
+        spaceComplexity = "O(1)";
+
         this.nodes = super.nodes;
         this.transitions = super.transitions;
     }
@@ -40,8 +54,8 @@ public class BubbleSort extends AbstractAlgorithm{
             for (int j = 0; j < n - i - 1; j++)
                 if (nodes[j].getHeight() > nodes[j + 1].getHeight()) {
                     ArrayList<AlgoState> swap_transitions = FullSwapProcedure(j, j+1);
-                    swap_transitions.get(swap_transitions.size() - 1).StoreVariable("i", i);
-                    swap_transitions.get(swap_transitions.size() - 1).StoreVariable("j", j);
+                    swap_transitions.get(0).StoreVariable("i", i);
+                    swap_transitions.get(0).StoreVariable("j", j);
                     transitions.addAll(swap_transitions);
                 }
 

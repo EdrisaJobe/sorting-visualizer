@@ -1,5 +1,6 @@
 package Algorithms;
 
+import javafx.animation.TranslateTransition;
 import javafx.scene.shape.Rectangle;
 
 import java.util.ArrayList;
@@ -11,6 +12,12 @@ public class MergeSort extends AbstractAlgorithm{
 
     private Rectangle[] nodes;
     private ArrayList<AlgoState> transitions;
+    private String code =   "      if left > right" +
+                            "\n             return" +
+                            "\n     mid= (left+right)/2" +
+                            "\n     mergesort(array, left, mid)" +
+                            "\n     mergesort(array, mid+1, right)" +
+                            "\n     merge(array, left, mid, right)";
 
     /**
      * Constructor, sets the array of nodes.
@@ -19,6 +26,11 @@ public class MergeSort extends AbstractAlgorithm{
      */
     public MergeSort(Rectangle[] nodes) {
         super(nodes);
+        super.pseudoCode = code;
+        bestTime = "Ω(n log n)";
+        averageTime = "θ(n log n)";
+        worstTime = "O(n log n)";
+        spaceComplexity = "O(n)";
         this.nodes = super.nodes;
         this.transitions = super.transitions;
     }
@@ -47,6 +59,7 @@ public class MergeSort extends AbstractAlgorithm{
 
     public void MergeSortRecursive(Rectangle nodes[], int start, int end)
     {
+
         if (start == end)
             return;
 

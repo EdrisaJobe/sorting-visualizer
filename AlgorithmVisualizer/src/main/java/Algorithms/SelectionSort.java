@@ -1,5 +1,6 @@
 package Algorithms;
 
+import javafx.animation.TranslateTransition;
 import javafx.scene.shape.Rectangle;
 
 import java.util.ArrayList;
@@ -11,6 +12,12 @@ public class SelectionSort extends AbstractAlgorithm{
 
     private Rectangle[] nodes;
     private ArrayList<AlgoState> transitions;
+    private String code =   "   repeat n times\n" +
+                            "   min = first unsorted element\n" +
+                            "   for each unsorted element\n" +
+                            "       if element < currentMin\n" +
+                            "           set element as new min\n" +
+                            "   swap(min, first unsorted post)\n";
 
     /**
      * Constructor, sets the array of nodes.
@@ -19,6 +26,11 @@ public class SelectionSort extends AbstractAlgorithm{
      */
     public SelectionSort(Rectangle[] nodes) {
         super(nodes);
+        super.pseudoCode = code;
+        bestTime = "Ω(n^2)";
+        averageTime = "θ(n^2)";
+        worstTime = "O(n^2)";
+        spaceComplexity = "O(1)";
         this.nodes = super.nodes;
         this.transitions = super.transitions;
     }
@@ -50,12 +62,6 @@ public class SelectionSort extends AbstractAlgorithm{
             swap_transitions.get(swap_transitions.size() - 1).StoreVariable("min", min_idx);
             transitions.addAll(swap_transitions);
         }
-
-
-
-
-
-
         return transitions;
     }
 }

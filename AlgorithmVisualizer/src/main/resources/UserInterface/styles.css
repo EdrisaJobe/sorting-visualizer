@@ -19,6 +19,15 @@
     -fx-font-weight: bold;
     -fx-padding: 0 5 0 5;
 }
+
+.tab-pane .tab{
+    -fx-cursor: hand;
+}
+
+.tab-pane .tab:hover {
+    -fx-background-color: #6b6b6b;
+}
+
 .tab-pane:top *.tab-header-area {
     -fx-padding: 0 0 0 0;
 }
@@ -66,7 +75,6 @@
 -fx-background-color: #363636;
     -fx-text-fill: white;
     -fx-font-weight: bold;
-
 }
 
 .menu-bar .menu-button:hover, .menu-bar .menu-button:focused, .menu-bar .menu-button:showing {
@@ -102,7 +110,7 @@
 
 .vis-button{
     -fx-background-color: #1D1D1D;
-    -fx-background-radius: 5;
+    -fx-background-radius: 10;
     -fx-text-fill: #86FF84;
     -fx-font-size: 14px;
     -fx-font-family: "Roboto", sans-serif;
@@ -116,7 +124,7 @@
 
 #visui_container{
     -fx-background-color: #1D1D1D;
-    -fx-background-radius: 10;
+    -fx-background-radius: 15;
     -fx-padding: 10 5;
 }
 
@@ -132,3 +140,17 @@
 #speed-dropdown .cell:selected {
     -fx-text-fill: #86FF84;
 }
+
+#algo-state{
+    -fx-background-color: #1D1D1D;
+    -fx-background-radius: 15;
+    -fx-background-radius: 0 0 10 10;
+    -fx-text-fill: #b1f9ff;
+}
+
+#algo-label {
+    -fx-background-color: #1D1D1D;
+    /*-fx-font-size: 14px;*/
+    -fx-background-radius: 10 10 0 0;
+}
+

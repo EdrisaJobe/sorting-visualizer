@@ -1,5 +1,6 @@
 package Algorithms;
 
+import javafx.animation.TranslateTransition;
 import javafx.scene.shape.Rectangle;
 
 import java.util.ArrayList;
@@ -11,6 +12,14 @@ public class HeapSort extends AbstractAlgorithm{
 
     private Rectangle[] nodes;
     private ArrayList<AlgoState> transitions;
+    private String code =   "       n = length(A)\n" +
+                            "       for i = n/2 to 1\n" +
+                            "           Heapify(A, n , i)\n" +
+                            "       for i = n to 2\n" +
+                            "           exchange A[1] with A[i]\n" +
+                            "           A.heapsize = A.heapsize - 1\n" +
+                            "           Heapify(A, i, 0)";
+
 
     /**
      * Constructor, sets the array of nodes.
@@ -19,12 +28,20 @@ public class HeapSort extends AbstractAlgorithm{
      */
     public HeapSort(Rectangle[] nodes) {
         super(nodes);
+        super.pseudoCode = code;
+
+        bestTime = "Ω(n log n)";
+        averageTime = "θ(n log n)";
+        worstTime = "O(n log n)";
+        spaceComplexity = "O(1)";
+
         this.nodes = super.nodes;
         this.transitions = super.transitions;
     }
 
     void heapify(Rectangle arr[], int n, int i)
     {
+
         int largest = i;
         int left = 2 * i + 1;
         int right = 2 * i + 2;

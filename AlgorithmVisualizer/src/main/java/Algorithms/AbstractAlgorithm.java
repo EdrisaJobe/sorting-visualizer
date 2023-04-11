@@ -30,11 +30,21 @@ public abstract class AbstractAlgorithm {
 
     private final static float FILL_ANIM_DURATION = 0.95f;
 
+    public String pseudoCode = "";
+
+    public static String bestTime = "";
+    public static String averageTime = "";
+    public static String worstTime = "";
+    public static String spaceComplexity = "";
+
+
     //Highlight Colors.
     private final Color BASE_COLOR = Color.web("#000000");
     private final Color PRIMARY_COLOR = Color.web("#aeff80");
     private final Color SECONDARY_COLOR = Color.web("#fc6868");
     private final Color TARGET_COLOR = Color.web("#96f6ff");
+
+
 
     public Rectangle[] nodes;
 

@@ -1,6 +1,7 @@
 package Algorithms;
 
 import javafx.animation.ParallelTransition;
+import javafx.animation.TranslateTransition;
 import javafx.scene.shape.Rectangle;
 
 import java.util.ArrayList;
@@ -12,6 +13,12 @@ public class QuickSort extends AbstractAlgorithm{
 
     private Rectangle[] nodes;
     private ArrayList<AlgoState> transitions;
+    private String code =   "       if (low < high) " +
+                            "\n         pi = partition(arr, low, high);" +
+                            "\n         quickSort(arr, low, pi – 1);" +
+                            "\n         quickSort(arr, pi + 1, high);";
+
+
 
     /**
      * Constructor, sets the array of nodes.
@@ -20,8 +27,14 @@ public class QuickSort extends AbstractAlgorithm{
      */
     public QuickSort(Rectangle[] nodes) {
         super(nodes);
+        super.pseudoCode = code;
+        bestTime = "Ω(n log n)";
+        averageTime = "θ(n log n)";
+        worstTime = "O(n^2)";
+        spaceComplexity = "O(log n)";
         this.nodes = super.nodes;
         this.transitions = super.transitions;
+
     }
 
     /**
@@ -57,6 +70,7 @@ public class QuickSort extends AbstractAlgorithm{
      */
     void quickSortRecursion(Rectangle[] arr, int low, int high)
     {
+
         if (low < high) {
             int partitionIndex = partition(arr, low, high);
             quickSortRecursion(arr, low, partitionIndex - 1);

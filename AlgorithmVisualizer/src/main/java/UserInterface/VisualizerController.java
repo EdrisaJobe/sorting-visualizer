@@ -2,6 +2,7 @@ package UserInterface;
 
 import Algorithms.*;
 import javafx.animation.AnimationTimer;
+import javafx.animation.Transition;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -10,6 +11,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
 import java.net.URL;
@@ -40,7 +42,17 @@ public class VisualizerController implements Initializable {
     @FXML
     private Slider slider;
     @FXML
-    private TextFlow pseudoText;
+    private Text pseudoText;
+    @FXML
+    private Label algoState;
+    @FXML
+    private Label bestTime;
+    @FXML
+    private Label avgTime;
+    @FXML
+    private Label worstTime;
+    @FXML
+    private Label spaceComp;
 
 
     private Rectangle[] boxes;
@@ -59,6 +71,7 @@ public class VisualizerController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         sortDropdown.getItems().setAll("Bubble Sort", "Insertion Sort", "Quick Sort",
                 "Selection Sort", "Merge Sort", "Bucket Sort", "Heap Sort");
         sortDropdown.setValue("Bubble Sort");
@@ -78,12 +91,22 @@ public class VisualizerController implements Initializable {
      */
     @FXML
     protected void StepForward() {
+        System.out.println(BubbleSort.bestTime);
+        System.out.println(BinarySearch.bestTime);
+
         // Ignores if a transition is currently running
         if(transitions != null && !lastTransitionsIsRunning() && currentTransitionIndex < transitions.size()){
-            transitions.get(currentTransitionIndex).forwardTransition.setRate(speed);
-            transitions.get(currentTransitionIndex).forwardTransition.play();
-            currentTransitionIndex++;
+            playNextAnim();
         }
+    }
+
+    private void playNextAnim(){
+        Transition currentTransition = transitions.get(currentTransitionIndex).forwardTransition;
+
+        UpdateState();
+        currentTransition.setRate(speed);
+        currentTransition.play();
+        currentTransitionIndex++;
     }
 
     /**
@@ -91,13 +114,33 @@ public class VisualizerController implements Initializable {
      */
     @FXML
     protected void StepBackward() {
+
         // Ignores if a transition is currently running
         if(transitions != null && !lastTransitionsIsRunning() && currentTransitionIndex > 0){
             currentTransitionIndex--;
-            transitions.get(currentTransitionIndex).reverseTransition.setRate(speed);
-            transitions.get(currentTransitionIndex).reverseTransition.play();
+
+            Transition currentTransition = transitions.get(currentTransitionIndex).reverseTransition;
+
+            UpdateState();
+            currentTransition.setRate(speed);
+            currentTransition.play();
         }
     }
+
+
+    private void UpdateState(){
+        var variables = transitions.get(currentTransitionIndex).variables;
+
+        if(variables.size() > 0) {
+            StringBuilder vars = new StringBuilder("Algo State: ");
+            for (int i = 0; i < variables.size()- 1; i++) {
+                vars.append(variables.get(i).toString()).append(", ");
+            }
+            vars.append(variables.get(variables.size()-1).toString());
+            algoState.setText(String.valueOf(vars));
+        }
+    }
+
 
     /**
      * Reset to allow for change to the array or algorithm
@@ -196,8 +239,33 @@ public class VisualizerController implements Initializable {
         }
 
         if(algorithm != null){
+            statusText.setText("Selected Algorithm: " + algorithmName);
+            pseudoText.setText(algorithm.pseudoCode);
+            bestTime.setText(algorithm.bestTime);
+            avgTime.setText(algorithm.averageTime);
+            worstTime.setText(algorithm.worstTime);
+            spaceComp.setText(algorithm.spaceComplexity);
             this.transitions = algorithm.RunAlgorithm();
+
+            //Loop until we find valid algo state as initial state.
+            var variables = transitions.get(0).variables;
+
+            int index = 0;
+            while(variables.size() == 0){
+                index++;
+                variables = transitions.get(index).variables;
+            }
+
+            if(variables.size() > 0) {
+                StringBuilder vars = new StringBuilder("Algo State: ");
+                for (int i = 0; i < variables.size()- 1; i++) {
+                    vars.append(variables.get(i).toString()).append(", ");
+                }
+                vars.append(variables.get(variables.size()-1).toString());
+                algoState.setText(String.valueOf(vars));
+            }
         }
+
     }
 
     /**
@@ -206,7 +274,6 @@ public class VisualizerController implements Initializable {
     @FXML
     protected void AnimateOnTimer() {
 
-        statusText.setText("Running Algorithm: " + sortDropdown.getValue());
         if(transitions != null) {
             timer.start();
         }
@@ -215,7 +282,7 @@ public class VisualizerController implements Initializable {
 
 
     /**
-     * Resets Algorithm then generates a random array and displays it.
+     * Generates a random array and sets up the algorithm
      */
     @FXML
     protected void GenerateArray() {
@@ -276,9 +343,7 @@ public class VisualizerController implements Initializable {
         private void doHandle() {
 
             if(currentTransitionIndex < transitions.size()) {
-                transitions.get(currentTransitionIndex).forwardTransition.setRate(speed);
-                transitions.get(currentTransitionIndex).forwardTransition.play();
-                currentTransitionIndex++;
+                playNextAnim();
             }
             else{
                 timer.stop();

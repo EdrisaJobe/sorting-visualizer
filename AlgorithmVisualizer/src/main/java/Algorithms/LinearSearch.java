@@ -1,6 +1,7 @@
 package Algorithms;
 
 import javafx.animation.ParallelTransition;
+import javafx.animation.TranslateTransition;
 import javafx.scene.shape.Rectangle;
 
 import java.util.ArrayList;
@@ -13,6 +14,13 @@ public class LinearSearch extends AbstractAlgorithm{
 
     private Rectangle[] nodes;
     private ArrayList<AlgoState> transitions;
+    private String code =   "    index = 0\n" +
+                            "    while (index < n)\n" +
+                            "        if (list[index] == target)\n" +
+                            "            RETURN index\n" +
+                            "        i++\n" +
+                            "    RETURN -1";
+
 
     /**
      * Constructor, sets the array of nodes.
@@ -21,6 +29,11 @@ public class LinearSearch extends AbstractAlgorithm{
      */
     public LinearSearch(Rectangle[] nodes) {
         super(nodes);
+        super.pseudoCode = code;
+        bestTime = "Ω(1)";
+        averageTime = "θ(n)";
+        worstTime = "O(n)";
+        spaceComplexity = "O(1)";
         this.nodes = super.nodes;
         this.transitions = super.transitions;
     }
@@ -41,6 +54,7 @@ public class LinearSearch extends AbstractAlgorithm{
 
         state = new AlgoState();
         state.StoreTransition(SearchTargetHighlightNode(targetIndex));
+        state.StoreVariable("i", 0);
         transitions.add(state);
 
 
@@ -48,11 +62,13 @@ public class LinearSearch extends AbstractAlgorithm{
 
             state = new AlgoState();
             state.StoreTransition(BaseColorNode(i > 0 ? i-1 : (0)), SecondaryHighlightNode(i));
+            state.StoreVariable("i", i);
             transitions.add(state);
 
             if (nodes[i].getHeight() == nodes[targetIndex].getHeight()) {
                 state = new AlgoState();
                 state.StoreTransition(PrimaryHighlightNode(targetIndex));
+                state.StoreVariable("i", i);
                 transitions.add(state);
                 break;
             }

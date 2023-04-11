@@ -1,5 +1,6 @@
 package Algorithms;
 
+import javafx.animation.TranslateTransition;
 import javafx.scene.shape.Rectangle;
 import java.util.*;
 
@@ -12,6 +13,13 @@ public class BucketSort extends AbstractAlgorithm {
 
     private Rectangle[] nodes;
     private ArrayList<AlgoState> transitions;
+    private String code =   " create B empty buckets\n" +
+                            " for each element\n" +
+                            "     map element into a bucket\n" +
+                            " for each bucket\n" +
+                            "     sort each bucket\n" +
+                            "       concat all the sorted elements\n" +
+                            " output the sorted elements";
 
     /**
      * Constructor, sets the array of nodes.
@@ -20,6 +28,13 @@ public class BucketSort extends AbstractAlgorithm {
      */
     public BucketSort(Rectangle[] nodes) {
         super(nodes);
+        super.pseudoCode = code;
+
+        bestTime = "Ω(n)";
+        averageTime = "θ(n + n^2/k + k)";
+        worstTime = "O(n*k)";
+        spaceComplexity = "O(n+k)";
+
         this.nodes = super.nodes;
         this.transitions = super.transitions;
     }
@@ -79,6 +94,7 @@ public class BucketSort extends AbstractAlgorithm {
                 ArrayList<AlgoState> swap_transitions = FullSwapProcedure(index, arrIndex);
                 swap_transitions.get(swap_transitions.size() - 1).StoreVariable("i", index);
                 swap_transitions.get(swap_transitions.size() - 1).StoreVariable("j", j);
+                swap_transitions.get(swap_transitions.size() - 1).StoreVariable("buckets", n);
                 transitions.addAll(swap_transitions);
                 index++;
             }
