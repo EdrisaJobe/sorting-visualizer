@@ -8,57 +8,117 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.*?>
 
-<Pane minHeight="0.0" minWidth="0.0" prefHeight="744.0" prefWidth="1013.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserInterface.QuizController">
+<Pane minHeight="0.0" minWidth="0.0" prefHeight="744.0" prefWidth="1182.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserInterface.QuizController">
    <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00000063" height="710.0" layoutX="13.0" layoutY="13.0" stroke="BLACK" strokeWidth="2.0" width="202.0" />
-      <Button fx:id="q1" layoutX="39.0" layoutY="81.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" text="Question 1" />
-      <Button fx:id="q2" disable="true" layoutX="40.0" layoutY="131.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" text="Question 2" />
-      <Button fx:id="q3" disable="true" layoutX="39.0" layoutY="181.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" text="Question 3" />
-      <Button fx:id="q4" disable="true" layoutX="39.0" layoutY="288.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" text="Question 4" />
-      <Button fx:id="q5" disable="true" layoutX="40.0" layoutY="340.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" text="Question 5" />
-      <Button fx:id="q6" disable="true" layoutX="40.0" layoutY="392.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" text="Question 6" />
-      <Button fx:id="q7" disable="true" layoutX="40.0" layoutY="445.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" text="Question 7" />
-      <Button fx:id="q8" disable="true" layoutX="40.0" layoutY="535.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" text="Question 8" />
-      <Button fx:id="q9" disable="true" layoutX="39.0" layoutY="585.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" text="Question 9" />
-      <Button fx:id="q10" disable="true" layoutX="39.0" layoutY="634.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" text="Question 10" />
-      <Label alignment="CENTER" layoutX="26.0" layoutY="28.0" prefHeight="30.0" prefWidth="183.0" styleClass="side_label" stylesheets="@styles.css" text="Easy" textAlignment="CENTER" textFill="#19da00" wrapText="true">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00000063" height="720.0" layoutX="12.0" layoutY="12.0" stroke="BLACK" strokeWidth="2.0" width="204.0" />
+      <Label fx:id="qEasy" alignment="CENTER" layoutX="26.0" layoutY="28.0" prefHeight="30.0" prefWidth="183.0" styleClass="side_label" stylesheets="@styles.css" text="Easy" textAlignment="CENTER" textFill="#19da00" wrapText="true">
          <padding>
             <Insets bottom="5.0" top="5.0" />
          </padding>
       </Label>
-      <Label alignment="CENTER" layoutX="26.0" layoutY="235.0" prefHeight="30.0" prefWidth="183.0" styleClass="side_label" stylesheets="@styles.css" text="Medium" textAlignment="CENTER" textFill="#ff8615" wrapText="true">
+      <Label fx:id="qMedium" alignment="CENTER" layoutX="26.0" layoutY="235.0" prefHeight="30.0" prefWidth="183.0" styleClass="side_label" stylesheets="@styles.css" text="Medium" textAlignment="CENTER" textFill="#ff8615" wrapText="true">
          <padding>
             <Insets bottom="5.0" top="5.0" />
          </padding>
       </Label>
-      <Label alignment="CENTER" layoutX="26.0" layoutY="490.0" prefHeight="30.0" prefWidth="183.0" styleClass="side_label" stylesheets="@styles.css" text="Hard" textAlignment="CENTER" textFill="#c90000" wrapText="true">
+      <Label fx:id="qHard" alignment="CENTER" layoutX="26.0" layoutY="490.0" prefHeight="30.0" prefWidth="183.0" styleClass="side_label" stylesheets="@styles.css" text="Hard" textAlignment="CENTER" textFill="#c90000" wrapText="true">
          <padding>
             <Insets bottom="5.0" top="5.0" />
          </padding>
       </Label>
-      <Button fx:id="resetButton" disable="true" layoutX="24.0" layoutY="690.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="180.0" text="Reset Quiz" textFill="RED" />
       <Line endX="80.0" layoutX="124.0" layoutY="679.0" startX="-100.0" strokeWidth="3.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00000063" height="712.0" layoutX="222.0" layoutY="13.0" stroke="BLACK" strokeType="INSIDE" width="776.0" />
-      <Label fx:id="qTitle" alignment="CENTER" layoutX="241.0" layoutY="28.0" prefHeight="30.0" prefWidth="744.0" styleClass="side_label" stylesheets="@styles.css" text="Question number displays here" textAlignment="CENTER" textFill="#19da00" wrapText="true">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00000063" height="722.0" layoutX="222.0" layoutY="13.0" stroke="BLACK" strokeType="INSIDE" width="948.0" />
+      <Label fx:id="qTitle" alignment="CENTER" layoutX="241.0" layoutY="28.0" prefHeight="30.0" prefWidth="913.0" styleClass="side_label" stylesheets="@styles.css" text="Question number displays here" textAlignment="CENTER" textFill="#19da00" wrapText="true">
          <padding>
             <Insets bottom="5.0" top="5.0" />
          </padding>
       </Label>
-      <Label fx:id="qQuestion" alignment="CENTER" contentDisplay="CENTER" layoutX="241.0" layoutY="76.0" prefHeight="409.0" prefWidth="744.0" style="-fx-border-color: black;" text="Questions will be shown here when selected." textAlignment="CENTER" textFill="WHITE" wrapText="true">
+      <Label fx:id="qQuestion" alignment="CENTER" contentDisplay="CENTER" layoutX="241.0" layoutY="76.0" prefHeight="409.0" prefWidth="913.0" style="-fx-border-color: black;" text="Questions will be shown here when selected." textAlignment="CENTER" textFill="WHITE" wrapText="true">
          <font>
             <Font name="SansSerif Regular" size="28.0" />
          </font>
          <effect>
-            <DropShadow height="29.9" radius="12.9675" width="23.97">
-               <input>
-                  <Bloom />
-               </input>
-            </DropShadow>
+            <Blend>
+               <topInput>
+                  <ColorAdjust />
+               </topInput>
+            </Blend>
          </effect>
       </Label>
-      <Button fx:id="qA" layoutX="241.0" layoutY="508.0" mnemonicParsing="false" prefHeight="67.0" prefWidth="340.0" text="A. Answer A" />
-      <Button fx:id="qC" layoutX="241.0" layoutY="613.0" mnemonicParsing="false" prefHeight="67.0" prefWidth="340.0" text="C. Answer C" />
-      <Button fx:id="qB" layoutX="645.0" layoutY="502.0" mnemonicParsing="false" prefHeight="67.0" prefWidth="340.0" text="B. Answer B" />
-      <Button fx:id="qD" layoutX="645.0" layoutY="613.0" mnemonicParsing="false" prefHeight="67.0" prefWidth="340.0" text="D. Answer D" />
+      <Button fx:id="q1" alignment="CENTER" layoutX="39.0" layoutY="81.0" prefHeight="25.0" prefWidth="150.0" styleClass="vis-button" text="Question 1" textAlignment="CENTER">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </Button>
+      <Button fx:id="q2" alignment="CENTER" disable="true" layoutX="39.0" layoutY="132.0" prefHeight="25.0" prefWidth="150.0" styleClass="vis-button" text="Question 2" textAlignment="CENTER">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </Button>
+      <Button fx:id="q3" alignment="CENTER" disable="true" layoutX="40.0" layoutY="183.0" prefHeight="25.0" prefWidth="150.0" styleClass="vis-button" text="Question 3" textAlignment="CENTER">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </Button>
+      <Button fx:id="q4" alignment="CENTER" disable="true" layoutX="39.0" layoutY="288.0" prefHeight="25.0" prefWidth="150.0" styleClass="vis-button" text="Question 4" textAlignment="CENTER">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </Button>
+      <Button fx:id="q5" alignment="CENTER" disable="true" layoutX="39.0" layoutY="338.0" prefHeight="25.0" prefWidth="150.0" styleClass="vis-button" text="Question 5" textAlignment="CENTER">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </Button>
+      <Button fx:id="q6" alignment="CENTER" disable="true" layoutX="39.0" layoutY="389.0" prefHeight="25.0" prefWidth="150.0" styleClass="vis-button" text="Question 6" textAlignment="CENTER">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </Button>
+      <Button fx:id="q7" alignment="CENTER" disable="true" layoutX="39.0" layoutY="440.0" prefHeight="25.0" prefWidth="150.0" styleClass="vis-button" text="Question 7" textAlignment="CENTER">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </Button>
+      <Button fx:id="q8" alignment="CENTER" disable="true" layoutX="39.0" layoutY="536.0" prefHeight="25.0" prefWidth="150.0" styleClass="vis-button" text="Question 8" textAlignment="CENTER">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </Button>
+      <Button fx:id="q9" alignment="CENTER" disable="true" layoutX="39.0" layoutY="584.0" prefHeight="25.0" prefWidth="150.0" styleClass="vis-button" text="Question 9" textAlignment="CENTER">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </Button>
+      <Button fx:id="q10" alignment="CENTER" disable="true" layoutX="39.0" layoutY="632.0" prefHeight="25.0" prefWidth="150.0" styleClass="vis-button" text="Question 10" textAlignment="CENTER">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </Button>
+      <Button fx:id="resetButton" alignment="CENTER" disable="true" layoutX="26.0" layoutY="693.0" prefHeight="25.0" prefWidth="175.0" styleClass="vis-button" text="Reset Quiz" textAlignment="CENTER" textFill="RED">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </Button>
+      <Button fx:id="qA" alignment="CENTER" layoutX="261.0" layoutY="514.0" prefHeight="67.0" prefWidth="350.0" styleClass="vis-button" text="A. Answer A" textAlignment="CENTER">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </Button>
+      <Button fx:id="qC" alignment="CENTER" layoutX="261.0" layoutY="626.0" prefHeight="67.0" prefWidth="350.0" styleClass="vis-button" text="C. Answer C" textAlignment="CENTER">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </Button>
+      <Button fx:id="qB" alignment="CENTER" layoutX="785.0" layoutY="515.0" prefHeight="67.0" prefWidth="350.0" styleClass="vis-button" text="B. Answer B" textAlignment="CENTER">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </Button>
+      <Button fx:id="qD" alignment="CENTER" layoutX="785.0" layoutY="624.0" prefHeight="67.0" prefWidth="350.0" styleClass="vis-button" text="D. Answer D" textAlignment="CENTER">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </Button>
    </children>
 </Pane>

@@ -99,3 +99,36 @@
     -fx-text-alignment: center;
 
 }
+
+.vis-button{
+    -fx-background-color: #1D1D1D;
+    -fx-background-radius: 5;
+    -fx-text-fill: #86FF84;
+    -fx-font-size: 14px;
+    -fx-font-family: "Roboto", sans-serif;
+    -fx-padding: 3 6;
+}
+
+.vis-button:hover {
+    -fx-background-color: #7a6208;
+    -fx-cursor: hand;
+}
+
+#visui_container{
+    -fx-background-color: #1D1D1D;
+    -fx-background-radius: 10;
+    -fx-padding: 10 5;
+}
+
+#speed-dropdown {
+    -fx-background-color: #272727;
+    -fx-text-inner-color: red;
+}
+
+#speed-dropdown .list-view .list-cell{
+    -fx-text-fill: white;
+}
+
+#speed-dropdown .cell:selected {
+    -fx-text-fill: #86FF84;
+}
