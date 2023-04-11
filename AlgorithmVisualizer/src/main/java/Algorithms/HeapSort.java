@@ -12,6 +12,10 @@ public class HeapSort extends AbstractAlgorithm{
 
     private Rectangle[] nodes;
     private ArrayList<AlgoState> transitions;
+
+    private int x_gap;
+
+    private int box_width;
     private String code =   "       n = length(A)\n" +
                             "       for i = n/2 to 1\n" +
                             "           Heapify(A, n , i)\n" +
@@ -26,8 +30,8 @@ public class HeapSort extends AbstractAlgorithm{
      *
      * @param nodes Array of boxes
      */
-    public HeapSort(Rectangle[] nodes) {
-        super(nodes);
+    public HeapSort(Rectangle[] nodes, int x_gap, int box_width) {
+        super(nodes, x_gap, box_width);
         super.pseudoCode = code;
 
         bestTime = "Ω(n log n)";
@@ -37,6 +41,8 @@ public class HeapSort extends AbstractAlgorithm{
 
         this.nodes = super.nodes;
         this.transitions = super.transitions;
+        this.x_gap = super.x_gap;
+        this.box_width = super.box_width;
     }
 
     void heapify(Rectangle arr[], int n, int i)

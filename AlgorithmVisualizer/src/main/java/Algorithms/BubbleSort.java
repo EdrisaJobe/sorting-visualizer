@@ -13,6 +13,9 @@ import java.util.ArrayList;
 public class BubbleSort extends AbstractAlgorithm{
 
     private Rectangle[] nodes;
+
+    private int x_gap;
+    private int box_width;
     private ArrayList<AlgoState> transitions;
     private String code =   "     for all elements of list" +
                             "\n         if list[i] > list[i+1]" +
@@ -25,8 +28,8 @@ public class BubbleSort extends AbstractAlgorithm{
      *
      * @param nodes Array of boxes
      */
-    public BubbleSort(Rectangle[] nodes) {
-        super(nodes);
+    public BubbleSort(Rectangle[] nodes, int x_gap, int box_width) {
+        super(nodes, x_gap, box_width);
         super.pseudoCode = code;
 
         bestTime = "Ω(n)";
@@ -36,6 +39,8 @@ public class BubbleSort extends AbstractAlgorithm{
 
         this.nodes = super.nodes;
         this.transitions = super.transitions;
+        this.x_gap = super.x_gap;
+        this.box_width = super.box_width;
     }
 
     /**

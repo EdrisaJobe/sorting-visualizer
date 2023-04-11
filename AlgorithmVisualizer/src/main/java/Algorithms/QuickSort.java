@@ -13,6 +13,10 @@ public class QuickSort extends AbstractAlgorithm{
 
     private Rectangle[] nodes;
     private ArrayList<AlgoState> transitions;
+
+    private int x_gap;
+
+    private int box_width;
     private String code =   "       if (low < high) " +
                             "\n         pi = partition(arr, low, high);" +
                             "\n         quickSort(arr, low, pi – 1);" +
@@ -25,8 +29,8 @@ public class QuickSort extends AbstractAlgorithm{
      *
      * @param nodes Array of boxes
      */
-    public QuickSort(Rectangle[] nodes) {
-        super(nodes);
+    public QuickSort(Rectangle[] nodes, int x_gap, int box_width) {
+        super(nodes, x_gap, box_width);
         super.pseudoCode = code;
         bestTime = "Ω(n log n)";
         averageTime = "θ(n log n)";
@@ -34,6 +38,8 @@ public class QuickSort extends AbstractAlgorithm{
         spaceComplexity = "O(log n)";
         this.nodes = super.nodes;
         this.transitions = super.transitions;
+        this.x_gap = super.x_gap;
+        this.box_width = super.box_width;
 
     }
 

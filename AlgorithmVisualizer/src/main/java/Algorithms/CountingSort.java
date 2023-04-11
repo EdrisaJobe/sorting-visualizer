@@ -14,15 +14,21 @@ public class CountingSort extends AbstractAlgorithm {
     private Rectangle[] nodes;
     private ArrayList<AlgoState> transitions;
 
+    private int x_gap;
+
+    private int box_width;
+
     /**
      * Constructor, sets the array of nodes.
      *
      * @param nodes Array of boxes
      */
-    public CountingSort(Rectangle[] nodes) {
-        super(nodes);
+    public CountingSort(Rectangle[] nodes, int x_gap, int box_width) {
+        super(nodes, x_gap, box_width);
         this.nodes = super.nodes;
         this.transitions = super.transitions;
+        this.x_gap = super.x_gap;
+        this.box_width = super.box_width;
     }
 
     /**

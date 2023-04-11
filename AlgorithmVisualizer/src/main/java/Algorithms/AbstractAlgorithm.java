@@ -67,8 +67,10 @@ public abstract class AbstractAlgorithm {
      * Constructor, sets the array of nodes.
      * @param nodes Array of boxes
      */
-    public AbstractAlgorithm(Rectangle[] nodes){
+    public AbstractAlgorithm(Rectangle[] nodes, int x_gap, int box_width){
         this.nodes = nodes.clone();
+        this.x_gap = x_gap;
+        this.box_width = box_width;
     }
 
     /**

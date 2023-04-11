@@ -25,11 +25,6 @@ import java.util.ResourceBundle;
 
 public class VisualizerController implements Initializable {
 
-    //Gap between blocks.
-    private final static int X_GAP = AbstractAlgorithm.x_gap;
-
-    private final static int BOX_WIDTH = AbstractAlgorithm.box_width;
-
     //Duration of the transitions
     protected final static float ANIM_DURATION = .95f;
 
@@ -43,6 +38,8 @@ public class VisualizerController implements Initializable {
     private ComboBox<String> searchDropdown;
     @FXML
     private ComboBox<String> speedDropdown;
+    @FXML
+    private ComboBox<String> nDropdown;
     @FXML
     private Slider slider;
     @FXML
@@ -70,6 +67,19 @@ public class VisualizerController implements Initializable {
     private int currentTransitionIndex = 0;
     private float speed = 1;
 
+    //Gap between blocks.
+    private int x_gap;
+
+    private int box_width;
+    private int numOfBoxes = 10;
+
+    private final float BOX_WIDTH_RATIO = 2/3F;
+    private final float PANE_HEIGHT_RATIO = 5/6F;
+    private final float MIN_BAR_HEIGHT = 1/6F;
+
+    private final float HORIZONTAL_BUFFER = 4;
+
+
 
     /**
      * Initializes the UI elements.
@@ -88,6 +98,9 @@ public class VisualizerController implements Initializable {
 
         speedDropdown.getItems().setAll("1x", "2x", "3x", "5x", "10x");
         speedDropdown.setValue("1x");
+
+        nDropdown.getItems().setAll("10", "25", "50", "100");
+        nDropdown.setValue("10");
 
         timer = new AnimTimer();
     }
@@ -207,6 +220,16 @@ public class VisualizerController implements Initializable {
             this.speed = value;
         }
     }
+    @FXML
+    public void nDropdownHandler(){
+
+        String dropDownVal = nDropdown.getValue();
+        if(!algorithmName.equals(dropDownVal)) {
+            this.numOfBoxes = Integer.parseInt(dropDownVal);
+            GenerateArray();
+        }
+
+    }
 
     /**
      * Prepares the transitions for the given algorithm on the given array
@@ -217,31 +240,31 @@ public class VisualizerController implements Initializable {
         switch(algorithmName)
         {
             case "Bubble Sort":
-                algorithm = new BubbleSort(boxes);
+                algorithm = new BubbleSort(boxes, x_gap, box_width);
                 break;
             case "Insertion Sort":
-                algorithm = new InsertionSort(boxes);
+                algorithm = new InsertionSort(boxes, x_gap, box_width);
                 break;
             case "Quick Sort":
-                algorithm = new QuickSort(boxes);
+                algorithm = new QuickSort(boxes, x_gap, box_width);
                 break;
             case "Selection Sort":
-                algorithm = new SelectionSort(boxes);
+                algorithm = new SelectionSort(boxes, x_gap, box_width);
                 break;
             case "Merge Sort":
-                algorithm = new MergeSort(boxes);
+                algorithm = new MergeSort(boxes, x_gap, box_width);
                 break;
             case "Bucket Sort":
-                algorithm = new BucketSort(boxes);
+                algorithm = new BucketSort(boxes, x_gap, box_width);
                 break;
             case "Heap Sort":
-                algorithm = new HeapSort(boxes);
+                algorithm = new HeapSort(boxes, x_gap, box_width);
                 break;
             case "Binary Search":
-                algorithm = new BinarySearch(boxes);
+                algorithm = new BinarySearch(boxes, x_gap, box_width);
                 break;
             case "Linear Search":
-                algorithm = new LinearSearch(boxes);
+                algorithm = new LinearSearch(boxes, x_gap, box_width);
                 break;
         }
 
@@ -294,15 +317,28 @@ public class VisualizerController implements Initializable {
     @FXML
     protected void GenerateArray() {
 
+        double b = visualizerPane.getWidth() - HORIZONTAL_BUFFER;
+        this.box_width = (int)(b/ numOfBoxes * BOX_WIDTH_RATIO);
+        this.x_gap = (int)b / numOfBoxes - box_width;
+
+        if(box_width == 0)
+            this.box_width = 1;
         boolean random = !algorithmName.equals("Binary Search");
 
         ResetAlgorithm();
         StopTimer();
 
-        boxes = new Rectangle[10];
+        int paneHeight = (int)(visualizerPane.getHeight() * PANE_HEIGHT_RATIO);
+        int minHeight = (int)(visualizerPane.getHeight() * MIN_BAR_HEIGHT);
+        boxes = new Rectangle[numOfBoxes];
 
         //possible height values
-        int[] poss_values = new int[]{60, 80, 100, 120, 135, 150, 170, 195, 210, 235};
+        int[] poss_values = new int[numOfBoxes];
+        int increment = (paneHeight-minHeight) / numOfBoxes;
+        for(int i = 0; i < numOfBoxes; i++){
+            poss_values[i] = minHeight + increment * i;
+        }
+
         //put into array list
         ArrayList<Integer> vals_list = new ArrayList<Integer>();
         for(int k = 0; k < poss_values.length;k++){
@@ -312,11 +348,13 @@ public class VisualizerController implements Initializable {
             //shuffle the order of the sizes
             Collections.shuffle(vals_list);
         }
-
+        float adj = 0;
+        if(x_gap != 0);
+            adj = x_gap/2.0F;
         for (int i = 0; i < poss_values.length; i++) {
             double height = vals_list.get(i);
-            boxes[i] = new Rectangle(BOX_WIDTH, height);
-            boxes[i].setTranslateX((X_GAP+BOX_WIDTH) * i + (visualizerPane.getWidth()/2.0f - (X_GAP+BOX_WIDTH) * (poss_values.length/2.0f)) + 10);
+            boxes[i] = new Rectangle(box_width, height);
+            boxes[i].setTranslateX((x_gap+box_width) * i + (visualizerPane.getWidth()/2.0f - (x_gap+box_width) * (poss_values.length/2.0f)) + adj);
 
             //Boxes are normally displayed on the top,
             //this line moves them down.
@@ -471,9 +509,8 @@ public class VisualizerController implements Initializable {
         if(transitions != null) {
             if (currentTransitionIndex == 0 || currentTransitionIndex > transitions.size() -1)
                 return false;
-            if (transitions.get(currentTransitionIndex - 1).forwardTransition.getStatus().toString().equals("RUNNING")
-                    || transitions.get(currentTransitionIndex).reverseTransition.getStatus().toString().equals("RUNNING"))
-                return true;
+            return transitions.get(currentTransitionIndex - 1).forwardTransition.getStatus().toString().equals("RUNNING")
+                    || transitions.get(currentTransitionIndex).reverseTransition.getStatus().toString().equals("RUNNING");
         }
         return false;
     }

@@ -13,6 +13,10 @@ public class InsertionSort extends AbstractAlgorithm{
 
     private Rectangle[] nodes;
     private ArrayList<AlgoState> transitions;
+
+    private int x_gap;
+
+    private int box_width;
     private String code = " n = length(A)" +
             "\n for i = 1 to n - 1" +
             "\n     j = i" +
@@ -28,8 +32,8 @@ public class InsertionSort extends AbstractAlgorithm{
      *
      * @param nodes Array of boxes
      */
-    public InsertionSort(Rectangle[] nodes) {
-        super(nodes);
+    public InsertionSort(Rectangle[] nodes, int x_gap, int box_width) {
+        super(nodes, x_gap, box_width);
         super.pseudoCode = code;
         bestTime = "Ω(n)";
         averageTime = "θ(n^2)";
@@ -37,6 +41,8 @@ public class InsertionSort extends AbstractAlgorithm{
         spaceComplexity = "O(1)";
         this.nodes = super.nodes;
         this.transitions = super.transitions;
+        this.x_gap = super.x_gap;
+        this.box_width = super.box_width;
     }
 
     /**

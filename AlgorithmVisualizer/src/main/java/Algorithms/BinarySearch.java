@@ -14,6 +14,10 @@ import java.util.Random;
 public class BinarySearch extends AbstractAlgorithm{
 
     private Rectangle[] nodes;
+
+    private int box_width;
+
+    private int x_gap;
     private ArrayList<AlgoState> transitions;
     private String code =   "    left = lowest\n" +
                             "    right = highest\n" +
@@ -28,13 +32,14 @@ public class BinarySearch extends AbstractAlgorithm{
                             "    RETURN -1";
 
 
+
     /**
      * Constructor, sets the array of nodes.
      *
      * @param nodes Array of boxes
      */
-    public BinarySearch(Rectangle[] nodes) {
-        super(nodes);
+    public BinarySearch(Rectangle[] nodes, int x_gap, int box_width) {
+        super(nodes, x_gap, box_width);
         super.pseudoCode = code;
         bestTime = "Ω(1)";
         averageTime = "θ(log n)";
@@ -42,6 +47,8 @@ public class BinarySearch extends AbstractAlgorithm{
         spaceComplexity = "O(1)";
         this.nodes = super.nodes;
         this.transitions = super.transitions;
+        this.x_gap = super.x_gap;
+        this.box_width = super.box_width;
     }
 
     /**
