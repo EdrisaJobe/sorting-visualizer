@@ -4,6 +4,7 @@ Algorithms\AbstractAlgorithm.class
 Algorithms\AlgoState.class
 UserInterface\CompareController.class
 UserInterface\MainController.class
+UserInterface\AlgorithmRankingController.class
 module-info.class
 UserInterface\VisualizerController$AnimTimer.class
 Algorithms\BubbleSort.class
