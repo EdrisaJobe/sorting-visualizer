@@ -18,7 +18,5 @@
 
 
 <Pane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserInterface.AlgorithmRankingController">
-   <children>
-      <Button layoutX="61.0" layoutY="90.0" mnemonicParsing="false" text="Button" />
-   </children>
+
 </Pane>
