@@ -86,8 +86,8 @@ public abstract class AbstractAlgorithmTree {
 
         StrokeTransition child = new StrokeTransition(Duration.millis(3000),node2,BASE_COLOR,TARGET_COLOR);
 
-        SequentialTransition forward = new SequentialTransition(parent,lineToChild,child);
-        SequentialTransition reverse = new SequentialTransition(child,lineToChild,parent);
+        ParallelTransition forward = new ParallelTransition(parent,lineToChild,child);
+        ParallelTransition reverse = new ParallelTransition(child,lineToChild,parent);
 
         Pair<Transition, Transition> anims = new Pair<>(forward, reverse);
 

@@ -34,10 +34,13 @@ public class AlgoState {
     }
 
     public AlgoState(Pair<Transition, Transition>... transitions){
-        Transition forwardTranstionContainer = null;
-        Transition reverseTranstionContainer = null;
+        ParallelTransition forwardTranstionContainer = new ParallelTransition();
+        ParallelTransition reverseTranstionContainer = new ParallelTransition();
 
         for (Pair<Transition, Transition> transition: transitions) {
+            forwardTranstionContainer.getChildren().add(transition.getKey());
+            reverseTranstionContainer.getChildren().add(transition.getValue());
+            /* Attempt to make more generic this results in colors never being changed back to black
             if(transition.getKey() instanceof ParallelTransition){
                 if(forwardTranstionContainer == null){
                     forwardTranstionContainer = new ParallelTransition();
@@ -61,6 +64,7 @@ public class AlgoState {
                 }
                 ((SequentialTransition) reverseTranstionContainer).getChildren().add(transition.getKey());
             }
+            */
         }
         forwardTransition = forwardTranstionContainer;
         reverseTransition = reverseTranstionContainer;
@@ -73,10 +77,14 @@ public class AlgoState {
 
 
     public void StoreTransition(Pair<Transition, Transition>... transitions){
-        Transition forwardTranstionContainer = null;
-        Transition reverseTranstionContainer = null;
+        ParallelTransition forwardTranstionContainer = new ParallelTransition();
+        ParallelTransition reverseTranstionContainer = new ParallelTransition();
 
         for (Pair<Transition, Transition> transition: transitions) {
+            forwardTranstionContainer.getChildren().add(transition.getKey());
+            reverseTranstionContainer.getChildren().add(transition.getValue());
+        }
+            /*
             if(transition.getKey() instanceof ParallelTransition){
                 if(forwardTranstionContainer == null){
                     forwardTranstionContainer = new ParallelTransition();
@@ -101,6 +109,7 @@ public class AlgoState {
                 ((SequentialTransition) reverseTranstionContainer).getChildren().add(transition.getKey());
             }
         }
+        */
         forwardTransition = forwardTranstionContainer;
         reverseTransition = reverseTranstionContainer;
     }
