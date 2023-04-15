@@ -56,8 +56,10 @@ public class VisualizerController implements Initializable {
     private Label spaceComp;
 
 
+    private int treeSize = 9;
     private Circle[] treeNodes;
     private int[] nodeValues;
+    private Line[] nodeLines;
 
     private Rectangle[] boxes;
     private AnimationTimer timer;
@@ -366,21 +368,12 @@ public class VisualizerController implements Initializable {
         PrepareAlgorithm();
     }
 
-    /**
-     * Generate binary tree
-     * */
+    //generates an array based on 3 pools of random numbers
+    //this provides a more balanced tree
     @FXML
-    protected void GenerateBinaryTree(){
+    protected int[] generateRandomTreeValues(){
 
-        visualizerPane.getChildren().clear();
-        //cirlces for nodes
-        treeNodes = new Circle[9];
-        //int value of node
-        nodeValues = new int[9];
-        //text for node
-        Text[] treeText = new Text[9];
-        //node liens
-        Line[] node_lines = new Line[treeNodes.length-1];
+        int newValues[] = new int[treeSize];
 
         //possible root values
         ArrayList<Integer> root_vals_list = new ArrayList<Integer>(Arrays.asList(80,100,120));
@@ -397,15 +390,45 @@ public class VisualizerController implements Initializable {
         Collections.shuffle(left_vals_list);
         //shuffle the order of the sizes
         Collections.shuffle(right_vals_list);
-        nodeValues[0] = root_vals_list.get(0);
+        newValues[0] = root_vals_list.get(0);
 
-        for (int i =1;i<nodeValues.length;i++){
+        for (int i =1;i<newValues.length;i++){
             if (i%2 == 0)
-                nodeValues[i] = right_vals_list.get(i);
-            else nodeValues[i] = left_vals_list.get(i);
+                newValues[i] = right_vals_list.get(i);
+            else newValues[i] = left_vals_list.get(i);
         }
+        return newValues;
 
-        //
+    }
+
+
+    /**
+     * Generate random binary tree
+     * */
+    @FXML
+    protected void GenerateRandomBinaryTree(){
+        GenerateBinaryTree(generateRandomTreeValues());
+    }
+
+    /**
+     * Generate random binary tree
+     * */
+    @FXML
+    protected void GenerateBinaryTree(int [] newNodeVals){
+
+        visualizerPane.getChildren().clear();
+
+        //int value of node
+        nodeValues = newNodeVals;
+
+        //cirlces for nodes
+        treeNodes = new Circle[nodeValues.length];
+
+        //text for node
+        Text[] treeText = new Text[nodeValues.length];
+        //node liens
+        nodeLines = new Line[treeNodes.length-1];
+
         //place the root node
         double rootX = visualizerPane.getWidth()/2;
         double rootY = 25;
@@ -416,18 +439,15 @@ public class VisualizerController implements Initializable {
 
         Circle rootCircle = new Circle(rootX, rootY, radius);
         treeNodes[0] = rootCircle;
-        visualizerPane.getChildren().add(rootCircle);
         int rootValue = nodeValues[0];
         Text rootText = new Text(String.valueOf(rootValue));
         rootText.setStroke(Color.WHITESMOKE);
         rootText.setLayoutX(rootX - 5);
         rootText.setLayoutY(rootY + 5);
-        visualizerPane.getChildren().add(rootText);
-        int placed_nodes = 1;
+        treeText[0] = rootText;
         for(int i=1;i<nodeValues.length;i++){
             double newCirclePosX = rootX;
             double newCirclePosY = rootY;
-
             int circleVal = nodeValues[i];
             int max = 190;
             int min = 10;
@@ -457,15 +477,23 @@ public class VisualizerController implements Initializable {
             newChildText.setLayoutY(newCirclePosY + 5);
             treeText[i] = newChildText;
             treeNodes[i] = newChild;
-            placed_nodes ++;
             Line line1 = new Line(parent.getCenterX(), parent.getCenterY() + radius, newCirclePosX, newCirclePosY - radius);
-            node_lines[i-1] = line1;
+            nodeLines[i-1] = line1;
         }
 
-        for (int i =1;i<nodeValues.length;i++){
-            visualizerPane.getChildren().add(treeNodes[i]);
-            visualizerPane.getChildren().add(treeText[i]);
-            visualizerPane.getChildren().add(node_lines[i-1]);
+        drawTree(treeNodes,treeText,nodeLines);
+
+    }
+
+    @FXML
+    protected void drawTree(Circle[] nodes, Text[] labels,Line[] lineSet){
+        visualizerPane.getChildren().clear();
+        visualizerPane.getChildren().add(nodes[0]);
+        visualizerPane.getChildren().add(labels[0]);
+        for (int i =1;i<nodes.length;i++){
+            visualizerPane.getChildren().add(nodes[i]);
+            visualizerPane.getChildren().add(labels[i]);
+            visualizerPane.getChildren().add(lineSet[i-1]);
         }
 
     }
