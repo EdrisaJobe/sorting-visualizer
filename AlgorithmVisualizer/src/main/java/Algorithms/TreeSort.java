@@ -51,24 +51,33 @@ public class TreeSort extends AbstractAlgorithmTree {
     @Override
     public ArrayList<AlgoState> RunAlgorithm() {
         AlgoState stage;
+        int[] valueCopy = this.treeValues.clone();
+        int min = 10;
+        int max = 190;
+        int j =0;
+        while(j<valueCopy.length) {
+                int child = 0;
+                int parent = 0;
+                for (int k = 0; k < valueCopy.length; k++) {
+                    if (valueCopy[k] >= min && valueCopy[k] <= max) {
+                        max = valueCopy[k];
+                        if(k == 0) {
+                            child = k;
+                        }else{
+                            parent=child;
+                            child = k;
+                            Pair<Transition, Transition> transition = ConnectNodes(parent, child);
+                            stage = new AlgoState(transition);
+                            stage.StoreVariable("i", j);
+                            transitions.add(stage);
+                        }
+                    }
 
-        for (int i = 1; i < nodes.length; i++) {
-            int max = 190;
-            int min = 10;
-            int child = i;
-            int parent = 0;
-            for (int k = 0; k < i; k++) {
-                if (treeValues[k] < treeValues[i] && treeValues[k] >= min) {
-                    min = treeValues[k];
-                    parent = k;
-                } else if (treeValues[k] > treeValues[i] && treeValues[k] <= max) {
-                    max = treeValues[k];
-                    parent = k;
                 }
-            }
-            Pair<Transition,Transition> transition = ConnectNodes(parent, child);
-            stage = new AlgoState(transition);
-            transitions.add(stage);
+            valueCopy[child]=-1;
+            min = max;
+            max = 190;
+            j++;
         }
         return transitions;
     }

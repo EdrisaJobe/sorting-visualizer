@@ -78,7 +78,7 @@ public abstract class AbstractAlgorithmTree {
 
         Circle node1 = nodes[index1];
         Circle node2 = nodes[index2];
-        Line connect = connection[index2];
+        Line connect = connection[index2-1];
 
         StrokeTransition parent = new StrokeTransition(Duration.millis(3000),node1,BASE_COLOR,TARGET_COLOR);
 

@@ -472,6 +472,7 @@ public class VisualizerController implements Initializable {
 
         Circle rootCircle = new Circle(rootX, rootY, radius);
         treeNodes[0] = rootCircle;
+        rootCircle.setStrokeWidth(8);
         int rootValue = nodeValues[0];
         Text rootText = new Text(String.valueOf(rootValue));
         rootText.setStroke(Color.WHITESMOKE);
@@ -504,6 +505,7 @@ public class VisualizerController implements Initializable {
                 }
             }
             Circle newChild = new Circle(newCirclePosX, newCirclePosY, radius);
+            newChild.setStrokeWidth(8);
             Text newChildText = new Text(String.valueOf(nodeValues[i]));
             newChildText.setStroke(Color.WHITESMOKE);
             newChildText.setLayoutX(newCirclePosX - 5);
@@ -511,6 +513,7 @@ public class VisualizerController implements Initializable {
             treeText[i] = newChildText;
             treeNodes[i] = newChild;
             Line line1 = new Line(parent.getCenterX(), parent.getCenterY() + radius, newCirclePosX, newCirclePosY - radius);
+            line1.setStrokeWidth(5);
             nodeLines[i-1] = line1;
         }
 
