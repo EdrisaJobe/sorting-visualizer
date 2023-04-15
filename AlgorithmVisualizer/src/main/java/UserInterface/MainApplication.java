@@ -12,7 +12,7 @@ public class MainApplication extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("main-view.fxml"));
 
-        Scene scene = new Scene(fxmlLoader.load(), 1180, 800);
+        Scene scene = new Scene(fxmlLoader.load(), 1500, 900);
         MainController controller = fxmlLoader.getController();
         scene.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
 
@@ -22,8 +22,8 @@ public class MainApplication extends Application {
         });
 
         stage.setTitle("Algorithm Visualizer");
-        stage.setMinWidth(900);
-        stage.setMinHeight(500);
+        stage.setMinWidth(1200);
+        stage.setMinHeight(900);
         stage.setScene(scene);
         stage.show();
     }

@@ -374,11 +374,11 @@ public class VisualizerController implements Initializable {
 
         visualizerPane.getChildren().clear();
         //cirlces for nodes
-        treeNodes = new Circle[10];
+        treeNodes = new Circle[9];
         //int value of node
-        nodeValues = new int[10];
+        nodeValues = new int[9];
         //text for node
-        Text[] treeText = new Text[10];
+        Text[] treeText = new Text[9];
         //node liens
         Line[] node_lines = new Line[treeNodes.length-1];
 
@@ -407,11 +407,11 @@ public class VisualizerController implements Initializable {
 
         //
         //place the root node
-        double rootX = 300;
+        double rootX = visualizerPane.getWidth()/2;
         double rootY = 25;
         //set radius and x/y offset
         double radius = 20;
-        double xOffset = 65;
+        double xOffset = 35;
         double yOffset = 45;
 
         Circle rootCircle = new Circle(rootX, rootY, radius);
@@ -431,20 +431,20 @@ public class VisualizerController implements Initializable {
             int circleVal = nodeValues[i];
             int max = 190;
             int min = 10;
-            int height = 1;
+            int height = 0;
 
             Circle parent = treeNodes[0];
             for (int k=0;k<i;k++){
                 if (nodeValues[k]<circleVal && nodeValues[k] >= min) {
                     height++;
-                    newCirclePosX += Math.max(xOffset - radius,xOffset * (4-height));
+                    newCirclePosX += Math.max(xOffset ,xOffset * (7-2*height));
                     newCirclePosY += Math.min(yOffset+(5*height),yOffset+20);
                     min = nodeValues[k];
                     parent = treeNodes[k];
                 }
                 else if (nodeValues[k] > circleVal && nodeValues[k] <= max){
                     height++;
-                    newCirclePosX -= Math.max(xOffset - (2*radius),xOffset * (4-height));
+                    newCirclePosX -= Math.max(xOffset ,xOffset * (7-2*height));
                     newCirclePosY += Math.min(yOffset+(5*height),yOffset+20);
                     max = nodeValues[k];
                     parent = treeNodes[k];
