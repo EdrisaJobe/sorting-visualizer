@@ -1,34 +1,25 @@
 package Algorithms;
 
-import javafx.animation.ParallelTransition;
-import javafx.scene.shape.Rectangle;
+import javafx.animation.Transition;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
+import javafx.util.Pair;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 /**
  * BinarySearch algorithm
  */
-public class TreeSort extends AbstractAlgorithm{
+public class TreeSort extends AbstractAlgorithmTree {
 
-    private Rectangle[] nodes;
+    private Circle[] nodes;
 
-    private int box_width;
+    private int[] treeValues;
 
-    private int x_gap;
+    private Line[] treeLines;
     private ArrayList<AlgoState> transitions;
-    private String code =   "    Create Binary Tree from input\n" +
-                            "    right = highest\n" +
-                            "    while (left <= right)\n" +
-                            "        middle = (left + right) / 2\n" +
-                            "        if(target = array[middle])\n" +
-                            "            RETURN middle\n" +
-                            "        else if(target < array[middle])\n" +
-                            "           right = middle - 1\n" +
-                            "        else\n" +
-                            "           left = middle + 1\n" +
-                            "    RETURN -1";
-
+    private String code = "    Create Binary Tree from input\n" +
+            "    Traverse in-order\n";
 
 
     /**
@@ -36,17 +27,17 @@ public class TreeSort extends AbstractAlgorithm{
      *
      * @param nodes Array of boxes
      */
-    public TreeSort(Rectangle[] nodes, int x_gap, int box_width) {
-        super(nodes, x_gap, box_width);
+    public TreeSort(Circle[] nodes, int[] values, Line[] connection) {
+        super(nodes, values, connection);
         super.pseudoCode = code;
         bestTime = "Ω(1)";
         averageTime = "θ(log n)";
         worstTime = "O(log n)";
         spaceComplexity = "O(1)";
         this.nodes = super.nodes;
+        this.treeValues = super.values;
+        this.treeLines = super.connection;
         this.transitions = super.transitions;
-        this.x_gap = super.x_gap;
-        this.box_width = super.box_width;
     }
 
     /**
@@ -59,59 +50,25 @@ public class TreeSort extends AbstractAlgorithm{
      */
     @Override
     public ArrayList<AlgoState> RunAlgorithm() {
-        AlgoState state;
-        ParallelTransition highlightsForward;
-        ParallelTransition highlightsReverse;
-        Random rand = new Random();
-        int targetIndex = rand.nextInt(6) + 4;
-        double target =  nodes[targetIndex].getHeight();
+        AlgoState stage;
 
-
-        int first = 0;
-        int last = nodes.length - 1;
-        int mid = (first + last)/2;
-        int old_first = 0;
-        int old_last = last;
-
-        state = new AlgoState();
-        state.StoreTransition(SearchTargetHighlightNode(targetIndex));
-        state.StoreVariable("left", first);
-        state.StoreVariable("middle", mid);
-        state.StoreVariable("right", last);
-        state.StoreVariable("target", targetIndex);
-        transitions.add(state);
-
-        while( first <= last ){
-
-            state = new AlgoState();
-            state.StoreTransition(BaseColorNode(old_last), BaseColorNode(old_first), SecondaryHighlightNode(last), SecondaryHighlightNode(first));
-            state.StoreVariable("left", first);
-            state.StoreVariable("middle", mid);
-            state.StoreVariable("right", last);
-            state.StoreVariable("target", targetIndex);
-            transitions.add(state);
-
-            if ( nodes[mid].getHeight() < target){
-                old_first = first;
-                first = mid + 1;
-            }else if ( nodes[mid].getHeight() == target){
-                state = new AlgoState();
-                state.StoreTransition(BaseColorNode(last), BaseColorNode(first), PrimaryHighlightNode(targetIndex));
-                state.StoreVariable("left", first);
-                state.StoreVariable("middle", mid);
-                state.StoreVariable("right", last);
-                state.StoreVariable("target", targetIndex);
-                transitions.add(state);
-                break;
-            }else{
-                old_last = last;
-                last = mid - 1;
+        for (int i = 1; i < nodes.length; i++) {
+            int max = 190;
+            int min = 10;
+            int child = i;
+            int parent = 0;
+            for (int k = 0; k < i; k++) {
+                if (treeValues[k] < treeValues[i] && treeValues[k] >= min) {
+                    min = treeValues[k];
+                    parent = k;
+                } else if (treeValues[k] > treeValues[i] && treeValues[k] <= max) {
+                    max = treeValues[k];
+                    parent = k;
+                }
             }
-            mid = (first + last)/2;
-        }
-
-        for (int i = 0; i < nodes.length; i++) {
-            BaseColorNode(i);
+            Pair<Transition,Transition> transition = ConnectNodes(parent, child);
+            stage = new AlgoState(transition);
+            transitions.add(stage);
         }
         return transitions;
     }

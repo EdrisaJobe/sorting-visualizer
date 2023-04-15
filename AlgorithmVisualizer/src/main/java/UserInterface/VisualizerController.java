@@ -62,6 +62,7 @@ public class VisualizerController implements Initializable {
     private Rectangle[] boxes;
     private AnimationTimer timer;
     private AbstractAlgorithm algorithm;
+    private AbstractAlgorithmTree algorithmTree;
     private String algorithmName = "Bubble Sort";
     private ArrayList<AlgoState> transitions = null;
     private int currentTransitionIndex = 0;
@@ -183,6 +184,9 @@ public class VisualizerController implements Initializable {
         if(!algorithmName.equals(dropDownVal)) {
             algorithmName = sortDropdown.getValue();
             GenerateArray();
+            if(algorithmName == "Binary Search"){
+                GenerateRandomBinaryTree();
+            }
         }
     }
 
@@ -194,7 +198,12 @@ public class VisualizerController implements Initializable {
         String dropDownVal = searchDropdown.getValue();
         if(!algorithmName.equals(dropDownVal)) {
             algorithmName = searchDropdown.getValue();
-            GenerateArray();
+
+            if(algorithmName == "Binary Search"){
+                GenerateRandomBinaryTree();
+            }
+            else
+                GenerateArray();
         }
     }
 
@@ -261,7 +270,7 @@ public class VisualizerController implements Initializable {
                 algorithm = new HeapSort(boxes, x_gap, box_width);
                 break;
             case "Binary Search":
-                algorithm = new TreeSort(boxes, x_gap, box_width);
+                algorithmTree = new TreeSort(treeNodes, nodeValues, nodeLines);
                 break;
             case "Linear Search":
                 algorithm = new LinearSearch(boxes, x_gap, box_width);
@@ -280,6 +289,31 @@ public class VisualizerController implements Initializable {
             //Loop until we find valid algo state as initial state.
             var variables = transitions.get(0).variables;
 
+            int index = 0;
+            while(variables.size() == 0){
+                index++;
+                variables = transitions.get(index).variables;
+            }
+
+            if(variables.size() > 0) {
+                StringBuilder vars = new StringBuilder("Algo State: ");
+                for (int i = 0; i < variables.size()- 1; i++) {
+                    vars.append(variables.get(i).toString()).append(", ");
+                }
+                vars.append(variables.get(variables.size()-1).toString());
+                algoState.setText(String.valueOf(vars));
+            }
+        }
+        else if(algorithmTree != null){
+            statusText.setText("Selected Algorithm: " + algorithmName);
+            pseudoText.setText(algorithmTree.pseudoCode);
+            bestTime.setText(algorithmTree.bestTime);
+            avgTime.setText(algorithmTree.averageTime);
+            worstTime.setText(algorithmTree.worstTime);
+            spaceComp.setText(algorithmTree.spaceComplexity);
+            this.transitions = algorithmTree.RunAlgorithm();
+            //Loop until we find valid algo state as initial state.
+            var variables = transitions.get(0).variables;
             int index = 0;
             while(variables.size() == 0){
                 index++;
@@ -406,6 +440,7 @@ public class VisualizerController implements Initializable {
     @FXML
     protected void GenerateRandomBinaryTree(){
         GenerateBinaryTree(generateRandomTreeValues());
+        PrepareAlgorithm();
     }
 
     /**

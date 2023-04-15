@@ -1,6 +1,7 @@
 package Algorithms;
 
 import javafx.animation.ParallelTransition;
+import javafx.animation.SequentialTransition;
 import javafx.animation.Transition;
 import javafx.util.Pair;
 
@@ -33,12 +34,33 @@ public class AlgoState {
     }
 
     public AlgoState(Pair<Transition, Transition>... transitions){
-        ParallelTransition forwardTranstionContainer = new ParallelTransition();
-        ParallelTransition reverseTranstionContainer = new ParallelTransition();
+        Transition forwardTranstionContainer = null;
+        Transition reverseTranstionContainer = null;
 
         for (Pair<Transition, Transition> transition: transitions) {
-            forwardTranstionContainer.getChildren().add(transition.getKey());
-            reverseTranstionContainer.getChildren().add(transition.getValue());
+            if(transition.getKey() instanceof ParallelTransition){
+                if(forwardTranstionContainer == null){
+                    forwardTranstionContainer = new ParallelTransition();
+                }
+                ((ParallelTransition) forwardTranstionContainer).getChildren().add(transition.getKey());
+            }else if (transition.getKey() instanceof SequentialTransition){
+                if(forwardTranstionContainer == null){
+                    forwardTranstionContainer = new SequentialTransition();
+                }
+                ((SequentialTransition) forwardTranstionContainer).getChildren().add(transition.getKey());
+            }
+
+            if(transition.getValue() instanceof ParallelTransition){
+                if(reverseTranstionContainer == null){
+                    reverseTranstionContainer = new ParallelTransition();
+                }
+                ((ParallelTransition) reverseTranstionContainer).getChildren().add(transition.getKey());
+            }else if (transition.getValue() instanceof SequentialTransition){
+                if(reverseTranstionContainer == null){
+                    reverseTranstionContainer = new SequentialTransition();
+                }
+                ((SequentialTransition) reverseTranstionContainer).getChildren().add(transition.getKey());
+            }
         }
         forwardTransition = forwardTranstionContainer;
         reverseTransition = reverseTranstionContainer;
@@ -51,12 +73,33 @@ public class AlgoState {
 
 
     public void StoreTransition(Pair<Transition, Transition>... transitions){
-        ParallelTransition forwardTranstionContainer = new ParallelTransition();
-        ParallelTransition reverseTranstionContainer = new ParallelTransition();
+        Transition forwardTranstionContainer = null;
+        Transition reverseTranstionContainer = null;
 
         for (Pair<Transition, Transition> transition: transitions) {
-            forwardTranstionContainer.getChildren().add(transition.getKey());
-            reverseTranstionContainer.getChildren().add(transition.getValue());
+            if(transition.getKey() instanceof ParallelTransition){
+                if(forwardTranstionContainer == null){
+                    forwardTranstionContainer = new ParallelTransition();
+                }
+                ((ParallelTransition) forwardTranstionContainer).getChildren().add(transition.getKey());
+            }else if (transition.getKey() instanceof SequentialTransition){
+                if(forwardTranstionContainer == null){
+                    forwardTranstionContainer = new SequentialTransition();
+                }
+                ((SequentialTransition) forwardTranstionContainer).getChildren().add(transition.getKey());
+            }
+
+            if(transition.getValue() instanceof ParallelTransition){
+                if(reverseTranstionContainer == null){
+                    reverseTranstionContainer = new ParallelTransition();
+                }
+                ((ParallelTransition) reverseTranstionContainer).getChildren().add(transition.getKey());
+            }else if (transition.getValue() instanceof SequentialTransition){
+                if(reverseTranstionContainer == null){
+                    reverseTranstionContainer = new SequentialTransition();
+                }
+                ((SequentialTransition) reverseTranstionContainer).getChildren().add(transition.getKey());
+            }
         }
         forwardTransition = forwardTranstionContainer;
         reverseTransition = reverseTranstionContainer;

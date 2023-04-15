@@ -63,8 +63,8 @@ public abstract class AbstractAlgorithmTree {
      */
     public AbstractAlgorithmTree(Circle[] nodes, int[] values, Line[] connection){
         this.nodes = nodes.clone();
-        this.values = values;
-        this.connection = connection;
+        this.values = values.clone();
+        this.connection = connection.clone();
     }
 
     /**
@@ -73,7 +73,7 @@ public abstract class AbstractAlgorithmTree {
      * @param index2 Index of node2
      * @return
      */
-    final public Pair<Transition, Transition> SwapNodes(int index1, int index2){
+    final public Pair<Transition, Transition> ConnectNodes(int index1, int index2){
 
 
         Circle node1 = nodes[index1];
@@ -139,16 +139,7 @@ public abstract class AbstractAlgorithmTree {
      * @param nodeTwo Index of the node to swap.
      */
     final public ArrayList<AlgoState> FullSwapProcedure(int nodeOne, int nodeTwo){
-        ArrayList<AlgoState> stages = new ArrayList<>();
-
-        stages.add(new AlgoState(PrimaryHighlightNode(nodeOne)));
-        stages.add(new AlgoState(SecondaryHighlightNode(nodeTwo)));
-
-        AlgoState swapState = new AlgoState();
-        swapState.StoreTransition(SwapNodes(nodeOne,nodeTwo), BaseColorNode(nodeOne), BaseColorNode(nodeTwo));
-
-        stages.add(swapState);
-        return stages;
+        return null;
     }
 
     /**
