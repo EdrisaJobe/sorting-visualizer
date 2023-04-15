@@ -3,7 +3,6 @@ package UserInterface;
 import Algorithms.*;
 import javafx.animation.AnimationTimer;
 import javafx.animation.Transition;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Slider;
@@ -15,7 +14,6 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextFlow;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -114,7 +112,7 @@ public class VisualizerController implements Initializable {
     @FXML
     protected void StepForward() {
         System.out.println(BubbleSort.bestTime);
-        System.out.println(BinarySearch.bestTime);
+        System.out.println(TreeSort.bestTime);
 
         // Ignores if a transition is currently running
         if(transitions != null && !lastTransitionsIsRunning() && currentTransitionIndex < transitions.size()){
@@ -263,7 +261,7 @@ public class VisualizerController implements Initializable {
                 algorithm = new HeapSort(boxes, x_gap, box_width);
                 break;
             case "Binary Search":
-                algorithm = new BinarySearch(boxes, x_gap, box_width);
+                algorithm = new TreeSort(boxes, x_gap, box_width);
                 break;
             case "Linear Search":
                 algorithm = new LinearSearch(boxes, x_gap, box_width);

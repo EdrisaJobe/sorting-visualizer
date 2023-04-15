@@ -1,9 +1,7 @@
 package Algorithms;
 
 import javafx.animation.ParallelTransition;
-import javafx.animation.Transition;
 import javafx.scene.shape.Rectangle;
-import javafx.util.Pair;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -11,7 +9,7 @@ import java.util.Random;
 /**
  * BinarySearch algorithm
  */
-public class BinarySearch extends AbstractAlgorithm{
+public class TreeSort extends AbstractAlgorithm{
 
     private Rectangle[] nodes;
 
@@ -19,7 +17,7 @@ public class BinarySearch extends AbstractAlgorithm{
 
     private int x_gap;
     private ArrayList<AlgoState> transitions;
-    private String code =   "    left = lowest\n" +
+    private String code =   "    Create Binary Tree from input\n" +
                             "    right = highest\n" +
                             "    while (left <= right)\n" +
                             "        middle = (left + right) / 2\n" +
@@ -38,7 +36,7 @@ public class BinarySearch extends AbstractAlgorithm{
      *
      * @param nodes Array of boxes
      */
-    public BinarySearch(Rectangle[] nodes, int x_gap, int box_width) {
+    public TreeSort(Rectangle[] nodes, int x_gap, int box_width) {
         super(nodes, x_gap, box_width);
         super.pseudoCode = code;
         bestTime = "Ω(1)";
