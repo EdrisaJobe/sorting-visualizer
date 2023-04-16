@@ -169,6 +169,7 @@ public class VisualizerController implements Initializable {
     protected void ResetAlgorithm()
     {
         algorithm = null;
+        algorithmTree = null;
         currentTransitionIndex = 0;
         this.transitions = null;
     }
@@ -440,6 +441,7 @@ public class VisualizerController implements Initializable {
     @FXML
     protected void GenerateRandomBinaryTree(){
         GenerateBinaryTree(generateRandomTreeValues());
+        ResetAlgorithm();
         PrepareAlgorithm();
     }
 
