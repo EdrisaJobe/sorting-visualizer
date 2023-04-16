@@ -29,6 +29,10 @@ public class VisualizerController implements Initializable {
     @FXML
     private Label statusText;
     @FXML
+    private Label sortedArray;
+    @FXML
+    private Label inputArrayLabel;
+    @FXML
     private Pane visualizerPane;
     @FXML
     private ComboBox<String> sortDropdown;
@@ -58,6 +62,8 @@ public class VisualizerController implements Initializable {
     private Circle[] treeNodes;
     private int[] nodeValues;
     private Line[] nodeLines;
+    private int treeMax=190;
+    private int treeMin = 10;
 
     private Rectangle[] boxes;
     private AnimationTimer timer;
@@ -91,10 +97,10 @@ public class VisualizerController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         sortDropdown.getItems().setAll("Bubble Sort", "Insertion Sort", "Quick Sort",
-                "Selection Sort", "Merge Sort", "Bucket Sort", "Heap Sort");
+                "Selection Sort", "Merge Sort", "Bucket Sort", "Heap Sort","Tree Sort");
         sortDropdown.setValue("Bubble Sort");
 
-        searchDropdown.getItems().setAll("Binary Search", "Linear Search");
+        searchDropdown.getItems().setAll("Linear Search");
         searchDropdown.setValue("Pick Search Algorithm");
 
         speedDropdown.getItems().setAll("1x", "2x", "3x", "5x", "10x");
@@ -151,6 +157,7 @@ public class VisualizerController implements Initializable {
 
     private void UpdateState(){
         var variables = transitions.get(currentTransitionIndex).variables;
+        var arrayStats = transitions.get(currentTransitionIndex).arrayStatus;
 
         if(variables.size() > 0) {
             StringBuilder vars = new StringBuilder("Algo State: ");
@@ -160,6 +167,11 @@ public class VisualizerController implements Initializable {
             vars.append(variables.get(variables.size()-1).toString());
             algoState.setText(String.valueOf(vars));
         }
+
+        //update array status
+        StringBuilder sorted = new StringBuilder("");
+        sorted.append(arrayStats.get(0));
+        sortedArray.setText(String.valueOf(sorted));
     }
 
 
@@ -184,10 +196,12 @@ public class VisualizerController implements Initializable {
         String dropDownVal = sortDropdown.getValue();
         if(!algorithmName.equals(dropDownVal)) {
             algorithmName = sortDropdown.getValue();
-            GenerateArray();
-            if(algorithmName == "Binary Search"){
+
+            if(algorithmName == "Tree Sort"){
                 GenerateRandomBinaryTree();
             }
+            else
+                GenerateArray();
         }
     }
 
@@ -199,8 +213,7 @@ public class VisualizerController implements Initializable {
         String dropDownVal = searchDropdown.getValue();
         if(!algorithmName.equals(dropDownVal)) {
             algorithmName = searchDropdown.getValue();
-
-            if(algorithmName == "Binary Search"){
+            if(algorithmName == "Tree Sort"){
                 GenerateRandomBinaryTree();
             }
             else
@@ -270,7 +283,7 @@ public class VisualizerController implements Initializable {
             case "Heap Sort":
                 algorithm = new HeapSort(boxes, x_gap, box_width);
                 break;
-            case "Binary Search":
+            case "Tree Sort":
                 algorithmTree = new TreeSort(treeNodes, nodeValues, nodeLines);
                 break;
             case "Linear Search":
@@ -294,16 +307,22 @@ public class VisualizerController implements Initializable {
             while(variables.size() == 0){
                 index++;
                 variables = transitions.get(index).variables;
+
             }
 
             if(variables.size() > 0) {
                 StringBuilder vars = new StringBuilder("Algo State: ");
+
                 for (int i = 0; i < variables.size()- 1; i++) {
                     vars.append(variables.get(i).toString()).append(", ");
                 }
                 vars.append(variables.get(variables.size()-1).toString());
                 algoState.setText(String.valueOf(vars));
             }
+
+
+
+
         }
         else if(algorithmTree != null){
             statusText.setText("Selected Algorithm: " + algorithmName);
@@ -315,10 +334,12 @@ public class VisualizerController implements Initializable {
             this.transitions = algorithmTree.RunAlgorithm();
             //Loop until we find valid algo state as initial state.
             var variables = transitions.get(0).variables;
+            var arrayStats = transitions.get(0).arrayStatus;
             int index = 0;
             while(variables.size() == 0){
                 index++;
                 variables = transitions.get(index).variables;
+                arrayStats = transitions.get(index).arrayStatus;
             }
 
             if(variables.size() > 0) {
@@ -329,6 +350,15 @@ public class VisualizerController implements Initializable {
                 vars.append(variables.get(variables.size()-1).toString());
                 algoState.setText(String.valueOf(vars));
             }
+
+            //update array status
+            StringBuilder sorted = new StringBuilder("");
+            sorted.append(arrayStats.get(0));
+            sortedArray.setText(String.valueOf(sorted));
+
+            StringBuilder input = new StringBuilder("");
+            input.append(ConvertArrayToString(nodeValues));
+            inputArrayLabel.setText(String.valueOf(input));
         }
 
     }
@@ -412,10 +442,10 @@ public class VisualizerController implements Initializable {
         ArrayList<Integer> root_vals_list = new ArrayList<Integer>(Arrays.asList(80,100,120));
 
         //possible small values
-        ArrayList<Integer> left_vals_list = new ArrayList<Integer>(Arrays.asList(45,60,50,75,30,10,55,35,70,12));
+        ArrayList<Integer> left_vals_list = new ArrayList<Integer>(Arrays.asList(45,60,50,75,30,treeMin,55,35,70,12));
 
         //possible large values
-        ArrayList<Integer> right_vals_list = new ArrayList<Integer>(Arrays.asList(130,135,140,160,150,175,165,155,180,190));
+        ArrayList<Integer> right_vals_list = new ArrayList<Integer>(Arrays.asList(130,135,140,160,150,175,165,155,180,treeMax));
 
         //shuffle the order of the sizes
         Collections.shuffle(root_vals_list);
@@ -485,8 +515,8 @@ public class VisualizerController implements Initializable {
             double newCirclePosX = rootX;
             double newCirclePosY = rootY;
             int circleVal = nodeValues[i];
-            int max = 190;
-            int min = 10;
+            int max = treeMax;
+            int min = treeMin;
             int height = 0;
 
             Circle parent = treeNodes[0];
@@ -579,6 +609,16 @@ public class VisualizerController implements Initializable {
                     || transitions.get(currentTransitionIndex).reverseTransition.getStatus().toString().equals("RUNNING");
         }
         return false;
+    }
+
+    public String ConvertArrayToString(int[] intArray){
+        StringBuilder arrayString = new StringBuilder("[");
+        for(int i =0 ;i <intArray.length;i++){
+            arrayString.append(String.valueOf(intArray[i]));
+            arrayString.append(", ");
+        }
+        arrayString.append("]");
+        return arrayString.toString();
     }
 
 

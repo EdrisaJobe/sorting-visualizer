@@ -12,6 +12,8 @@ import java.util.ArrayList;
  */
 public class TreeSort extends AbstractAlgorithmTree {
 
+    private int treeMax=190;
+    private int treeMin = 10;
     private Circle[] nodes;
 
     private int[] treeValues;
@@ -52,11 +54,12 @@ public class TreeSort extends AbstractAlgorithmTree {
     public ArrayList<AlgoState> RunAlgorithm() {
         AlgoState stage;
         int[] valueCopy = this.treeValues.clone();
+        int [] sortedArray = new int[treeValues.length];
         ArrayList<Integer>connectedLines = new ArrayList<>();
         ArrayList<Integer>visitedNodes = new ArrayList<>();
         ArrayList<Integer>filledNodes = new ArrayList<>();
-        int min = 10;
-        int max = 190;
+        int min = treeMin;
+        int max = treeMax;
         int j =0;
         while(j<valueCopy.length) {
                 int child = 0;
@@ -69,6 +72,7 @@ public class TreeSort extends AbstractAlgorithmTree {
                             Pair<Transition, Transition> transition = HighlightRing(child);
                             stage = new AlgoState(transition);
                             stage.StoreVariable("j", j);
+                            stage.StoreArrayStatus(sortedArray);
                             if(!visitedNodes.contains(child)) {
                                 transitions.add(stage);
                                 visitedNodes.add(child);
@@ -79,6 +83,7 @@ public class TreeSort extends AbstractAlgorithmTree {
                             Pair<Transition, Transition> transition = ConnectNodes(child);
                             stage = new AlgoState(transition);
                             stage.StoreVariable("i", j);
+                            stage.StoreArrayStatus(sortedArray);
                             if(!connectedLines.contains(child)) {
                                 transitions.add(stage);
                                 connectedLines.add(child);
@@ -87,6 +92,7 @@ public class TreeSort extends AbstractAlgorithmTree {
                             transition = HighlightRing(child);
                             stage = new AlgoState(transition);
                             stage.StoreVariable("k", j);
+                            stage.StoreArrayStatus(sortedArray);
                             if(!visitedNodes.contains(child)) {
                                 transitions.add(stage);
                                 visitedNodes.add(child);
@@ -99,14 +105,16 @@ public class TreeSort extends AbstractAlgorithmTree {
             Pair<Transition, Transition>transition = SecondaryHighlightNode(child);
             stage = new AlgoState(transition);
             stage.StoreVariable("k", j);
+
             if(!filledNodes.contains(child)) {
                 transitions.add(stage);
                 filledNodes.add(child);
+                sortedArray[j] = treeValues[child];
             }
-
+            stage.StoreArrayStatus(sortedArray);
             valueCopy[child]=-1;
             min = max;
-            max = 190;
+            max = treeMax;
             j++;
         }
         return transitions;

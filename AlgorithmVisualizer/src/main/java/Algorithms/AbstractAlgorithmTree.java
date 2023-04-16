@@ -75,7 +75,7 @@ public abstract class AbstractAlgorithmTree {
     final public Pair<Transition, Transition> ConnectNodes(int index1){
 
         Line connect = connection[index1-1];
-        StrokeTransition lineToChild = new StrokeTransition(Duration.millis(3000),connect,BASE_COLOR,SECONDARY_COLOR);
+        StrokeTransition lineToChild = new StrokeTransition(Duration.millis(1000),connect,BASE_COLOR,SECONDARY_COLOR);
 
         ParallelTransition forward = new ParallelTransition(lineToChild);
         ParallelTransition reverse = new ParallelTransition(lineToChild);
@@ -168,7 +168,7 @@ public abstract class AbstractAlgorithmTree {
     public Pair<Transition, Transition> HighlightRing(int index1){
 
         Circle currentNode = nodes[index1];
-        StrokeTransition strokeChange = new StrokeTransition(Duration.millis(3000),currentNode,BASE_COLOR,SECONDARY_COLOR);
+        StrokeTransition strokeChange = new StrokeTransition(Duration.millis(2000),currentNode,BASE_COLOR,SECONDARY_COLOR);
 
         ParallelTransition forward = new ParallelTransition(strokeChange);
         ParallelTransition reverse = new ParallelTransition(strokeChange);

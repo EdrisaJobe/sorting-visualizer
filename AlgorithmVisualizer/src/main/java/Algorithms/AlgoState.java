@@ -20,6 +20,8 @@ public class AlgoState {
     //for example:  (i, 5), (j,8), (k,3)
     public ArrayList<Pair<String, Integer>> variables = new ArrayList<>();
 
+    public ArrayList<String> arrayStatus = new ArrayList<>();
+
     public AlgoState(){
     }
 
@@ -40,31 +42,6 @@ public class AlgoState {
         for (Pair<Transition, Transition> transition: transitions) {
             forwardTranstionContainer.getChildren().add(transition.getKey());
             reverseTranstionContainer.getChildren().add(transition.getValue());
-            /* Attempt to make more generic this results in colors never being changed back to black
-            if(transition.getKey() instanceof ParallelTransition){
-                if(forwardTranstionContainer == null){
-                    forwardTranstionContainer = new ParallelTransition();
-                }
-                ((ParallelTransition) forwardTranstionContainer).getChildren().add(transition.getKey());
-            }else if (transition.getKey() instanceof SequentialTransition){
-                if(forwardTranstionContainer == null){
-                    forwardTranstionContainer = new SequentialTransition();
-                }
-                ((SequentialTransition) forwardTranstionContainer).getChildren().add(transition.getKey());
-            }
-
-            if(transition.getValue() instanceof ParallelTransition){
-                if(reverseTranstionContainer == null){
-                    reverseTranstionContainer = new ParallelTransition();
-                }
-                ((ParallelTransition) reverseTranstionContainer).getChildren().add(transition.getKey());
-            }else if (transition.getValue() instanceof SequentialTransition){
-                if(reverseTranstionContainer == null){
-                    reverseTranstionContainer = new SequentialTransition();
-                }
-                ((SequentialTransition) reverseTranstionContainer).getChildren().add(transition.getKey());
-            }
-            */
         }
         forwardTransition = forwardTranstionContainer;
         reverseTransition = reverseTranstionContainer;
@@ -84,33 +61,23 @@ public class AlgoState {
             forwardTranstionContainer.getChildren().add(transition.getKey());
             reverseTranstionContainer.getChildren().add(transition.getValue());
         }
-            /*
-            if(transition.getKey() instanceof ParallelTransition){
-                if(forwardTranstionContainer == null){
-                    forwardTranstionContainer = new ParallelTransition();
-                }
-                ((ParallelTransition) forwardTranstionContainer).getChildren().add(transition.getKey());
-            }else if (transition.getKey() instanceof SequentialTransition){
-                if(forwardTranstionContainer == null){
-                    forwardTranstionContainer = new SequentialTransition();
-                }
-                ((SequentialTransition) forwardTranstionContainer).getChildren().add(transition.getKey());
-            }
-
-            if(transition.getValue() instanceof ParallelTransition){
-                if(reverseTranstionContainer == null){
-                    reverseTranstionContainer = new ParallelTransition();
-                }
-                ((ParallelTransition) reverseTranstionContainer).getChildren().add(transition.getKey());
-            }else if (transition.getValue() instanceof SequentialTransition){
-                if(reverseTranstionContainer == null){
-                    reverseTranstionContainer = new SequentialTransition();
-                }
-                ((SequentialTransition) reverseTranstionContainer).getChildren().add(transition.getKey());
-            }
-        }
-        */
         forwardTransition = forwardTranstionContainer;
         reverseTransition = reverseTranstionContainer;
+    }
+
+    public String ConvertArrayToString(int[] intArray){
+        StringBuilder arrayString = new StringBuilder("[");
+        for(int i =0 ;i <intArray.length;i++){
+            arrayString.append(String.valueOf(intArray[i]));
+            if(i != intArray.length-1)
+                arrayString.append(", ");
+        }
+        arrayString.append("]");
+        return arrayString.toString();
+    }
+
+    public void StoreArrayStatus(int[]sorted){
+        String sortedArray = ConvertArrayToString(sorted);
+        arrayStatus.add(sortedArray);
     }
 }
