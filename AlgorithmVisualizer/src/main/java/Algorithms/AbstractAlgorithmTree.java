@@ -68,26 +68,17 @@ public abstract class AbstractAlgorithmTree {
     }
 
     /**
-     * Highlights the transition from one node to another
+     * Highlights the transition line from child to parent
      * @param index1 Index of node1
-     * @param index2 Index of node2
      * @return
      */
-    final public Pair<Transition, Transition> ConnectNodes(int index1, int index2){
+    final public Pair<Transition, Transition> ConnectNodes(int index1){
 
+        Line connect = connection[index1-1];
+        StrokeTransition lineToChild = new StrokeTransition(Duration.millis(3000),connect,BASE_COLOR,SECONDARY_COLOR);
 
-        Circle node1 = nodes[index1];
-        Circle node2 = nodes[index2];
-        Line connect = connection[index2-1];
-
-        StrokeTransition parent = new StrokeTransition(Duration.millis(3000),node1,BASE_COLOR,TARGET_COLOR);
-
-        StrokeTransition lineToChild = new StrokeTransition(Duration.millis(3000),connect,BASE_COLOR,TARGET_COLOR);
-
-        StrokeTransition child = new StrokeTransition(Duration.millis(3000),node2,BASE_COLOR,TARGET_COLOR);
-
-        ParallelTransition forward = new ParallelTransition(parent,lineToChild,child);
-        ParallelTransition reverse = new ParallelTransition(child,lineToChild,parent);
+        ParallelTransition forward = new ParallelTransition(lineToChild);
+        ParallelTransition reverse = new ParallelTransition(lineToChild);
 
         Pair<Transition, Transition> anims = new Pair<>(forward, reverse);
 
@@ -160,7 +151,7 @@ public abstract class AbstractAlgorithmTree {
         reverse.setFromValue(color);
         reverse.setToValue(currentColor);
 
-        node.setFill(color);
+        //node.setFill(color);
 
         reverse.setOnFinished(evnt -> {
             node.setFill(currentColor);
@@ -170,5 +161,21 @@ public abstract class AbstractAlgorithmTree {
     }
 
 
+    /**
+     * Utility function returning a transition coloring a node.
+     * @return The transition containing the filling of the node.
+     */
+    public Pair<Transition, Transition> HighlightRing(int index1){
+
+        Circle currentNode = nodes[index1];
+        StrokeTransition strokeChange = new StrokeTransition(Duration.millis(3000),currentNode,BASE_COLOR,SECONDARY_COLOR);
+
+        ParallelTransition forward = new ParallelTransition(strokeChange);
+        ParallelTransition reverse = new ParallelTransition(strokeChange);
+
+        Pair<Transition, Transition> anims = new Pair<>(forward, reverse);
+
+        return new Pair<>(forward, reverse);
+    }
 
 }

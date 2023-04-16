@@ -52,6 +52,9 @@ public class TreeSort extends AbstractAlgorithmTree {
     public ArrayList<AlgoState> RunAlgorithm() {
         AlgoState stage;
         int[] valueCopy = this.treeValues.clone();
+        ArrayList<Integer>connectedLines = new ArrayList<>();
+        ArrayList<Integer>visitedNodes = new ArrayList<>();
+        ArrayList<Integer>filledNodes = new ArrayList<>();
         int min = 10;
         int max = 190;
         int j =0;
@@ -63,17 +66,44 @@ public class TreeSort extends AbstractAlgorithmTree {
                         max = valueCopy[k];
                         if(k == 0) {
                             child = k;
+                            Pair<Transition, Transition> transition = HighlightRing(child);
+                            stage = new AlgoState(transition);
+                            stage.StoreVariable("j", j);
+                            if(!visitedNodes.contains(child)) {
+                                transitions.add(stage);
+                                visitedNodes.add(child);
+                            }
                         }else{
                             parent=child;
                             child = k;
-                            Pair<Transition, Transition> transition = ConnectNodes(parent, child);
+                            Pair<Transition, Transition> transition = ConnectNodes(child);
                             stage = new AlgoState(transition);
                             stage.StoreVariable("i", j);
-                            transitions.add(stage);
+                            if(!connectedLines.contains(child)) {
+                                transitions.add(stage);
+                                connectedLines.add(child);
+                            }
+
+                            transition = HighlightRing(child);
+                            stage = new AlgoState(transition);
+                            stage.StoreVariable("k", j);
+                            if(!visitedNodes.contains(child)) {
+                                transitions.add(stage);
+                                visitedNodes.add(child);
+                            }
                         }
                     }
 
+
                 }
+            Pair<Transition, Transition>transition = SecondaryHighlightNode(child);
+            stage = new AlgoState(transition);
+            stage.StoreVariable("k", j);
+            if(!filledNodes.contains(child)) {
+                transitions.add(stage);
+                filledNodes.add(child);
+            }
+
             valueCopy[child]=-1;
             min = max;
             max = 190;
