@@ -4,7 +4,6 @@ import javafx.animation.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 import javafx.util.Duration;
 import javafx.util.Pair;
@@ -12,13 +11,6 @@ import javafx.util.Pair;
 import java.util.ArrayList;
 
 public abstract class AbstractAlgorithmTree {
-
-    //Gap between blocks.
-    public static int x_gap = 20;
-    public static int box_width = 30;
-
-    //Duration of the transitions.
-    private final static float SWAP_ANIM_DURATION = 0.95f;
 
     private final static float FILL_ANIM_DURATION = 0.95f;
 
@@ -70,7 +62,7 @@ public abstract class AbstractAlgorithmTree {
     /**
      * Highlights the transition line from child to parent
      * @param index1 Index of node1
-     * @return
+     * @return animation of stroke change
      */
     final public Pair<Transition, Transition> ConnectNodes(int index1){
 
@@ -162,7 +154,7 @@ public abstract class AbstractAlgorithmTree {
 
 
     /**
-     * Utility function returning a transition coloring a node.
+     * Utility function returning a transition which changes the stroke of a node
      * @return The transition containing the filling of the node.
      */
     public Pair<Transition, Transition> HighlightRing(int index1){
@@ -172,8 +164,6 @@ public abstract class AbstractAlgorithmTree {
 
         ParallelTransition forward = new ParallelTransition(strokeChange);
         ParallelTransition reverse = new ParallelTransition(strokeChange);
-
-        Pair<Transition, Transition> anims = new Pair<>(forward, reverse);
 
         return new Pair<>(forward, reverse);
     }

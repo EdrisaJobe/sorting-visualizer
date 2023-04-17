@@ -1,7 +1,6 @@
 package Algorithms;
 
 import javafx.animation.ParallelTransition;
-import javafx.animation.SequentialTransition;
 import javafx.animation.Transition;
 import javafx.util.Pair;
 
@@ -65,10 +64,15 @@ public class AlgoState {
         reverseTransition = reverseTranstionContainer;
     }
 
+    /**
+     * converts and array of integers to a string
+     * @param intArray array of integers to be converted to string
+     * @return string form of array (ex. "[*,*,*,...,]")
+     */
     public String ConvertArrayToString(int[] intArray){
         StringBuilder arrayString = new StringBuilder("[");
         for(int i =0 ;i <intArray.length;i++){
-            arrayString.append(String.valueOf(intArray[i]));
+            arrayString.append(intArray[i]);
             if(i != intArray.length-1)
                 arrayString.append(", ");
         }
@@ -76,6 +80,10 @@ public class AlgoState {
         return arrayString.toString();
     }
 
+    /**
+     * adds the passed array into the arrayStatus as a string
+     * @param sorted int array containing the current state of sorted values
+     */
     public void StoreArrayStatus(int[]sorted){
         String sortedArray = ConvertArrayToString(sorted);
         arrayStatus.add(sortedArray);
