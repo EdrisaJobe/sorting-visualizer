@@ -606,31 +606,43 @@ public class VisualizerController implements Initializable {
      */
     @FXML
     protected void DrawBuckets(int numBuckets){
-        visualizerPane.getChildren().clear();
-
-        //set bottom layer of buckets
-        Rectangle base = new Rectangle(visualizerPane.getWidth()-15,5);
-        base.setX(5);
-        base.setY(visualizerPane.getHeight()-10);
-        visualizerPane.getChildren().add(base);
-
-        double bucketIncrement = base.getWidth()/(numBuckets);
-
-        int dividerHeight = 35;
-        int dividerWidth = 5;
-
-        for(int i=0;i<numBuckets+1;i++){
-            Rectangle divider = new Rectangle(dividerWidth,dividerHeight+5);
-            divider.setX(5 + (bucketIncrement*i));
-            divider.setY(base.getY()-dividerHeight);
-            visualizerPane.getChildren().add(divider);
-        }
 
         int val1 = 5;
         int[] test1 = new int[50];
         for (int k=0;k<50;k++){
             test1[k] = val1*k;
         }
+
+        int[] bucketLabels = GetBucketLabels(test1,numBuckets);
+
+        visualizerPane.getChildren().clear();
+
+        int padding = 50;
+        //set bottom layer of buckets
+        Rectangle base = new Rectangle(visualizerPane.getWidth()-padding,5);
+        base.setX(padding/2);
+        base.setY(visualizerPane.getHeight()-10);
+        visualizerPane.getChildren().add(base);
+
+        double bucketIncrement = base.getWidth()/(numBuckets);
+        int dividerHeight = 35;
+        int dividerWidth = 5;
+
+        for(int i=0;i<numBuckets+1;i++){
+            Rectangle divider = new Rectangle(dividerWidth,dividerHeight+5);
+            divider.setX(padding/2 + (bucketIncrement*i));
+            divider.setY(base.getY()-dividerHeight);
+            visualizerPane.getChildren().add(divider);
+            Text bucketLabel = new Text(String.valueOf(bucketLabels[i]));
+            bucketLabel.setStroke(Color.WHITESMOKE);
+            bucketLabel.setLayoutX(divider.getX()-5);
+            bucketLabel.setLayoutY(divider.getY() - 10);
+            visualizerPane.getChildren().add(bucketLabel);
+
+        }
+
+
+        //for testing
         DrawBucketNodes(test1);
     }
 
@@ -671,10 +683,34 @@ public class VisualizerController implements Initializable {
                 r++;
                 pos =0;
             }
-
         }
+    }
 
-
+    /**
+     * this function returns all the integer values that represent the bucket ranges
+     * @param input
+     * @param numBuckets
+     * @return
+     */
+    @FXML
+    protected int[] GetBucketLabels(int[] input,int numBuckets){
+        int[] bucketLabels = new int[numBuckets+1];
+        int min=0;
+        int max=0;
+        for(int i =0;i<input.length;i++){
+            if (input[i] > max)
+                max=input[i];
+            if (input[i] < min)
+                min=input[i];
+        }
+        int diff = max-min;
+        int bucketSize = diff/numBuckets;
+        bucketLabels[0]=min-1;
+        for (int i=1;i<numBuckets;i++){
+            bucketLabels[i] =min + bucketSize*i;
+        }
+        bucketLabels[numBuckets]=max+1;
+        return bucketLabels;
     }
     @FXML
     protected void StopTimer() {
