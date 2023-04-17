@@ -608,8 +608,8 @@ public class VisualizerController implements Initializable {
     protected void DrawBuckets(int numBuckets){
 
         int val1 = 5;
-        int[] test1 = new int[50];
-        for (int k=0;k<50;k++){
+        int[] test1 = new int[15];
+        for (int k=0;k<15;k++){
             test1[k] = val1*k;
         }
 
@@ -638,12 +638,10 @@ public class VisualizerController implements Initializable {
             bucketLabel.setLayoutX(divider.getX()-5);
             bucketLabel.setLayoutY(divider.getY() - 10);
             visualizerPane.getChildren().add(bucketLabel);
-
         }
-
-
         //for testing
         DrawBucketNodes(test1);
+        BucketSort(test1,numBuckets);
     }
 
     @FXML
@@ -711,6 +709,29 @@ public class VisualizerController implements Initializable {
         }
         bucketLabels[numBuckets]=max+1;
         return bucketLabels;
+    }
+
+    protected int[][] BucketSort(int[] input,int numBuckets){
+        int[][] bucketSort = new int[numBuckets][];
+
+        for(int j=0;j<numBuckets;j++){
+            bucketSort[j] = new int[0];
+        }
+
+
+        int[] bucketLabels = GetBucketLabels(input,numBuckets);
+        for(int i=0;i<input.length;i++){
+            for(int k=0;k<bucketLabels.length;k++){
+                if(input[i]<bucketLabels[k]){
+                    int[] newArray = new int[bucketSort[k-1].length+1];
+                    newArray[newArray.length-1]=input[i];
+                    System.arraycopy(bucketSort[k-1],0,newArray,0,bucketSort[k-1].length);
+                    bucketSort[k-1]=newArray;
+                    break;
+                }
+            }
+        }
+        return bucketSort;
     }
     @FXML
     protected void StopTimer() {
