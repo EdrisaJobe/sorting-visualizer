@@ -291,6 +291,7 @@ public class VisualizerController implements Initializable {
                 btnGenTree.setDisable(true);
                 break;
             case "Bucket Sort":
+                DrawBuckets(5);
                 algorithm = new BucketSort(boxes, x_gap, box_width);
                 btnGenArray.setDisable(false);
                 btnGenTree.setDisable(true);
@@ -597,6 +598,33 @@ public class VisualizerController implements Initializable {
             visualizerPane.getChildren().add(lineSet[i-1]);
         }
 
+    }
+
+    /**
+     * Draw buckets for bucket sorting 
+     * @param numBuckets the number of buckets to draw
+     */
+    @FXML
+    protected void DrawBuckets(int numBuckets){
+        visualizerPane.getChildren().clear();
+
+        //set bottom layer of buckets
+        Rectangle base = new Rectangle(visualizerPane.getWidth()-15,5);
+        base.setX(5);
+        base.setY(visualizerPane.getHeight()-10);
+        visualizerPane.getChildren().add(base);
+
+        double bucketIncrement = base.getWidth()/(numBuckets);
+
+        int dividerHeight = 35;
+        int dividerWidth = 5;
+
+        for(int i=0;i<numBuckets+1;i++){
+            Rectangle divider = new Rectangle(dividerWidth,dividerHeight+5);
+            divider.setX(5 + (bucketIncrement*i));
+            divider.setY(base.getY()-dividerHeight);
+            visualizerPane.getChildren().add(divider);
+        }
     }
 
 

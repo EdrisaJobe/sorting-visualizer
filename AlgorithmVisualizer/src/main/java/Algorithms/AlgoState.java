@@ -70,13 +70,13 @@ public class AlgoState {
      * @return string form of array (ex. "[*,*,*,...,]")
      */
     public String ConvertArrayToString(int[] intArray){
-        StringBuilder arrayString = new StringBuilder("[");
+        StringBuilder arrayString = new StringBuilder("");
         for(int i =0 ;i <intArray.length;i++){
             arrayString.append(intArray[i]);
             if(i != intArray.length-1)
                 arrayString.append(", ");
         }
-        arrayString.append("]");
+        arrayString.append("");
         return arrayString.toString();
     }
 
