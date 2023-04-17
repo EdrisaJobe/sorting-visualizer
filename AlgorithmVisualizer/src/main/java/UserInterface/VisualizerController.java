@@ -5,6 +5,7 @@ import javafx.animation.AnimationTimer;
 import javafx.animation.Transition;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -54,6 +55,10 @@ public class VisualizerController implements Initializable {
     private Label worstTime;
     @FXML
     private Label spaceComp;
+    @FXML
+    private Button btnGenArray;
+    @FXML
+    private Button btnGenTree;
 
 
     private int treeSize = 9;
@@ -262,30 +267,48 @@ public class VisualizerController implements Initializable {
         {
             case "Bubble Sort":
                 algorithm = new BubbleSort(boxes, x_gap, box_width);
+                btnGenArray.setDisable(false);
+                btnGenTree.setDisable(true);
                 break;
             case "Insertion Sort":
                 algorithm = new InsertionSort(boxes, x_gap, box_width);
+                btnGenArray.setDisable(false);
+                btnGenTree.setDisable(true);
                 break;
             case "Quick Sort":
                 algorithm = new QuickSort(boxes, x_gap, box_width);
+                btnGenArray.setDisable(false);
+                btnGenTree.setDisable(true);
                 break;
             case "Selection Sort":
                 algorithm = new SelectionSort(boxes, x_gap, box_width);
+                btnGenArray.setDisable(false);
+                btnGenTree.setDisable(true);
                 break;
             case "Merge Sort":
                 algorithm = new MergeSort(boxes, x_gap, box_width);
+                btnGenArray.setDisable(false);
+                btnGenTree.setDisable(true);
                 break;
             case "Bucket Sort":
                 algorithm = new BucketSort(boxes, x_gap, box_width);
+                btnGenArray.setDisable(false);
+                btnGenTree.setDisable(true);
                 break;
             case "Heap Sort":
                 algorithm = new HeapSort(boxes, x_gap, box_width);
+                btnGenArray.setDisable(false);
+                btnGenTree.setDisable(true);
                 break;
             case "Tree Sort":
                 algorithmTree = new TreeSort(treeNodes, treeNodeValues, treeNodeLines);
+                btnGenArray.setDisable(true);
+                btnGenTree.setDisable(false);
                 break;
             case "Linear Search":
                 algorithm = new LinearSearch(boxes, x_gap, box_width);
+                btnGenArray.setDisable(false);
+                btnGenTree.setDisable(true);
                 break;
         }
 
