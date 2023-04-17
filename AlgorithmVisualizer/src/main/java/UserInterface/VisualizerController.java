@@ -173,7 +173,7 @@ public class VisualizerController implements Initializable {
 
         //update array status
         StringBuilder sorted = new StringBuilder("");
-        sorted.append(arrayStats.get(0));
+        sorted.append(arrayStats);
         sortedArray.setText(String.valueOf(sorted));
     }
 
@@ -374,7 +374,7 @@ public class VisualizerController implements Initializable {
 
             //update array status
             StringBuilder sorted = new StringBuilder("");
-            sorted.append(arrayStats.get(0));
+            sorted.append(arrayStats);
             sortedArray.setText(String.valueOf(sorted));
 
             StringBuilder input = new StringBuilder("");
