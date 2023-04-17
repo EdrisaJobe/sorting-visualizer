@@ -57,7 +57,7 @@
           </Menu>
         </menus>
       </MenuBar>
-      <StackPane fx:id="tutorialPane" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <StackPane fx:id="tutorialPane" prefHeight="150.0" prefWidth="200.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Pane opacity="0.47" style="-fx-background-color: #313933;" />
             <Pane prefHeight="800.0" prefWidth="1180.0">

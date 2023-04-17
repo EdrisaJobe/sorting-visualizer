@@ -19,6 +19,8 @@ public class AlgoState {
     //for example:  (i, 5), (j,8), (k,3)
     public ArrayList<Pair<String, Integer>> variables = new ArrayList<>();
 
+    public ArrayList<String> arrayStatus = new ArrayList<>();
+
     public AlgoState(){
     }
 
@@ -60,5 +62,30 @@ public class AlgoState {
         }
         forwardTransition = forwardTranstionContainer;
         reverseTransition = reverseTranstionContainer;
+    }
+
+    /**
+     * converts and array of integers to a string
+     * @param intArray array of integers to be converted to string
+     * @return string form of array (ex. "[*,*,*,...,]")
+     */
+    public String ConvertArrayToString(int[] intArray){
+        StringBuilder arrayString = new StringBuilder("[");
+        for(int i =0 ;i <intArray.length;i++){
+            arrayString.append(intArray[i]);
+            if(i != intArray.length-1)
+                arrayString.append(", ");
+        }
+        arrayString.append("]");
+        return arrayString.toString();
+    }
+
+    /**
+     * adds the passed array into the arrayStatus as a string
+     * @param sorted int array containing the current state of sorted values
+     */
+    public void StoreArrayStatus(int[]sorted){
+        String sortedArray = ConvertArrayToString(sorted);
+        arrayStatus.add(sortedArray);
     }
 }

@@ -160,9 +160,9 @@
                                 </HBox>
                            </children>
                         </VBox>
-                        <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #1D1D1D;">
+                        <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="682.0" prefWidth="297.0" style="-fx-background-color: #1D1D1D;">
                      <children>
-            <VBox alignment="TOP_CENTER" minWidth="270.0" prefHeight="268.0" prefWidth="271.0" VBox.vgrow="SOMETIMES">
+            <VBox alignment="TOP_CENTER" minWidth="270.0" prefHeight="380.0" prefWidth="319.0" VBox.vgrow="SOMETIMES">
                <children>
                               <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="300.0" styleClass="side_label" text="Pseudo Code" textAlignment="CENTER" textFill="WHITE">
                                  <padding>
@@ -180,6 +180,26 @@
                         <Insets />
                      </VBox.margin>
                   </Text>
+                  <Label fx:id="inputArray" prefHeight="35.0" prefWidth="270.0" styleClass="side_label" text="Input Array:" textFill="WHITE" wrapText="true">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="inputArrayLabel" layoutX="10.0" layoutY="110.0" prefHeight="35.0" prefWidth="270.0" styleClass="side_label" textFill="WHITE" wrapText="true">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="sortedArrayLabel" layoutX="114.0" layoutY="130.0" prefHeight="40.0" prefWidth="270.0" styleClass="side_label" text="Sorted Array:" textFill="WHITE" wrapText="true">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="sortedArray" layoutX="10.0" layoutY="180.0" prefHeight="40.0" prefWidth="270.0" styleClass="side_label" textFill="WHITE" wrapText="true">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
                </children>
             </VBox>
             <VBox alignment="TOP_CENTER" prefHeight="302.0" prefWidth="255.0">
