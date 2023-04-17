@@ -437,7 +437,7 @@ public class VisualizerController implements Initializable {
         }
         float adj = 0;
         if(x_gap != 0);
-            adj = x_gap/2.0F;
+        adj = x_gap/2.0F;
         for (int i = 0; i < poss_values.length; i++) {
             double height = vals_list.get(i);
             boxes[i] = new Rectangle(box_width, height);
@@ -625,9 +625,57 @@ public class VisualizerController implements Initializable {
             divider.setY(base.getY()-dividerHeight);
             visualizerPane.getChildren().add(divider);
         }
+
+        int val1 = 5;
+        int[] test1 = new int[50];
+        for (int k=0;k<50;k++){
+            test1[k] = val1*k;
+        }
+        DrawBucketNodes(test1);
     }
 
+    @FXML
+    protected void DrawBucketNodes(int[] input){
 
+        //cirlces for nodes
+        treeNodes = new Circle[input.length];
+
+        Text[] treeText = new Text[input.length];
+        //place the root node
+        double rootX = 50;
+        double rootY = 50;
+        //set radius and x/y offset
+        double radius = 20;
+        double xOffset = 45;
+        double yOffset = 45;
+
+        //calculate max number of nodes per row
+        int maxNPR = (int) ((visualizerPane.getWidth()-rootX)/(xOffset));
+
+        int r =0;
+        int pos=0;
+        for(int i=0;i<input.length;i++) {
+            Circle newCircle = new Circle(rootX+(pos*xOffset), rootY+(r*yOffset), radius);
+            treeNodes[i] = newCircle;
+            newCircle.setStrokeWidth(4);
+            int rootValue = input[i];
+            Text rootText = new Text(String.valueOf(rootValue));
+            rootText.setStroke(Color.WHITESMOKE);
+            rootText.setLayoutX(newCircle.getCenterX() - 5);
+            rootText.setLayoutY(newCircle.getCenterY() + 5);
+            treeText[i] = rootText;
+            visualizerPane.getChildren().add(newCircle);
+            visualizerPane.getChildren().add(rootText);
+            pos++;
+            if(i+1>=maxNPR*(r+1)){
+                r++;
+                pos =0;
+            }
+
+        }
+
+
+    }
     @FXML
     protected void StopTimer() {
             timer.stop();
