@@ -122,6 +122,27 @@
     -fx-cursor: hand;
 }
 
+#input-label{
+    -fx-background-color: #1D1D1D;
+    -fx-background-radius: 4 0 0 4;
+    -fx-text-fill: #86FF84;
+    -fx-font-size: 14px;
+    -fx-font-family: "Roboto", sans-serif;
+    -fx-padding: 3 7;
+}
+
+#array-input{
+    -fx-background-color: white;
+    -fx-border-color: #1D1D1D;
+    -fx-border-width: 4px;
+    /*-fx-border-radius: 0 4 4 0;*/
+    -fx-text-fill: black;
+    -fx-prompt-text-fill: #777777;
+    -fx-font-family: "Roboto", sans-serif;
+}
+
+
+
 #visui_container{
     -fx-background-color: #1D1D1D;
     -fx-background-radius: 15;

@@ -452,6 +452,7 @@ public class VisualizerController implements Initializable {
         PrepareAlgorithm();
     }
 
+
     /**
      * Generates a random array
      * size is set by global treeSize
