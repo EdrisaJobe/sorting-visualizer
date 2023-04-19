@@ -126,8 +126,8 @@
                   </Button>
                   <HBox alignment="CENTER" prefHeight="43.0" prefWidth="341.0">
                      <children>
-                        <Label id="input-label" prefHeight="32.0" prefWidth="150.0" text="Array Input (optional)" />
-                        <TextField id="array-input" prefHeight="32.0" prefWidth="191.0" promptText="1,2,3,4,5,6 (comma seperated)" styleClass="vis-label">
+                        <Label id="input-label" fx:id="arrayInputLabel" prefHeight="32.0" prefWidth="150.0" text="Array Input (optional)" />
+                        <TextField id="array-input" fx:id="arrayInput" prefHeight="32.0" prefWidth="191.0" promptText="1,2,3,4,5,6 (comma seperated)" styleClass="vis-label">
                            <font>
                               <Font size="11.0" />
                            </font>
