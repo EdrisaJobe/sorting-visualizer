@@ -5,10 +5,7 @@ import javafx.animation.AnimationTimer;
 import javafx.animation.Transition;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Slider;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -59,6 +56,10 @@ public class VisualizerController implements Initializable {
     private Button btnGenArray;
     @FXML
     private Button btnGenTree;
+    @FXML
+    private TextField arrayInput;
+    @FXML
+    private Label arrayInputLabel;
 
 
     private int treeSize = 9;
@@ -76,6 +77,7 @@ public class VisualizerController implements Initializable {
     private ArrayList<AlgoState> transitions = null;
     private int currentTransitionIndex = 0;
     private float speed = 1;
+    private boolean isSearchMode = false;
 
     //Gap between blocks.
     private int x_gap;
@@ -196,6 +198,9 @@ public class VisualizerController implements Initializable {
      */
     @FXML
     public void SortDropdownHandler(){
+        isSearchMode = false;
+        arrayInput.setDisable(false);
+        arrayInputLabel.setOpacity(1);
         String dropDownVal = sortDropdown.getValue();
         if(!algorithmName.equals(dropDownVal)) {
             algorithmName = sortDropdown.getValue();
@@ -213,14 +218,13 @@ public class VisualizerController implements Initializable {
      */
     @FXML
     public void SearchDropdownHandler(){
+        isSearchMode = true;
+        arrayInput.setDisable(true);
+        arrayInputLabel.setOpacity(0.5);
         String dropDownVal = searchDropdown.getValue();
         if(!algorithmName.equals(dropDownVal)) {
             algorithmName = searchDropdown.getValue();
-            if(algorithmName.equals("Tree Sort")){
-                GenerateRandomBinaryTree();
-            }
-            else
-                GenerateArray();
+            GenerateArray();
         }
     }
 
@@ -322,8 +326,9 @@ public class VisualizerController implements Initializable {
             spaceComp.setText(algorithm.spaceComplexity);
             this.transitions = algorithm.RunAlgorithm();
 
-            //Loop until we find valid algo state as initial state.
-            var variables = transitions.get(0).variables;
+            if(transitions.size() > 0) {
+                //Loop until we find valid algo state as initial state.
+                var variables = transitions.get(0).variables;
 
             int index = 0;
             while(variables.size() == 0){
@@ -340,6 +345,7 @@ public class VisualizerController implements Initializable {
                 }
                 vars.append(variables.get(variables.size()-1).toString());
                 algoState.setText(String.valueOf(vars));
+            }
             }
 
 
@@ -404,26 +410,38 @@ public class VisualizerController implements Initializable {
     @FXML
     protected void GenerateArray() {
 
+        ResetAlgorithm();
+        StopTimer();
+        boolean shouldRandomize = !algorithmName.equals("Binary Search");
+        int[] poss_values = null;
+        int size = numOfBoxes;
+
+        if(!arrayInput.getText().equals("") && !isSearchMode){
+            System.out.println("NOT EMPTY");
+            shouldRandomize = false;
+            poss_values = convertToIntArray(arrayInput.getText());
+            size = poss_values.length;
+        }
+
         double b = visualizerPane.getWidth() - HORIZONTAL_BUFFER;
-        this.box_width = (int)(b/ numOfBoxes * BOX_WIDTH_RATIO);
-        this.x_gap = (int)b / numOfBoxes - box_width;
+        this.box_width = (int)(b/ size * BOX_WIDTH_RATIO);
+        this.x_gap = (int)b / size - box_width;
 
         if(box_width == 0)
             this.box_width = 1;
-        boolean random = !algorithmName.equals("Binary Search");
-
-        ResetAlgorithm();
-        StopTimer();
 
         int paneHeight = (int)(visualizerPane.getHeight() * PANE_HEIGHT_RATIO);
         int minHeight = (int)(visualizerPane.getHeight() * MIN_BAR_HEIGHT);
-        boxes = new Rectangle[numOfBoxes];
+        boxes = new Rectangle[size];
 
         //possible height values
-        int[] poss_values = new int[numOfBoxes];
-        int increment = (paneHeight-minHeight) / numOfBoxes;
-        for(int i = 0; i < numOfBoxes; i++){
-            poss_values[i] = minHeight + increment * i;
+
+        if(poss_values == null){
+            poss_values = new int[size];
+            int increment = (paneHeight - minHeight) / size;
+            for (int i = 0; i < size; i++) {
+                poss_values[i] = minHeight + increment * i;
+            }
         }
 
         //put into array list
@@ -431,10 +449,11 @@ public class VisualizerController implements Initializable {
         for(int k = 0; k < poss_values.length;k++){
             vals_list.add(poss_values[k]);
         }
-        if(random) {
+        if(shouldRandomize) {
             //shuffle the order of the sizes
             Collections.shuffle(vals_list);
         }
+
         float adj = 0;
         if(x_gap != 0);
             adj = x_gap/2.0F;
@@ -452,6 +471,39 @@ public class VisualizerController implements Initializable {
 
         PrepareAlgorithm();
     }
+
+    /**
+     * Converts comma delimited string into int array
+     * @param input
+     * @return
+     */
+    public static int[] convertToIntArray(String input) {
+        String[] stringArray = input.split(","); // Split input string by comma
+        int[] intArray = new int[stringArray.length];
+        int min = Integer.MAX_VALUE;
+        int max = Integer.MIN_VALUE;
+
+        // Parse each string element to int and find min/max values
+        for (int i = 0; i < stringArray.length; i++) {
+            intArray[i] = Integer.parseInt(stringArray[i]);
+            if (intArray[i] < min) {
+                min = intArray[i];
+            }
+            if (intArray[i] > max) {
+                max = intArray[i];
+            }
+        }
+
+        // Normalize each value to be between 0 and 100
+        int range = max - min;
+        for (int i = 0; i < intArray.length; i++) {
+            intArray[i] = (int) (((double) (intArray[i] - min) / (double) range) * 250) + 50;
+        }
+
+
+        return intArray;
+    }
+
 
     /**
      * Generates a random array
