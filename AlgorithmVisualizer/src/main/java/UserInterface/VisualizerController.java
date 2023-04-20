@@ -219,13 +219,13 @@ public class VisualizerController implements Initializable {
     @FXML
     public void SearchDropdownHandler(){
         isSearchMode = true;
-        arrayInput.setDisable(true);
-        arrayInputLabel.setOpacity(0.5);
         String dropDownVal = searchDropdown.getValue();
         if(!algorithmName.equals(dropDownVal)) {
             algorithmName = searchDropdown.getValue();
             GenerateArray();
         }
+        arrayInput.setDisable(true);
+        arrayInputLabel.setOpacity(0.5);
     }
 
     /**
@@ -266,7 +266,7 @@ public class VisualizerController implements Initializable {
      */
     @FXML
     protected void PrepareAlgorithm(){
-
+        boolean isCustomVis = false;
         switch(algorithmName)
         {
             case "Bubble Sort":
@@ -308,6 +308,7 @@ public class VisualizerController implements Initializable {
                 algorithmTree = new TreeSort(treeNodes, treeNodeValues, treeNodeLines);
                 btnGenArray.setDisable(true);
                 btnGenTree.setDisable(false);
+                isCustomVis = true;
                 break;
             case "Linear Search":
                 algorithm = new LinearSearch(boxes, x_gap, box_width);
@@ -315,7 +316,14 @@ public class VisualizerController implements Initializable {
                 btnGenTree.setDisable(true);
                 break;
         }
-
+        if(isCustomVis){
+            arrayInput.setDisable(true);
+            arrayInputLabel.setOpacity(0.5);
+        }
+        else{
+            arrayInput.setDisable(false);
+            arrayInputLabel.setOpacity(1);
+        }
         if(algorithm != null){
             statusText.setText("Selected Algorithm: " + algorithmName);
             pseudoText.setText(algorithm.pseudoCode);
