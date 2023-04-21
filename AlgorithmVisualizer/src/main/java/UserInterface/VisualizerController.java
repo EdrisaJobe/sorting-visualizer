@@ -2,12 +2,10 @@ package UserInterface;
 
 import Algorithms.*;
 import javafx.animation.AnimationTimer;
-import javafx.animation.PathTransition;
 import javafx.animation.Transition;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.VPos;
-import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -17,7 +15,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextBoundsType;
-import javafx.util.Duration;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -291,10 +288,10 @@ public class VisualizerController implements Initializable {
                 btnGenTree.setDisable(true);
                 break;
             case "Bucket Sort":
-                int val1 = 5;
-                int[] test1 = new int[]{10,5,16,15,18,2,20,28,35,30};
-                SetUpBucketSort(test1, 5);
-                bucketAlgorithm = new BucketSort(bucketNodes, circleNodeValues, 5, visualizerPane.getWidth(), visualizerPane.getHeight());
+                int[] test1 = GenerateRandomTreeValues();
+                //will update once merged with main
+                SetUpBucketSort(test1, 3);
+                bucketAlgorithm = new BucketSort(bucketNodes, circleNodeValues, 3, visualizerPane.getWidth(), visualizerPane.getHeight());
                 btnGenArray.setDisable(false);
                 btnGenTree.setDisable(true);
                 break;
@@ -496,7 +493,7 @@ public class VisualizerController implements Initializable {
      * @return int array of random values generated from pool
      */
     @FXML
-    protected int[] generateRandomTreeValues() {
+    protected int[] GenerateRandomTreeValues() {
 
         int[] newValues = new int[treeSize];
 
@@ -533,7 +530,7 @@ public class VisualizerController implements Initializable {
      */
     @FXML
     protected void GenerateRandomBinaryTree() {
-        GenerateBinaryTree(generateRandomTreeValues());
+        GenerateBinaryTree(GenerateRandomTreeValues());
         ResetAlgorithm();
         PrepareAlgorithm();
     }
@@ -643,23 +640,24 @@ public class VisualizerController implements Initializable {
      */
     @FXML
     protected void DrawBuckets(int[] inputArray, int numBuckets) {
-
-
+        //update node values
         circleNodeValues = inputArray;
+        //get bucket labels(for drawing labels and sorting values)
         int[] bucketLabels = GetBucketLabels(inputArray, numBuckets);
+        //clear pane
         visualizerPane.getChildren().clear();
 
+        //padding for buckets
         int padding = 50;
         //set bottom layer of buckets
         Rectangle base = new Rectangle(visualizerPane.getWidth() - padding, 5);
         base.setX(padding / 2);
         base.setY(visualizerPane.getHeight() - 10);
         visualizerPane.getChildren().add(base);
-
+        //draw dividers to break up base
         double bucketIncrement = base.getWidth() / (numBuckets);
         int dividerHeight = 35;
         int dividerWidth = 5;
-
         for (int i = 0; i < numBuckets + 1; i++) {
             Rectangle divider = new Rectangle(dividerWidth, dividerHeight + 5);
             divider.setX(padding / 2 + (bucketIncrement * i));
@@ -680,17 +678,16 @@ public class VisualizerController implements Initializable {
         bucketNodes = new StackPane[input.length];
         Text[] treeText = new Text[input.length];
 
-
         //place the root node
-        double rootX = 50;
-        double rootY = 50;
+        double firstX = 50;
+        double firstY = 50;
         //set radius and x/y offset
         double radius = 20;
-        double xOffset = 45;
-        double yOffset = 45;
+        double xOffset = (radius*2)+5;
+        double yOffset = xOffset;
 
         //calculate max number of nodes per row
-        int maxNPR = (int) ((visualizerPane.getWidth() - rootX) / (xOffset));
+        int maxNPR = (int) ((visualizerPane.getWidth() - firstX) / (xOffset));
 
         int r = 0;
         int pos = 0;
@@ -699,6 +696,7 @@ public class VisualizerController implements Initializable {
         for (int i = 0; i < input.length; i++) {
             //create circle
             Circle newCircle = new Circle(radius);
+            //label circle for later reference
             newCircle.setId("myCircle");
             //create text
             Text newText = new Text(String.valueOf(input[i]));
@@ -719,12 +717,11 @@ public class VisualizerController implements Initializable {
             });
 
             // palce the stackPane
-            stackPane.setTranslateX(rootX + (pos * xOffset));
-            stackPane.setTranslateY(rootY + (r * yOffset));
-
-
-
+            stackPane.setTranslateX(firstX + (pos * xOffset));
+            stackPane.setTranslateY(firstY + (r * yOffset));
+            //store stackPane
             bucketNodes[i] = stackPane;
+            //draw stackpane
             visualizerPane.getChildren().add(stackPane);
             nodeLabels[i] = newText;
             pos++;
@@ -733,53 +730,6 @@ public class VisualizerController implements Initializable {
                 pos = 0;
             }
         }
-        /*
-
-        Text testText = new Text("Test1");
-        testText.setStroke(Color.WHITESMOKE);
-        Circle testCircle = new Circle(20);
-        testCircle.setId("myCircle");
-
-        StackPane stackPane = new StackPane();
-
-        // Set the text as the child of the circle
-        stackPane.getChildren().addAll(testCircle, testText);
-
-        // Center the text inside the circle
-        testText.setBoundsType(TextBoundsType.VISUAL);
-        testText.setTextOrigin(VPos.CENTER);
-        testText.layoutBoundsProperty().addListener((observable, oldValue, newValue) -> {
-            testText.setTranslateX(testCircle.getCenterX() - testText.getBoundsInLocal().getWidth() / 2);
-            testText.setTranslateY(testCircle.getCenterY() - testText.getBoundsInLocal().getHeight() / 2);
-        });
-
-        // Move the stackPane
-        stackPane.setTranslateX(100);
-        stackPane.setTranslateY(100);
-
-        visualizerPane.getChildren().add(stackPane);
-
-        //animation test
-        double startX = stackPane.getTranslateX();
-        double startY = stackPane.getTranslateY();
-
-        double endXNode = 200;
-        double endYNode = 200;
-
-
-        Path path_forward = new Path();
-        path_forward.getElements().add(new MoveTo(startX, startY));
-        path_forward.getElements().add(new LineTo(endXNode, endYNode));
-
-        PathTransition node_path_forward = new PathTransition();
-        node_path_forward.setDuration(Duration.seconds(0.95));
-        node_path_forward.setPath(path_forward);
-        node_path_forward.setNode(stackPane);
-
-        node_path_forward.play();
-        */
-
-
     }
 
     /**
@@ -791,7 +741,10 @@ public class VisualizerController implements Initializable {
      */
     @FXML
     protected int[] GetBucketLabels(int[] input, int numBuckets) {
+        //you need one more label than you have buckets
+        //create empty array
         int[] bucketLabels = new int[numBuckets + 1];
+        //get min and max from array
         int min = 0;
         int max = 0;
         for (int i = 0; i < input.length; i++) {
@@ -800,8 +753,11 @@ public class VisualizerController implements Initializable {
             if (input[i] < min)
                 min = input[i];
         }
+        //calculate range of values
         int diff = max - min;
+        //divide range by number of buckets
         int bucketSize = diff / numBuckets;
+        //set labels
         bucketLabels[0] = min - 1;
         for (int i = 1; i < numBuckets; i++) {
             bucketLabels[i] = min + bucketSize * i;
@@ -810,11 +766,14 @@ public class VisualizerController implements Initializable {
         return bucketLabels;
     }
 
+    /**
+     *
+     * @param inputArray array to be sorted
+     * @param numBuckets number of buckets
+     */
     protected void SetUpBucketSort(int[] inputArray, int numBuckets) {
         DrawBuckets(inputArray, numBuckets);
         DrawBucketNodes(inputArray);
-
-
     }
 
     @FXML

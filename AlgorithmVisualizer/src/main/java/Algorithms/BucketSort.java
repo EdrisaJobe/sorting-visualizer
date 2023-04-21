@@ -23,8 +23,8 @@ public class BucketSort {
     private double vizzWidth;
     //circles which are nodes
     private double vizzHeight;
+    //stackpane which holds both the nodes and the text
     private StackPane[] nodes;
-    //labes used on nodes
     //actual int values of nodes
     private int[] nodeValues;
     //bounds for each container
@@ -37,7 +37,7 @@ public class BucketSort {
     //This allows us to go backwards and forwards.
     public ArrayList<AlgoState> transitions = new ArrayList<>();
     //Duration of the transitions.
-    private final static float SWAP_ANIM_DURATION = 0.95f;
+    private final static float ANIM_DURATION = 0.95f;
 
     public static String bestTime = "";
     public static String averageTime = "";
@@ -52,8 +52,10 @@ public class BucketSort {
     private final Color TARGET_COLOR = Color.web("#96f6ff");
 
     private int x_gap = 45;
+    private int bucketPadding =50;
 
     private int y_gap = 45;
+
     public String pseudoCode = " create B empty buckets\n" +
             " for each element\n" +
             "     map element into a bucket\n" +
@@ -136,21 +138,28 @@ public class BucketSort {
      */
     public ArrayList<AlgoState> RunAlgorithm() {
         AlgoState stage;
+        //get number of buckets
         int numBuckets = this.bucketLabels.length - 1;
+        //reset bucket Containers
         this.bucketContainers = new int[numBuckets][];
-
+        //initialize each bucket
         for (int j = 0; j < numBuckets; j++) {
             bucketContainers[j] = new int[0];
         }
 
-        for (int i = 0; i < nodeValues.length; i++) {
+        for (int i = 0; i < nodeValues.length; i++) {//for each value sort to appropriate bucket
             for (int k = 0; k < bucketLabels.length; k++) {
-                if (nodeValues[i] < bucketLabels[k]) {
+                if (nodeValues[i] < bucketLabels[k]) {//check each label to see if it belongs to this bucket or not
+                    //get index of insertion into bucket
                     int newIndex = SortBucket(bucketContainers[k - 1], nodeValues[i]);
-                    Pair<Transition, Transition> transition = MakeRoom(newIndex, k - 1);
-                    stage = new AlgoState(transition);
-                    stage.StoreVariable("i", k);
-                    transitions.add(stage);
+                    //if the value is not the last position move the nodes up to make room
+                    if (newIndex != bucketContainers[k-1].length) {
+                        Pair<Transition, Transition> transition = MakeRoom(newIndex, k - 1);
+                        stage = new AlgoState(transition);
+                        stage.StoreVariable("i", k);
+                        transitions.add(stage);
+                    }
+                    //update bucket array
                     int[] newArray = new int[bucketContainers[k - 1].length + 1];
                     for (int pos = 0; pos < newArray.length; pos++) {
                         if (pos < newIndex) {
@@ -161,15 +170,17 @@ public class BucketSort {
                         }
                     }
                     bucketContainers[k - 1] = newArray;
-                    transition = PlaceIntoBucket(i, k - 1, newIndex);
+                    //create animation for insertion
+                    Pair<Transition, Transition> transition = PlaceIntoBucket(i, k - 1, newIndex);
                     stage = new AlgoState(transition);
                     stage.StoreVariable("j", k);
+                    //store animation
                     transitions.add(stage);
                     break;
                 }
             }
         }
-
+        //loop through the bucket containers to color nodes in order and store their animation
         for (int bucket = 0; bucket < bucketContainers.length;bucket++){
             for (int val = 0 ; val <bucketContainers[bucket].length;val++){
                 int nodeIndex = GetNode(bucketContainers[bucket][val]);
@@ -179,8 +190,6 @@ public class BucketSort {
                 transitions.add(stage);
             }
         }
-
-
         return transitions;
     }
 
@@ -194,35 +203,32 @@ public class BucketSort {
      * @return
      */
     final public Pair<Transition, Transition> PlaceIntoBucket(int nodeIndex, int bucket, int indexInsert) {
-        Circle node = (Circle) nodes[nodeIndex].lookup("#myCircle");
-
+        //get starting position of stack pane
         double startX = nodes[nodeIndex].getTranslateX()+20;
         double startY = nodes[nodeIndex].getTranslateY()+20;
-
-
-
+        //bucket increments will place you in the middle of buckets
         int bucketIncrement = (int) ((vizzWidth - 50) / (bucketContainers.length * 2));
 
-
+        //get the end position of the node once its been inserted
         double endXNode = GetBucketX(bucketIncrement, bucket);
         double endYNode = GetBucketY(indexInsert);
-
+        //create path from start to end
         Path path_forward = new Path();
         path_forward.getElements().add(new MoveTo(startX, startY));
         path_forward.getElements().add(new LineTo(endXNode, endYNode));
-
+        //add path to a transition on the stackpane
         PathTransition node_path_forward = new PathTransition();
-        node_path_forward.setDuration(Duration.seconds(SWAP_ANIM_DURATION));
+        node_path_forward.setDuration(Duration.seconds(ANIM_DURATION));
         node_path_forward.setPath(path_forward);
         node_path_forward.setNode(nodes[nodeIndex]);
 
-
+        //do in reverse
         Path path_reverse = new Path();
         path_reverse.getElements().add(new MoveTo(endXNode, endYNode));
         path_reverse.getElements().add(new LineTo(startX, startY));
 
         PathTransition node_path_reverse = new PathTransition();
-        node_path_reverse.setDuration(Duration.seconds(SWAP_ANIM_DURATION));
+        node_path_reverse.setDuration(Duration.seconds(ANIM_DURATION));
         node_path_reverse.setPath(path_reverse);
         node_path_reverse.setNode(nodes[nodeIndex]);
 
@@ -237,7 +243,11 @@ public class BucketSort {
         return anims;
     }
 
-
+    /**
+     *
+     * @param value the value of some node
+     * @return the index of the node in the node value array
+     */
     private int GetNode(int value) {
         for (int x = 0; x < nodeValues.length; x++) {
             if (nodeValues[x] == value)
@@ -251,18 +261,19 @@ public class BucketSort {
      *
      * @param insertIndex   circle to be moved
      * @param bucket bucket to be moved to
-     * @return
+     * @return returns a transition which moves all the nodes at and above a certain index to make room for an insertion at said index
      */
     final public Pair<Transition, Transition> MakeRoom(int insertIndex, int bucket) {
-
-        int bucketIncrement = (int) ((vizzWidth - 50) / (bucketContainers.length * 2));
-
+        //calculate the bucket increment
+        int bucketIncrement = (int) ((vizzWidth - bucketPadding) / (bucketContainers.length * 2));
+        //create a transition for forwards backwards
         ParallelTransition forward = new ParallelTransition();
         ParallelTransition reverse = new ParallelTransition();
         for (int i = insertIndex; i < bucketContainers[bucket].length; i++) {
-            double startX = GetBucketX(bucketIncrement, bucket);//nodes[GetNode(bucketContainers[bucket][i])].getCenterX();
-            double startY = GetBucketY(insertIndex);//nodes[GetNode(bucketContainers[bucket][i])].getCenterY();
-            double endY = startY - 45;
+            //go through each node and increment the height on the pane
+            double startX = GetBucketX(bucketIncrement, bucket);
+            double startY = GetBucketY(i);
+            double endY = startY - y_gap;
 
             Path path_forward = new Path();
             path_forward.getElements().add(new MoveTo(startX, startY));
@@ -274,13 +285,13 @@ public class BucketSort {
 
 
             PathTransition node_path_forward = new PathTransition();
-            node_path_forward.setDuration(Duration.seconds(SWAP_ANIM_DURATION));
+            node_path_forward.setDuration(Duration.seconds(ANIM_DURATION));
             node_path_forward.setPath(path_forward);
             node_path_forward.setNode(nodes[GetNode(bucketContainers[bucket][i])]);
             forward.getChildren().add(node_path_forward);
 
             PathTransition node_path_reverse = new PathTransition();
-            node_path_reverse.setDuration(Duration.seconds(SWAP_ANIM_DURATION));
+            node_path_reverse.setDuration(Duration.seconds(ANIM_DURATION));
             node_path_reverse.setPath(path_forward);
             node_path_reverse.setNode(nodes[GetNode(bucketContainers[bucket][i])]);
             reverse.getChildren().add(node_path_reverse);
@@ -294,14 +305,25 @@ public class BucketSort {
     }
 
 
+    /**
+     *
+     * @param bucketIncrement size of bucket increment
+     * @param bucket the bucket its being sorted into
+     * @return the x position of the node after being inserted into bucket
+     */
     private double GetBucketX(int bucketIncrement, int bucket) {
-        double endX = 50 + (bucketIncrement * ((bucket * 2) + 1)) - 20;
+        double endX = bucketPadding + (bucketIncrement * ((bucket * 2) + 1)) - bucketPadding/2;
         return endX;
 
     }
 
+    /**
+     *
+     * @param indexInsert in index of the bucket in which its being inserted
+     * @return the y position of the node after being inserted
+     */
     private double GetBucketY(int indexInsert) {
-        double endY = vizzHeight - 50 - (45 * (indexInsert));
+        double endY = vizzHeight - (y_gap * (indexInsert+1));
         return endY;
 
     }
@@ -324,8 +346,8 @@ public class BucketSort {
      * @return The transition containing the filling of the node.
      */
     private Pair<Transition, Transition> ColorNode(Color color, Shape node){
-        FillTransition forward = new FillTransition(Duration.seconds(0.95));
-        FillTransition reverse = new FillTransition(Duration.seconds(0.95));
+        FillTransition forward = new FillTransition(Duration.seconds(ANIM_DURATION));
+        FillTransition reverse = new FillTransition(Duration.seconds(ANIM_DURATION));
         Color currentColor = (Color) node.getFill();
         forward.setShape(node);
         forward.setFromValue(currentColor);
