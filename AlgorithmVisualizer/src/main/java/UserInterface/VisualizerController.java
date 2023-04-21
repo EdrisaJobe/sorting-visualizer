@@ -105,7 +105,7 @@ public class VisualizerController implements Initializable {
                 "Selection Sort", "Merge Sort", "Bucket Sort", "Heap Sort","Tree Sort");
         sortDropdown.setValue("Bubble Sort");
 
-        searchDropdown.getItems().setAll("Linear Search");
+        searchDropdown.getItems().setAll("Linear Search", "Binary Search");
         searchDropdown.setValue("Pick Search Algorithm");
 
         speedDropdown.getItems().setAll("1x", "2x", "3x", "5x", "10x");
@@ -313,6 +313,11 @@ public class VisualizerController implements Initializable {
                 break;
             case "Linear Search":
                 algorithm = new LinearSearch(boxes, x_gap, box_width);
+                btnGenArray.setDisable(false);
+                btnGenTree.setDisable(true);
+                break;
+            case "Binary Search":
+                algorithm = new BinarySearch(boxes, x_gap, box_width);
                 btnGenArray.setDisable(false);
                 btnGenTree.setDisable(true);
                 break;
