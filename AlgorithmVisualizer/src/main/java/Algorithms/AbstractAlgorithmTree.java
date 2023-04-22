@@ -171,10 +171,9 @@ public abstract class AbstractAlgorithmTree {
      */
     public Pair<Transition, Transition> HighlightRing(int index1){
         Circle nodeToHighLight = (Circle) nodes[index1].lookup("#myCircle");
-
-        double targetRadius = nodeToHighLight.getRadius() - nodeToHighLight.getStrokeWidth()/2; // set the target radius to 30 pixels
-        Duration duration = Duration.millis(FILL_ANIM_DURATION); // set the duration of the animation to 1 second
-
+        //problem with resizing resolved by resetting the radius
+        double targetRadius = nodeToHighLight.getRadius() - nodeToHighLight.getStrokeWidth()/2;
+        Duration duration = Duration.millis(FILL_ANIM_DURATION);
         KeyValue keyValue = new KeyValue(nodeToHighLight.radiusProperty(), targetRadius);
         KeyFrame keyFrame = new KeyFrame(duration, keyValue);
         Timeline timeline = new Timeline(keyFrame);

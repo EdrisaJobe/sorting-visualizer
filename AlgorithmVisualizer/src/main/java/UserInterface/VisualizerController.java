@@ -643,12 +643,14 @@ public class VisualizerController implements Initializable {
         double xOffset = 35;
         double yOffset = 45;
 
+        double stokeWidth=4;
+
 
         //create root circle
         Circle rootCircle = new Circle(radius);
         //label circle for later reference
         rootCircle.setId("myCircle");
-        rootCircle.setStrokeWidth(4);
+        rootCircle.setStrokeWidth(stokeWidth);
         //create text
         Text circleText = new Text(String.valueOf(newNodeVals[0]));
         circleText.setStroke(Color.WHITESMOKE);
@@ -704,7 +706,7 @@ public class VisualizerController implements Initializable {
                 }
             }
             Circle newChild = new Circle(radius);
-            newChild.setStrokeWidth(4);
+            newChild.setStrokeWidth(stokeWidth);
             newChild.setId("myCircle");
             Text newChildText = new Text(String.valueOf(NodeValues[i]));
             newChildText.setStroke(Color.WHITESMOKE);
@@ -730,7 +732,7 @@ public class VisualizerController implements Initializable {
             stackPaneNodes[i] = stackPane;
             visualizerPane.getChildren().add(stackPane);
             Line line1 = new Line(parent.getTranslateX()+radius, parent.getTranslateY()+radius + radius-5, newCirclePosX+radius, newCirclePosY+1);
-            line1.setStrokeWidth(4);
+            line1.setStrokeWidth(stokeWidth);
             treeNodeLines[i - 1] = line1;
             visualizerPane.getChildren().add(line1);
         }
