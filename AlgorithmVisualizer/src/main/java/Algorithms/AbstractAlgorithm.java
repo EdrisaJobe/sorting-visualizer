@@ -32,10 +32,10 @@ public abstract class AbstractAlgorithm {
 
     public String pseudoCode = "";
 
-    public static String bestTime = "";
-    public static String averageTime = "";
-    public static String worstTime = "";
-    public static String spaceComplexity = "";
+    public String bestTime = "";
+    public String averageTime = "";
+    public String worstTime = "";
+    public String spaceComplexity = "";
 
 
     //Highlight Colors.
@@ -62,6 +62,8 @@ public abstract class AbstractAlgorithm {
      */
     public abstract ArrayList<AlgoState> RunAlgorithm();
 
+
+    public AbstractAlgorithm(){}
 
     /**
      * Constructor, sets the array of nodes.

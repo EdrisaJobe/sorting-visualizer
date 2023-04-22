@@ -4,6 +4,7 @@ import javafx.animation.ParallelTransition;
 import javafx.animation.TranslateTransition;
 import javafx.scene.shape.Rectangle;
 
+import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 
 /**
@@ -23,6 +24,13 @@ public class QuickSort extends AbstractAlgorithm{
                             "\n         quickSort(arr, pi + 1, high);";
 
 
+    public QuickSort(){
+        super.pseudoCode = code;
+        super.bestTime = "Ω(n log n)";
+        super.averageTime = "θ(n log n)";
+        super.worstTime = "O(n^2)";
+        super.spaceComplexity = "O(log n)";
+    }
 
     /**
      * Constructor, sets the array of nodes.
@@ -32,10 +40,10 @@ public class QuickSort extends AbstractAlgorithm{
     public QuickSort(Rectangle[] nodes, int x_gap, int box_width) {
         super(nodes, x_gap, box_width);
         super.pseudoCode = code;
-        bestTime = "Ω(n log n)";
-        averageTime = "θ(n log n)";
-        worstTime = "O(n^2)";
-        spaceComplexity = "O(log n)";
+        super.bestTime = "Ω(n log n)";
+        super.averageTime = "θ(n log n)";
+        super.worstTime = "O(n^2)";
+        super.spaceComplexity = "O(log n)";
         this.nodes = super.nodes;
         this.transitions = super.transitions;
         this.x_gap = super.x_gap;

@@ -123,8 +123,6 @@ public class VisualizerController implements Initializable {
      */
     @FXML
     protected void StepForward() {
-        System.out.println(BubbleSort.bestTime);
-        System.out.println(TreeSort.bestTime);
 
         // Ignores if a transition is currently running
         if(transitions != null && !lastTransitionsIsRunning() && currentTransitionIndex < transitions.size()){

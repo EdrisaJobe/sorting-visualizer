@@ -25,6 +25,14 @@ public class LinearSearch extends AbstractAlgorithm{
                             "        i++\n" +
                             "    RETURN -1";
 
+    public LinearSearch(){
+        super.pseudoCode = code;
+        bestTime = "Ω(n log n)";
+        averageTime = "θ(n log n)";
+        worstTime = "O(n log n)";
+        spaceComplexity = "O(1)";
+    }
+
 
     /**
      * Constructor, sets the array of nodes.

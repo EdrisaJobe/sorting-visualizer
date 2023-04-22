@@ -26,6 +26,13 @@ public class InsertionSort extends AbstractAlgorithm{
             "\n         end while" +
             "\n end for";
 
+    public InsertionSort(){
+        super.pseudoCode = code;
+        bestTime = "Ω(n log n)";
+        averageTime = "θ(n log n)";
+        worstTime = "O(n log n)";
+        spaceComplexity = "O(1)";
+    }
 
     /**
      * Constructor, sets the array of nodes.

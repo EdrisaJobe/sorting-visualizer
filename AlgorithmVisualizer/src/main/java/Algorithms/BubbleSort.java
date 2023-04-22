@@ -23,6 +23,14 @@ public class BubbleSort extends AbstractAlgorithm{
                             "\n         end if " +
                             "\n      end for";
 
+    public BubbleSort(){
+        super.pseudoCode = code;
+        bestTime = "Ω(n)";
+        averageTime = "θ(n^2)";
+        worstTime = "O(n^2)";
+        spaceComplexity = "O(1)";
+    }
+
     /**
      * Constructor, sets the array of nodes.
      *

@@ -23,6 +23,14 @@ public class SelectionSort extends AbstractAlgorithm{
                             "           set element as new min\n" +
                             "   swap(min, first unsorted post)\n";
 
+    public SelectionSort(){
+        super.pseudoCode = code;
+        bestTime = "Ω(n log n)";
+        averageTime = "θ(n log n)";
+        worstTime = "O(n log n)";
+        spaceComplexity = "O(1)";
+    }
+
     /**
      * Constructor, sets the array of nodes.
      *

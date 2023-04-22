@@ -25,6 +25,14 @@ public class HeapSort extends AbstractAlgorithm{
                             "           Heapify(A, i, 0)";
 
 
+    public HeapSort(){
+        super.pseudoCode = code;
+        bestTime = "Ω(n log n)";
+        averageTime = "θ(n log n)";
+        worstTime = "O(n log n)";
+        spaceComplexity = "O(1)";
+    }
+
     /**
      * Constructor, sets the array of nodes.
      *

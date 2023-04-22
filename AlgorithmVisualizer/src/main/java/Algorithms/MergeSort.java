@@ -23,6 +23,14 @@ public class MergeSort extends AbstractAlgorithm{
                             "\n     mergesort(array, mid+1, right)" +
                             "\n     merge(array, left, mid, right)";
 
+    public MergeSort(){
+        super.pseudoCode = code;
+        bestTime = "Ω(n log n)";
+        averageTime = "θ(n log n)";
+        worstTime = "O(n log n)";
+        spaceComplexity = "O(1)";
+    }
+
     /**
      * Constructor, sets the array of nodes.
      *
