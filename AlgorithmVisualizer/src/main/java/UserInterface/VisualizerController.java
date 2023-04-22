@@ -70,7 +70,7 @@ public class VisualizerController implements Initializable {
     private int treeSize = 9;
     private int numBuckets=2;
     private Circle[] treeNodes;
-    private StackPane[] bucketNodes;
+    private StackPane[] stackPaneNodes;
     private Text[] nodeLabels;
     private int[] NodeValues;
     private Line[] treeNodeLines;
@@ -313,7 +313,7 @@ public class VisualizerController implements Initializable {
                 int[] test1 = GenerateRandomTreeValues();
                 //will update once merged with main
                 SetUpBucketSort(test1, numBuckets);
-                bucketAlgorithm = new BucketSort(bucketNodes, NodeValues, numBuckets, visualizerPane.getWidth(), visualizerPane.getHeight());
+                bucketAlgorithm = new BucketSort(stackPaneNodes, NodeValues, numBuckets, visualizerPane.getWidth(), visualizerPane.getHeight());
                 btnGenArray.setDisable(false);
                 btnGenTree.setDisable(true);
                 break;
@@ -631,7 +631,117 @@ public class VisualizerController implements Initializable {
      */
     @FXML
     protected void GenerateBinaryTree(int[] newNodeVals) {
+        visualizerPane.getChildren().clear();
+        stackPaneNodes = new StackPane[newNodeVals.length];
+        treeNodes = new Circle[newNodeVals.length];
+        treeNodeLines = new Line[newNodeVals.length-1];
+        NodeValues = newNodeVals;
+        //place the root node
+        double rootX = visualizerPane.getWidth() / 2;
+        double rootY = 25;
+        //set radius and x/y offset
+        double radius = 20;
+        double xOffset = 35;
+        double yOffset = 45;
 
+
+        //create root circle
+        Circle rootCircle = new Circle(radius);
+        rootCircle.setStrokeWidth(4);
+        //label circle for later reference
+        rootCircle.setId("myCircle");
+        //create text
+        Text circleText = new Text(String.valueOf(newNodeVals[0]));
+        circleText.setStroke(Color.WHITESMOKE);
+
+        //create stackpane
+        StackPane stackPane = new StackPane();
+
+        // Set the text as the child of the circle
+        stackPane.getChildren().addAll(rootCircle, circleText);
+
+        // Center the text inside the circle
+        circleText.setBoundsType(TextBoundsType.VISUAL);
+        circleText.setTextOrigin(VPos.CENTER);
+        circleText.layoutBoundsProperty().addListener((observable, oldValue, newValue) -> {
+            circleText.setTranslateX(rootCircle.getCenterX() - circleText.getBoundsInLocal().getWidth() / 2);
+            circleText.setTranslateY(rootCircle.getCenterY() - circleText.getBoundsInLocal().getHeight() / 2);
+        });
+
+        // palce the stackPane
+        stackPane.setTranslateX(rootX);
+        stackPane.setTranslateY(rootY);
+        //store stackPane
+        stackPaneNodes[0] = stackPane;
+        //draw stackpane
+        visualizerPane.getChildren().add(stackPane);
+
+
+        for (int i = 1; i < NodeValues.length; i++) {
+            double newCirclePosX = rootX;
+            double newCirclePosY = rootY;
+            int circleVal = NodeValues[i];
+            int max = treeMax;
+            int min = treeMin;
+            int height = 0;
+
+            //Circle parent = (Circle) stackPaneNodes[0].lookup("#myCircle");
+            StackPane parent = stackPaneNodes[0];
+            for (int k = 0; k < i; k++) {
+                if (NodeValues[k] < circleVal && NodeValues[k] >= min) {
+                    height++;
+                    newCirclePosX += Math.max(xOffset, xOffset * (7 - 2 * height));
+                    newCirclePosY += Math.min(yOffset + (5 * height), yOffset + 20);
+                    min = NodeValues[k];
+                    //parent = (Circle) stackPaneNodes[k].lookup("#myCircle");
+                    parent = stackPaneNodes[k];
+                } else if (NodeValues[k] > circleVal && NodeValues[k] <= max) {
+                    height++;
+                    newCirclePosX -= Math.max(xOffset, xOffset * (7 - 2 * height));
+                    newCirclePosY += Math.min(yOffset + (5 * height), yOffset + 20);
+                    max = NodeValues[k];
+                    //parent = (Circle) stackPaneNodes[k].lookup("#myCircle");
+                    parent = stackPaneNodes[k];
+                }
+            }
+            Circle newChild = new Circle(radius);
+            newChild.setStrokeWidth(4);
+            newChild.setId("myCircle");
+            Text newChildText = new Text(String.valueOf(NodeValues[i]));
+            newChildText.setStroke(Color.WHITESMOKE);
+
+            //create stackpane
+            stackPane = new StackPane();
+
+            // Set the text as the child of the circle
+            stackPane.getChildren().addAll(newChild, newChildText);
+
+            // Center the text inside the circle
+            newChildText.setBoundsType(TextBoundsType.VISUAL);
+            newChildText.setTextOrigin(VPos.CENTER);
+            newChildText.layoutBoundsProperty().addListener((observable, oldValue, newValue) -> {
+                newChildText.setTranslateX(newChild.getCenterX() - newChildText.getBoundsInLocal().getWidth() / 2);
+                newChildText.setTranslateY(newChild.getCenterY() - newChildText.getBoundsInLocal().getHeight() / 2);
+            });
+
+            // palce the stackPane
+            stackPane.setTranslateX(newCirclePosX);
+            stackPane.setTranslateY(newCirclePosY);
+            //store stackPane
+            stackPaneNodes[i] = stackPane;
+            visualizerPane.getChildren().add(stackPane);
+
+            treeNodes[i] = newChild;
+            Line line1 = new Line(parent.getTranslateX()+radius, parent.getTranslateY()+radius + radius-5, newCirclePosX+radius, newCirclePosY+5);
+            line1.setStrokeWidth(4);
+            treeNodeLines[i - 1] = line1;
+            visualizerPane.getChildren().add(line1);
+        }
+
+
+
+
+        /*
         visualizerPane.getChildren().clear();
 
         //int value of node
@@ -700,6 +810,7 @@ public class VisualizerController implements Initializable {
         }
 
         drawTree(treeNodes, treeText, treeNodeLines);
+        */
 
     }
 
@@ -826,7 +937,7 @@ public class VisualizerController implements Initializable {
     protected void DrawBucketNodes(int[] input) {
 
         //circle and text nodes
-        bucketNodes = new StackPane[input.length];
+        stackPaneNodes = new StackPane[input.length];
         Text[] treeText = new Text[input.length];
 
         //place the root node
@@ -871,7 +982,7 @@ public class VisualizerController implements Initializable {
             stackPane.setTranslateX(firstX + (pos * xOffset));
             stackPane.setTranslateY(firstY + (r * yOffset));
             //store stackPane
-            bucketNodes[i] = stackPane;
+            stackPaneNodes[i] = stackPane;
             //draw stackpane
             visualizerPane.getChildren().add(stackPane);
             nodeLabels[i] = newText;
