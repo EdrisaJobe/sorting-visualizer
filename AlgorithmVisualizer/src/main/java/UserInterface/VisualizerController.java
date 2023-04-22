@@ -362,6 +362,7 @@ public class VisualizerController implements Initializable {
                 StringBuilder input = new StringBuilder("");
                 input.append(ConvertArrayToString(NodeValues));
                 inputArrayLabel.setText(String.valueOf(input));
+                sortedArray.setText("");
             }
         } else if (algorithmTree != null) {
             statusText.setText("Selected Algorithm: " + algorithmName);
@@ -516,6 +517,8 @@ public class VisualizerController implements Initializable {
         }
         visualizerPane.getChildren().clear();
         visualizerPane.getChildren().addAll(boxes);
+
+
 
         PrepareAlgorithm();
     }
