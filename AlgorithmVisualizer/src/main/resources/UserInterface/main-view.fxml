@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="764.0" prefWidth="1264.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserInterface.MainController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="760.0" prefWidth="1367.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserInterface.MainController">
    <children>
       <TabPane layoutX="10.0" layoutY="10.0" minWidth="700.0" prefHeight="573.0" prefWidth="875.0" style="-fx-background-color: #313933;" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="1080.0" tabMaxWidth="1920.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
          <tabs>
@@ -34,6 +34,11 @@
             <Tab text="Quiz">
                <content>
                   <fx:include source="quiz-view.fxml" />
+               </content>
+            </Tab>
+            <Tab text="Help">
+               <content>
+                  <fx:include source="help-view.fxml" />
                </content>
             </Tab>
          </tabs>

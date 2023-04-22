@@ -11,9 +11,9 @@ public class MainApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("main-view.fxml"));
-        int width = 1350;
-        int height = 764;
-        Scene scene = new Scene(fxmlLoader.load(), width, height);
+        int width = 1370;
+        int height = 800;
+        Scene scene = new Scene(fxmlLoader.load(), width, -200);
         MainController controller = fxmlLoader.getController();
         scene.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
 

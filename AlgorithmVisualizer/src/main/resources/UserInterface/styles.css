@@ -22,6 +22,8 @@
 
 .tab-pane .tab{
     -fx-cursor: hand;
+    -fx-border-width: 0 2 0 0;
+    -fx-border-color: #1a1a1a;
 }
 
 .tab-pane .tab:hover {

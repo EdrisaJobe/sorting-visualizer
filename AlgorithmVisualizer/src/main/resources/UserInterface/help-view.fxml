@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<VBox alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="565.0" prefWidth="980.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserInterface.HelpController">
+   <children>
+      <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="565.0" stylesheets="@styles.css" VBox.vgrow="ALWAYS">
+         <children>
+            <ScrollPane fitToWidth="true" hbarPolicy="NEVER" hmax="0.0" maxWidth="1.7976931348623157E308" style="-fx-background-color: #272727;" HBox.hgrow="ALWAYS">
+              <content>
+                <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" style="-fx-background-color: #272727;">
+                     <children>
+                        <Pane maxWidth="1.7976931348623157E308" prefHeight="1059.0" prefWidth="753.0">
+                           <children>
+                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="475.0" prefWidth="511.0" text="Best Time Complexity" textAlignment="CENTER" textFill="#c9ffcc">
+                                 <font>
+                                    <Font size="22.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </Pane>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </ScrollPane>
+         </children>
+      </HBox>
+   </children>
+</VBox>
