@@ -30,6 +30,7 @@
                               <Insets />
                            </VBox.margin>
             </ComboBox>
+            <ComboBox fx:id="bucketSize" layoutX="10.0" layoutY="77.0" onAction="#SetNumBuckets" onMouseClicked="#SortDropdownHandler" prefHeight="25.0" prefWidth="300.0" promptText="Number of Buckets" style="-fx-background-color: #272727;" visible="false" />
                         <Label alignment="CENTER" layoutX="40.0" layoutY="50.0" prefHeight="17.0" prefWidth="300.0" styleClass="side_label" text="Searching" textAlignment="CENTER" textFill="WHITE">
                            <padding>
                               <Insets bottom="5.0" top="5.0" />
