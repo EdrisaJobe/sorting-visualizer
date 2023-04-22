@@ -1,5 +1,6 @@
 package Algorithms;
 
+import UserInterface.VisualizerController;
 import javafx.animation.Transition;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Circle;
@@ -13,14 +14,13 @@ import java.util.ArrayList;
  */
 public class TreeSort extends AbstractAlgorithmTree {
 
-    //these must match the values in visualizer controller
-    static int treeMax=190;
-    static int treeMin = 10;
+    static int treeMax=VisualizerController.treeMax;
+    static int treeMin = VisualizerController.treeMin;
     private StackPane[] nodes;
 
     private int[] nodeValues;
 
-    private Line[] treeLines;
+    private Line[] connection;
     private ArrayList<AlgoState> transitions;
     private String code = "    Create Binary Tree from input\n" +
             "    Traverse in-order\n";
@@ -40,7 +40,7 @@ public class TreeSort extends AbstractAlgorithmTree {
         spaceComplexity = "O(1)";
         this.nodes = super.nodes;
         this.nodeValues = super.nodeValues;
-        this.treeLines = super.connection;
+        this.connection = super.connection;
         this.transitions = super.transitions;
         this.vizzHeight= vizzHeight;
         this.vizzWidth = vizzWidth;

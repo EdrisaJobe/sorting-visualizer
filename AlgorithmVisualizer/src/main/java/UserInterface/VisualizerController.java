@@ -68,14 +68,14 @@ public class VisualizerController implements Initializable {
 
 
     private int treeSize = 9;
+
+    //default bucket size is 2
     private int numBuckets=2;
-    private Circle[] treeNodes;
     private StackPane[] stackPaneNodes;
-    private Text[] nodeLabels;
     private int[] NodeValues;
     private Line[] treeNodeLines;
-    static int treeMax = 190;
-    static int treeMin = 10;
+    public static int treeMax = 190;
+    public static int treeMin = 10;
 
     private Rectangle[] boxes;
     private AnimationTimer timer;
@@ -633,7 +633,6 @@ public class VisualizerController implements Initializable {
     protected void GenerateBinaryTree(int[] newNodeVals) {
         visualizerPane.getChildren().clear();
         stackPaneNodes = new StackPane[newNodeVals.length];
-        treeNodes = new Circle[newNodeVals.length];
         treeNodeLines = new Line[newNodeVals.length-1];
         NodeValues = newNodeVals;
         //place the root node
@@ -730,8 +729,6 @@ public class VisualizerController implements Initializable {
             //store stackPane
             stackPaneNodes[i] = stackPane;
             visualizerPane.getChildren().add(stackPane);
-
-            treeNodes[i] = newChild;
             Line line1 = new Line(parent.getTranslateX()+radius, parent.getTranslateY()+radius + radius-5, newCirclePosX+radius, newCirclePosY+1);
             line1.setStrokeWidth(4);
             treeNodeLines[i - 1] = line1;
@@ -880,7 +877,6 @@ public class VisualizerController implements Initializable {
         int r = 0;
         int pos = 0;
 
-        nodeLabels = new Text[input.length];
         for (int i = 0; i < input.length; i++) {
             //create circle
             Circle newCircle = new Circle(radius);
@@ -911,7 +907,6 @@ public class VisualizerController implements Initializable {
             stackPaneNodes[i] = stackPane;
             //draw stackpane
             visualizerPane.getChildren().add(stackPane);
-            nodeLabels[i] = newText;
             pos++;
             if (i + 1 >= maxNPR * (r + 1)) {
                 r++;
