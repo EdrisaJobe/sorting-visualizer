@@ -63,9 +63,12 @@ public class VisualizerController implements Initializable {
     private TextField arrayInput;
     @FXML
     private Label arrayInputLabel;
+    @FXML
+    private ComboBox<String> bucketSize;
 
 
     private int treeSize = 9;
+    private int numBuckets=2;
     private Circle[] treeNodes;
     private StackPane[] bucketNodes;
     private Text[] nodeLabels;
@@ -119,6 +122,10 @@ public class VisualizerController implements Initializable {
 
         nDropdown.getItems().setAll("10", "25", "50", "100");
         nDropdown.setValue("10");
+
+        bucketSize.getItems().setAll("2", "3", "4",
+                "5");
+        bucketSize.setValue("2");
 
         timer = new AnimTimer();
     }
@@ -269,50 +276,60 @@ public class VisualizerController implements Initializable {
         boolean isCustomVis = false;
         switch (algorithmName) {
             case "Bubble Sort":
+                bucketSize.setVisible(false);
                 algorithm = new BubbleSort(boxes, x_gap, box_width);
                 btnGenArray.setDisable(false);
                 btnGenTree.setDisable(true);
                 break;
             case "Insertion Sort":
+                bucketSize.setVisible(false);
                 algorithm = new InsertionSort(boxes, x_gap, box_width);
                 btnGenArray.setDisable(false);
                 btnGenTree.setDisable(true);
                 break;
             case "Quick Sort":
+                bucketSize.setVisible(false);
                 algorithm = new QuickSort(boxes, x_gap, box_width);
                 btnGenArray.setDisable(false);
                 btnGenTree.setDisable(true);
                 break;
             case "Selection Sort":
+                bucketSize.setVisible(false);
                 algorithm = new SelectionSort(boxes, x_gap, box_width);
                 btnGenArray.setDisable(false);
                 btnGenTree.setDisable(true);
                 break;
             case "Merge Sort":
+                bucketSize.setVisible(false);
                 algorithm = new MergeSort(boxes, x_gap, box_width);
                 btnGenArray.setDisable(false);
                 btnGenTree.setDisable(true);
                 break;
             case "Bucket Sort":
+
+                bucketSize.setVisible(true);
                 int[] test1 = GenerateRandomTreeValues();
                 //will update once merged with main
-                SetUpBucketSort(test1, 3);
-                bucketAlgorithm = new BucketSort(bucketNodes, NodeValues, 3, visualizerPane.getWidth(), visualizerPane.getHeight());
+                SetUpBucketSort(test1, numBuckets);
+                bucketAlgorithm = new BucketSort(bucketNodes, NodeValues, numBuckets, visualizerPane.getWidth(), visualizerPane.getHeight());
                 btnGenArray.setDisable(false);
                 btnGenTree.setDisable(true);
                 break;
             case "Heap Sort":
+                bucketSize.setVisible(false);
                 algorithm = new HeapSort(boxes, x_gap, box_width);
                 btnGenArray.setDisable(false);
                 btnGenTree.setDisable(true);
                 break;
             case "Tree Sort":
+                bucketSize.setVisible(false);
                 algorithmTree = new TreeSort(treeNodes, NodeValues, treeNodeLines);
                 btnGenArray.setDisable(true);
                 btnGenTree.setDisable(false);
                 isCustomVis = true;
                 break;
             case "Linear Search":
+                bucketSize.setVisible(false);
                 algorithm = new LinearSearch(boxes, x_gap, box_width);
                 btnGenArray.setDisable(false);
                 btnGenTree.setDisable(true);
@@ -397,6 +414,7 @@ public class VisualizerController implements Initializable {
             input.append(ConvertArrayToString(NodeValues));
             inputArrayLabel.setText(String.valueOf(input));
         } else if (bucketAlgorithm != null) {
+
             statusText.setText("Selected Algorithm: " + algorithmName);
             pseudoText.setText(bucketAlgorithm.pseudoCode);
             bestTime.setText(bucketAlgorithm.bestTime);
@@ -777,8 +795,6 @@ public class VisualizerController implements Initializable {
         NodeValues = inputArray;
         //get bucket labels(for drawing labels and sorting values)
         int[] bucketLabels = GetBucketLabels(inputArray, numBuckets);
-        //clear pane
-        visualizerPane.getChildren().clear();
 
         //padding for buckets
         int padding = 50;
@@ -878,7 +894,7 @@ public class VisualizerController implements Initializable {
         //create empty array
         int[] bucketLabels = new int[numBuckets + 1];
         //get min and max from array
-        int min = 0;
+        int min = input[0];
         int max = 0;
         for (int i = 0; i < input.length; i++) {
             if (input[i] > max)
@@ -904,8 +920,16 @@ public class VisualizerController implements Initializable {
      * @param numBuckets number of buckets
      */
     protected void SetUpBucketSort(int[] inputArray, int numBuckets) {
+        visualizerPane.getChildren().clear();
         DrawBuckets(inputArray, numBuckets);
         DrawBucketNodes(inputArray);
+    }
+
+    public void SetNumBuckets(){
+        numBuckets = Integer.valueOf(bucketSize.getValue());
+        SetUpBucketSort(NodeValues,numBuckets);
+        ResetAlgorithm();
+        PrepareAlgorithm();
     }
 
 
