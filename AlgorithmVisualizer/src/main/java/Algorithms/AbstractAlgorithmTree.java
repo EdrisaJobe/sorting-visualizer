@@ -1,6 +1,7 @@
 package Algorithms;
 
 import javafx.animation.*;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
@@ -30,8 +31,14 @@ public abstract class AbstractAlgorithmTree {
 
 
 
-    public Circle[] nodes;
-    public int[] values;
+    //circles which are nodes
+    public double vizzWidth;
+    //circles which are nodes
+    public double vizzHeight;
+    //stackpane which holds both the nodes and the text
+    public StackPane[] nodes;
+    //actual int values of nodes
+    public int[] nodeValues;
     public Line[] connection;
 
     //List containing all the transitions that this algorithm makes.
@@ -53,9 +60,9 @@ public abstract class AbstractAlgorithmTree {
      * Constructor, sets the array of nodes.
      * @param nodes Array of boxes
      */
-    public AbstractAlgorithmTree(Circle[] nodes, int[] values, Line[] connection){
+    public AbstractAlgorithmTree(StackPane[] nodes, int[] values, Line[] connection){
         this.nodes = nodes.clone();
-        this.values = values.clone();
+        this.nodeValues = values.clone();
         this.connection = connection.clone();
     }
 
@@ -67,10 +74,10 @@ public abstract class AbstractAlgorithmTree {
     final public Pair<Transition, Transition> ConnectNodes(int index1){
 
         Line connect = connection[index1-1];
-        StrokeTransition lineToChild = new StrokeTransition(Duration.millis(1000),connect,BASE_COLOR,SECONDARY_COLOR);
-
+        StrokeTransition lineToChild = new StrokeTransition(Duration.seconds(FILL_ANIM_DURATION),connect,BASE_COLOR,SECONDARY_COLOR);
+        StrokeTransition lineToParent = new StrokeTransition(Duration.seconds(FILL_ANIM_DURATION),connect,SECONDARY_COLOR,BASE_COLOR);
         ParallelTransition forward = new ParallelTransition(lineToChild);
-        ParallelTransition reverse = new ParallelTransition(lineToChild);
+        ParallelTransition reverse = new ParallelTransition(lineToParent);
 
         Pair<Transition, Transition> anims = new Pair<>(forward, reverse);
 
@@ -84,7 +91,8 @@ public abstract class AbstractAlgorithmTree {
      * @return The transition highlighting the node.
      */
     final public Pair<Transition, Transition> BaseColorNode(int index){
-        return ColorNode(BASE_COLOR, nodes[index]);
+        Circle nodeToColor = (Circle) nodes[index].lookup("#myCircle");
+        return ColorNode(BASE_COLOR, nodeToColor);
     }
 
 
@@ -94,7 +102,8 @@ public abstract class AbstractAlgorithmTree {
      * @return The transition highlighting the node.
      */
     final public Pair<Transition, Transition> PrimaryHighlightNode(int index){
-        return ColorNode(PRIMARY_COLOR, nodes[index]);
+        Circle nodeToColor = (Circle) nodes[index].lookup("#myCircle");
+        return ColorNode(PRIMARY_COLOR, nodeToColor);
     }
 
     /**
@@ -103,7 +112,9 @@ public abstract class AbstractAlgorithmTree {
      * @return The transition highlighting the node.
      */
     final public Pair<Transition, Transition> SearchTargetHighlightNode(int index){
-        return ColorNode(TARGET_COLOR, nodes[index]);
+
+        Circle nodeToColor = (Circle) nodes[index].lookup("#myCircle");
+        return ColorNode(TARGET_COLOR, nodeToColor);
     }
 
     /**
@@ -112,7 +123,8 @@ public abstract class AbstractAlgorithmTree {
      * @return The transition highlighting the node.
      */
     final public Pair<Transition, Transition> SecondaryHighlightNode(int index){
-        return ColorNode(SECONDARY_COLOR, nodes[index]);
+        Circle nodeToColor = (Circle) nodes[index].lookup("#myCircle");
+        return ColorNode(SECONDARY_COLOR, nodeToColor);
     }
 
 
@@ -158,13 +170,22 @@ public abstract class AbstractAlgorithmTree {
      * @return The transition containing the filling of the node.
      */
     public Pair<Transition, Transition> HighlightRing(int index1){
+        Circle nodeToHighLight = (Circle) nodes[index1].lookup("#myCircle");
 
-        Circle currentNode = nodes[index1];
-        StrokeTransition strokeChange = new StrokeTransition(Duration.millis(2000),currentNode,BASE_COLOR,SECONDARY_COLOR);
+        double targetRadius = nodeToHighLight.getRadius() - nodeToHighLight.getStrokeWidth()/2; // set the target radius to 30 pixels
+        Duration duration = Duration.millis(FILL_ANIM_DURATION); // set the duration of the animation to 1 second
 
-        ParallelTransition forward = new ParallelTransition(strokeChange);
-        ParallelTransition reverse = new ParallelTransition(strokeChange);
+        KeyValue keyValue = new KeyValue(nodeToHighLight.radiusProperty(), targetRadius);
+        KeyFrame keyFrame = new KeyFrame(duration, keyValue);
+        Timeline timeline = new Timeline(keyFrame);
 
+
+
+
+        StrokeTransition strokeChangeForward = new StrokeTransition(Duration.seconds(FILL_ANIM_DURATION),nodeToHighLight,BASE_COLOR,SECONDARY_COLOR);
+        ParallelTransition forward = new ParallelTransition(strokeChangeForward,timeline);
+        StrokeTransition strokeChangeReverse = new StrokeTransition(Duration.seconds(FILL_ANIM_DURATION),nodeToHighLight,SECONDARY_COLOR,BASE_COLOR);
+        ParallelTransition reverse = new ParallelTransition(strokeChangeReverse);
         return new Pair<>(forward, reverse);
     }
 

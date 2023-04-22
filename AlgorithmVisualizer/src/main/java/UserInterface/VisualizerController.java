@@ -325,7 +325,7 @@ public class VisualizerController implements Initializable {
                 break;
             case "Tree Sort":
                 bucketSize.setVisible(false);
-                algorithmTree = new TreeSort(treeNodes, NodeValues, treeNodeLines);
+                algorithmTree = new TreeSort(stackPaneNodes, NodeValues, treeNodeLines, visualizerPane.getWidth(), visualizerPane.getHeight());
                 btnGenArray.setDisable(true);
                 btnGenTree.setDisable(false);
                 isCustomVis = true;
@@ -647,9 +647,9 @@ public class VisualizerController implements Initializable {
 
         //create root circle
         Circle rootCircle = new Circle(radius);
-        rootCircle.setStrokeWidth(4);
         //label circle for later reference
         rootCircle.setId("myCircle");
+        rootCircle.setStrokeWidth(4);
         //create text
         Text circleText = new Text(String.valueOf(newNodeVals[0]));
         circleText.setStroke(Color.WHITESMOKE);
@@ -732,85 +732,11 @@ public class VisualizerController implements Initializable {
             visualizerPane.getChildren().add(stackPane);
 
             treeNodes[i] = newChild;
-            Line line1 = new Line(parent.getTranslateX()+radius, parent.getTranslateY()+radius + radius-5, newCirclePosX+radius, newCirclePosY+5);
+            Line line1 = new Line(parent.getTranslateX()+radius, parent.getTranslateY()+radius + radius-5, newCirclePosX+radius, newCirclePosY+1);
             line1.setStrokeWidth(4);
             treeNodeLines[i - 1] = line1;
             visualizerPane.getChildren().add(line1);
         }
-
-
-
-
-        /*
-        visualizerPane.getChildren().clear();
-
-        //int value of node
-        NodeValues = newNodeVals;
-
-        //cirlces for nodes
-        treeNodes = new Circle[NodeValues.length];
-
-        //text for node
-        Text[] treeText = new Text[NodeValues.length];
-        //node liens
-        treeNodeLines = new Line[treeNodes.length - 1];
-
-        //place the root node
-        double rootX = visualizerPane.getWidth() / 2;
-        double rootY = 25;
-        //set radius and x/y offset
-        double radius = 20;
-        double xOffset = 35;
-        double yOffset = 45;
-
-        Circle rootCircle = new Circle(rootX, rootY, radius);
-        treeNodes[0] = rootCircle;
-        rootCircle.setStrokeWidth(4);
-        int rootValue = NodeValues[0];
-        Text rootText = new Text(String.valueOf(rootValue));
-        rootText.setStroke(Color.WHITESMOKE);
-        rootText.setLayoutX(rootX - 5);
-        rootText.setLayoutY(rootY + 5);
-        treeText[0] = rootText;
-        for (int i = 1; i < NodeValues.length; i++) {
-            double newCirclePosX = rootX;
-            double newCirclePosY = rootY;
-            int circleVal = NodeValues[i];
-            int max = treeMax;
-            int min = treeMin;
-            int height = 0;
-
-            Circle parent = treeNodes[0];
-            for (int k = 0; k < i; k++) {
-                if (NodeValues[k] < circleVal && NodeValues[k] >= min) {
-                    height++;
-                    newCirclePosX += Math.max(xOffset, xOffset * (7 - 2 * height));
-                    newCirclePosY += Math.min(yOffset + (5 * height), yOffset + 20);
-                    min = NodeValues[k];
-                    parent = treeNodes[k];
-                } else if (NodeValues[k] > circleVal && NodeValues[k] <= max) {
-                    height++;
-                    newCirclePosX -= Math.max(xOffset, xOffset * (7 - 2 * height));
-                    newCirclePosY += Math.min(yOffset + (5 * height), yOffset + 20);
-                    max = NodeValues[k];
-                    parent = treeNodes[k];
-                }
-            }
-            Circle newChild = new Circle(newCirclePosX, newCirclePosY, radius);
-            newChild.setStrokeWidth(4);
-            Text newChildText = new Text(String.valueOf(NodeValues[i]));
-            newChildText.setStroke(Color.WHITESMOKE);
-            newChildText.setLayoutX(newCirclePosX - 5);
-            newChildText.setLayoutY(newCirclePosY + 5);
-            treeText[i] = newChildText;
-            treeNodes[i] = newChild;
-            Line line1 = new Line(parent.getCenterX(), parent.getCenterY() + radius, newCirclePosX, newCirclePosY - radius);
-            line1.setStrokeWidth(4);
-            treeNodeLines[i - 1] = line1;
-        }
-
-        drawTree(treeNodes, treeText, treeNodeLines);
-        */
 
     }
 

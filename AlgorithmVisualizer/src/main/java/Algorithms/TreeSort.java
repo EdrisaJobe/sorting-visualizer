@@ -1,6 +1,7 @@
 package Algorithms;
 
 import javafx.animation.Transition;
+import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.util.Pair;
@@ -15,9 +16,9 @@ public class TreeSort extends AbstractAlgorithmTree {
     //these must match the values in visualizer controller
     static int treeMax=190;
     static int treeMin = 10;
-    private Circle[] nodes;
+    private StackPane[] nodes;
 
-    private int[] treeValues;
+    private int[] nodeValues;
 
     private Line[] treeLines;
     private ArrayList<AlgoState> transitions;
@@ -30,17 +31,19 @@ public class TreeSort extends AbstractAlgorithmTree {
      *
      * @param nodes Array of boxes
      */
-    public TreeSort(Circle[] nodes, int[] values, Line[] connection) {
-        super(nodes, values, connection);
+    public TreeSort(StackPane[] nodes, int[] nodeValues, Line[] connection, double vizzWidth, double vizzHeight) {
+        super(nodes, nodeValues, connection);
         super.pseudoCode = code;
         bestTime = "Ω(1)";
         averageTime = "θ(log n)";
         worstTime = "O(log n)";
         spaceComplexity = "O(1)";
         this.nodes = super.nodes;
-        this.treeValues = super.values;
+        this.nodeValues = super.nodeValues;
         this.treeLines = super.connection;
         this.transitions = super.transitions;
+        this.vizzHeight= vizzHeight;
+        this.vizzWidth = vizzWidth;
     }
 
     /**
@@ -55,9 +58,9 @@ public class TreeSort extends AbstractAlgorithmTree {
     public ArrayList<AlgoState> RunAlgorithm() {
         AlgoState stage;
         //copy array of treeValues so we can alter the copy
-        int[] valueCopy = this.treeValues.clone();
+        int[] valueCopy = this.nodeValues.clone();
         //create empty array to store the state of the sorted array
-        int [] sortedArray = new int[treeValues.length];
+        int [] sortedArray = new int[nodeValues.length];
         //these array lists track what nodes have already been altered
         //this is to prevent from repeating animations
         ArrayList<Integer>connectedLines = new ArrayList<>();
@@ -121,7 +124,7 @@ public class TreeSort extends AbstractAlgorithmTree {
                 transitions.add(stage);
                 filledNodes.add(child);
                 //update sorted array
-                sortedArray[j] = treeValues[child];
+                sortedArray[j] = nodeValues[child];
             }
             stage.StoreArrayStatus(sortedArray);
             //change the copied array so that the sorted value is -1
