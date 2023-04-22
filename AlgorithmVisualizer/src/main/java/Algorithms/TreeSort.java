@@ -24,6 +24,10 @@ public class TreeSort extends AbstractAlgorithmTree {
     private String code = "    Create Binary Tree from input\n" +
             "    Traverse in-order\n";
 
+    public static String bestTime = "Ω(1)";
+    public static String averageTime = "θ(log n)";
+    public static String worstTime = "O(log n)";
+    public static String spaceComplexity = "O(1)";
 
     /**
      * Constructor, sets the array of nodes.

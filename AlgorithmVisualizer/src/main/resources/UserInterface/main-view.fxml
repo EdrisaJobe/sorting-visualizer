@@ -21,7 +21,7 @@
                   <fx:include fx:id="visualizer" source="visualizer-view.fxml" />
                </content>
             </Tab>
-            <Tab text="Compare Two">
+            <Tab text="Compare">
                <content>
                   <fx:include source="compare-view.fxml" />
                </content>

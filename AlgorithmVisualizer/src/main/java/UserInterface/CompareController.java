@@ -18,6 +18,11 @@ public class CompareController implements Initializable {
     @FXML
     VBox compareContainer;
 
+    String best;
+    String avg;
+    String worst;
+    String space;
+
 
     /**
      * Initializes the UI elements.
@@ -57,23 +62,33 @@ public class CompareController implements Initializable {
                 algo = new MergeSort();
                 break;
             case "Bucket Sort":
-//                algo = new BucketSort();
-//                UpdateTimes(algo.bestTime,algo.averageTime,algo.worstTime);
+                //Only do besttime for bucket since other times can't be graphed
+                best = BucketSort.bestTime;
+                avg = BucketSort.bestTime;
+                worst = BucketSort.bestTime;
+                space = BucketSort.bestTime;
                 break;
             case "Heap Sort":
                 algo = new HeapSort();
                 break;
             case "Tree Sort":
-//                algo = new BubbleSort();
-//                UpdateTimes(algo.bestTime,algo.averageTime,algo.worstTime);
+                best = TreeSort.bestTime;
+                avg = TreeSort.averageTime;
+                worst = TreeSort.worstTime;
+                space = TreeSort.spaceComplexity;
                 break;
             case "Linear Search":
                 algo = new LinearSearch();
                 break;
         }
         if(algo != null) {
-            UpdateTimes(algo.bestTime, algo.averageTime, algo.worstTime, algo.spaceComplexity);
+            best = algo.bestTime;
+            avg = algo.averageTime;
+            worst = algo.worstTime;
+            space = algo.spaceComplexity;
         }
+
+        UpdateTimes(best, avg, worst, space);
     }
 
     /**

@@ -39,11 +39,10 @@ public class BucketSort {
     //Duration of the transitions.
     private final static float ANIM_DURATION = 0.95f;
 
-    public static String bestTime = "";
-    public static String averageTime = "";
-    public static String worstTime = "";
-    public static String spaceComplexity = "";
-
+    public static String bestTime = "Ω(n)";
+    public static String averageTime = "θ(n + n^2/k + k)";
+    public static String worstTime = "O(n*k)";
+    public static String spaceComplexity = "O(n+k)";
 
     //Highlight Colors.
     private final Color BASE_COLOR = Color.web("#000000");
