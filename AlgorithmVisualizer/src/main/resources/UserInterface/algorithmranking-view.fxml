@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.BorderPane?>
@@ -10,7 +16,7 @@
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserInterface.AlgorithmRankingController">
+<VBox alignment="CENTER" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserInterface.AlgorithmRankingController">
    <children>
       <HBox alignment="CENTER">
          <children>
@@ -246,7 +252,7 @@
                         <Insets bottom="5.0" top="5.0" />
                      </padding>
                   </Label>
-                  <Label fx:id="qEasy1221111111" alignment="CENTER" layoutX="51.0" layoutY="481.0" prefHeight="30.0" prefWidth="340.0" style="-fx-background-color: #86FF84;" styleClass="side_label" stylesheets="@styles.css" text="Searching Algorithms" textAlignment="CENTER" wrapText="true">
+                  <Label fx:id="qEasy1221111111" alignment="CENTER" layoutX="51.0" layoutY="517.0" prefHeight="30.0" prefWidth="340.0" style="-fx-background-color: #86FF84;" styleClass="side_label" stylesheets="@styles.css" text="Searching Algorithms" textAlignment="CENTER" wrapText="true">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
@@ -254,7 +260,7 @@
                         <Insets bottom="5.0" top="5.0" />
                      </padding>
                   </Label>
-                  <Label fx:id="qEasy12211111111" alignment="CENTER" layoutX="511.0" layoutY="480.0" prefHeight="30.0" prefWidth="340.0" style="-fx-background-color: #ffd982;" styleClass="side_label" stylesheets="@styles.css" text="Searching Algorithms" textAlignment="CENTER" wrapText="true">
+                  <Label fx:id="qEasy12211111111" alignment="CENTER" layoutX="511.0" layoutY="516.0" prefHeight="30.0" prefWidth="340.0" style="-fx-background-color: #ffd982;" styleClass="side_label" stylesheets="@styles.css" text="Searching Algorithms" textAlignment="CENTER" wrapText="true">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
@@ -262,7 +268,7 @@
                         <Insets bottom="5.0" top="5.0" />
                      </padding>
                   </Label>
-                  <Label fx:id="qEasy122111111111" alignment="CENTER" layoutX="977.0" layoutY="480.0" prefHeight="30.0" prefWidth="340.0" style="-fx-background-color: #ff7878;" styleClass="side_label" stylesheets="@styles.css" text="Searching Algorithms" textAlignment="CENTER" wrapText="true">
+                  <Label fx:id="qEasy122111111111" alignment="CENTER" layoutX="977.0" layoutY="516.0" prefHeight="30.0" prefWidth="340.0" style="-fx-background-color: #ff7878;" styleClass="side_label" stylesheets="@styles.css" text="Searching Algorithms" textAlignment="CENTER" wrapText="true">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
@@ -270,7 +276,7 @@
                         <Insets bottom="5.0" top="5.0" />
                      </padding>
                   </Label>
-                  <Label fx:id="qEasy1221111112" alignment="CENTER" layoutX="61.0" layoutY="526.0" prefHeight="22.0" prefWidth="310.0" styleClass="side_label" stylesheets="@styles.css" text="1. Binary Search Ω(1)" textAlignment="CENTER" textFill="#86ff84" wrapText="true">
+                  <Label fx:id="qEasy1221111112" alignment="CENTER" layoutX="61.0" layoutY="562.0" prefHeight="22.0" prefWidth="310.0" styleClass="side_label" stylesheets="@styles.css" text="1. Binary Search Ω(1)" textAlignment="CENTER" textFill="#86ff84" wrapText="true">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -278,7 +284,7 @@
                         <Insets bottom="5.0" top="5.0" />
                      </padding>
                   </Label>
-                  <Label fx:id="qEasy12211111121" alignment="CENTER" layoutX="61.0" layoutY="563.0" prefHeight="22.0" prefWidth="310.0" styleClass="side_label" stylesheets="@styles.css" text="2. Linear Search Ω(1)" textAlignment="CENTER" textFill="#86ff84" wrapText="true">
+                  <Label fx:id="qEasy12211111121" alignment="CENTER" layoutX="61.0" layoutY="599.0" prefHeight="22.0" prefWidth="310.0" styleClass="side_label" stylesheets="@styles.css" text="2. Linear Search Ω(1)" textAlignment="CENTER" textFill="#86ff84" wrapText="true">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -286,7 +292,7 @@
                         <Insets bottom="5.0" top="5.0" />
                      </padding>
                   </Label>
-                  <Label fx:id="qEasy12211111122" alignment="CENTER" layoutX="524.0" layoutY="525.0" prefHeight="22.0" prefWidth="310.0" styleClass="side_label" stylesheets="@styles.css" text="1. Binary Search θ(log n)" textAlignment="CENTER" textFill="#ffd982" wrapText="true">
+                  <Label fx:id="qEasy12211111122" alignment="CENTER" layoutX="524.0" layoutY="561.0" prefHeight="22.0" prefWidth="310.0" styleClass="side_label" stylesheets="@styles.css" text="1. Binary Search θ(log n)" textAlignment="CENTER" textFill="#ffd982" wrapText="true">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -294,7 +300,7 @@
                         <Insets bottom="5.0" top="5.0" />
                      </padding>
                   </Label>
-                  <Label fx:id="qEasy122111111221" alignment="CENTER" layoutX="524.0" layoutY="561.0" prefHeight="22.0" prefWidth="310.0" styleClass="side_label" stylesheets="@styles.css" text="2. Linear Search θ(n)" textAlignment="CENTER" textFill="#ffd982" wrapText="true">
+                  <Label fx:id="qEasy122111111221" alignment="CENTER" layoutX="524.0" layoutY="597.0" prefHeight="22.0" prefWidth="310.0" styleClass="side_label" stylesheets="@styles.css" text="2. Linear Search θ(n)" textAlignment="CENTER" textFill="#ffd982" wrapText="true">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -302,7 +308,7 @@
                         <Insets bottom="5.0" top="5.0" />
                      </padding>
                   </Label>
-                  <Label fx:id="qEasy122111111222" alignment="CENTER" layoutX="989.0" layoutY="525.0" prefHeight="22.0" prefWidth="310.0" styleClass="side_label" stylesheets="@styles.css" text="1. Binary Search O(log n)" textAlignment="CENTER" textFill="#ff7878" wrapText="true">
+                  <Label fx:id="qEasy122111111222" alignment="CENTER" layoutX="989.0" layoutY="561.0" prefHeight="22.0" prefWidth="310.0" styleClass="side_label" stylesheets="@styles.css" text="1. Binary Search O(log n)" textAlignment="CENTER" textFill="#ff7878" wrapText="true">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -310,7 +316,7 @@
                         <Insets bottom="5.0" top="5.0" />
                      </padding>
                   </Label>
-                  <Label fx:id="qEasy1221111112221" alignment="CENTER" layoutX="989.0" layoutY="562.0" prefHeight="22.0" prefWidth="310.0" styleClass="side_label" stylesheets="@styles.css" text="2. Linear Search O(n)" textAlignment="CENTER" textFill="#ff7878" wrapText="true">
+                  <Label fx:id="qEasy1221111112221" alignment="CENTER" layoutX="989.0" layoutY="598.0" prefHeight="22.0" prefWidth="310.0" styleClass="side_label" stylesheets="@styles.css" text="2. Linear Search O(n)" textAlignment="CENTER" textFill="#ff7878" wrapText="true">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -335,6 +341,30 @@
                      </padding>
                   </Label>
                   <Label fx:id="qEasy1221111113" alignment="CENTER" layoutX="61.0" layoutY="435.0" prefHeight="22.0" prefWidth="310.0" styleClass="side_label" stylesheets="@styles.css" text="8. Tree Sort Ω(1)" textAlignment="CENTER" textFill="#86ff84" wrapText="true">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="5.0" top="5.0" />
+                     </padding>
+                  </Label>
+                  <Label fx:id="qEasy12211111131" alignment="CENTER" layoutX="61.0" layoutY="473.0" prefHeight="22.0" prefWidth="310.0" styleClass="side_label" stylesheets="@styles.css" text="9. Counting Sort Ω(n + k)" textAlignment="CENTER" textFill="#86ff84" wrapText="true">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="5.0" top="5.0" />
+                     </padding>
+                  </Label>
+                  <Label fx:id="qEasy12121111211" alignment="CENTER" layoutX="529.0" layoutY="471.0" prefHeight="22.0" prefWidth="310.0" styleClass="side_label" stylesheets="@styles.css" text="9. Counting Sort θ(n + k)" textAlignment="CENTER" textFill="#ffd982" wrapText="true">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="5.0" top="5.0" />
+                     </padding>
+                  </Label>
+                  <Label fx:id="qEasy121111111211" alignment="CENTER" layoutX="996.0" layoutY="473.0" prefHeight="22.0" prefWidth="310.0" styleClass="side_label" stylesheets="@styles.css" text="9. Counting Sort O(n + k)" textAlignment="CENTER" textFill="#ff7878" wrapText="true">
                      <font>
                         <Font size="14.0" />
                      </font>
