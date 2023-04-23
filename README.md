@@ -20,7 +20,8 @@ This is a helper class to store a transition and a list of (String, int) pairs. 
 For example, BubbleSort has two loop variables, i and j. We would store these like ("i", 5). The reason we are storing these is so that we can display
 them in pseudo code UI.
 
-### Running & Testing - Simply clone the project within a directory and run any of the ".java" files within ...\sorting-visualizer\AlgorithmVisualizer\src\main\java\UserInterface, load up should be instant.
+## Running & Testing
+Simply clone the project within a directory and run any of the ".java" files within ...\sorting-visualizer\AlgorithmVisualizer\src\main\java\UserInterface, load up should be instant.
 
 ## Visualize page
 ![image](https://user-images.githubusercontent.com/48189579/233856443-0dd90a22-0166-4512-863c-a9cf7eaddb92.png)
