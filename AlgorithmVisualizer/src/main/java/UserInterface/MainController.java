@@ -3,6 +3,7 @@ package UserInterface;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -39,6 +40,9 @@ public class MainController implements Initializable {
     @FXML
     Menu sizeMenu;
 
+    @FXML
+    MenuItem about;
+    
     /**
      * Initializes the UI elements.
      * @param url url
@@ -46,6 +50,29 @@ public class MainController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        // Add an event handler for the "About" menu item
+        about.setOnAction(event -> {
+            try {
+                // Load the help view
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("help-view.fxml"));
+                Parent helpView = loader.load();
+
+                // Create a new scene and show it
+                Scene helpScene = new Scene(helpView);
+                Stage helpStage = new Stage();
+                helpStage.setTitle("Help Page");
+                helpStage.setScene(helpScene);
+
+                // set window size
+                helpStage.setWidth(1120);
+                helpStage.setHeight(750);
+
+                helpStage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
 
         // Add the menu items to the context menu
         speedMenu.getItems().addAll(new MenuItem("1x"), new MenuItem("2x"),
