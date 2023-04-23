@@ -1,6 +1,6 @@
 # The Sorting-Visualizer
 
-The Algorithm code is now seperate from the UI code,
+A team based project, the Algorithm code is now seperate from the UI code,
 Below are summaries of the different classes we have.
 
 ## Abstract Algorithm
