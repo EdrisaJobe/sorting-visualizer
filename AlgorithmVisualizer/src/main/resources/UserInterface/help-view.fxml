@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -7,26 +8,175 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-
-<VBox alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="565.0" prefWidth="980.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserInterface.HelpController">
+<VBox alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="2156.0" prefWidth="1177.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserInterface.HelpController">
    <children>
       <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="565.0" stylesheets="@styles.css" VBox.vgrow="ALWAYS">
          <children>
-            <ScrollPane fitToWidth="true" hbarPolicy="NEVER" hmax="0.0" maxWidth="1.7976931348623157E308" style="-fx-background-color: #272727;" HBox.hgrow="ALWAYS">
+            <ScrollPane fitToWidth="true" hbarPolicy="NEVER" hmax="0.0" maxWidth="1.7976931348623157E308" style="-fx-background-color: #272727;" styleClass="scroll-bar" HBox.hgrow="ALWAYS">
               <content>
-                <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" style="-fx-background-color: #272727;">
+                <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefWidth="1175.0" style="-fx-background-color: #272727;">
                      <children>
-                        <Pane maxWidth="1.7976931348623157E308" prefHeight="1059.0" prefWidth="753.0">
+                        <Pane layoutX="38.0" layoutY="19.0" styleClass="help-section">
                            <children>
-                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="475.0" prefWidth="511.0" text="Best Time Complexity" textAlignment="CENTER" textFill="#c9ffcc">
+                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="69.0" prefWidth="303.0" text="Performance Metrics:" textFill="#c9ffcc">
                                  <font>
-                                    <Font size="22.0" />
+                                    <Font name="System Bold" size="23.0" />
+                                 </font>
+                              </Label>
+                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="148.0" layoutY="156.0" prefHeight="26.0" prefWidth="192.0" text="- Time Complexity:" textFill="#acffff">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                              </Label>
+                              <Text fill="WHITE" fontSmoothingType="LCD" layoutX="50.0" layoutY="75.0" lineSpacing="2.0" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Time complexity and space complexity of an algorithm are two metrics that are crucial for assessing its efficiency and performance. It allows users to compare different algorithms and choose the most appropriate one for a given task based on its expected running time and memory usage." wrappingWidth="705.0">
+                                 <font>
+                                    <Font name="Segoe UI" size="16.0" />
+                                 </font>
+                              </Text>
+                              <Text fill="WHITE" fontSmoothingType="LCD" layoutX="334.0" layoutY="176.0" lineSpacing="2.0" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Time complexity is a measure of the efficiency of an algorithm in terms of the amount of time it takes to solve a problem. It is often expressed using big O notation, which describes the upper bound on the growth rate of an algorithm's running time as the input size increases." wrappingWidth="671.6666870117188">
+                                 <font>
+                                    <Font name="Segoe UI" size="16.0" />
+                                 </font>
+                              </Text>
+                              <Text fill="WHITE" fontSmoothingType="LCD" layoutX="405.0" layoutY="267.0" lineSpacing="2.0" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="                                   This refers to the minimum amount of time an algorithm takes to solve a problem when provided with the best possible input. It represents the most optimal case for the algorithm, where it performs at its fastest speed." wrappingWidth="539.6666870117188">
+                                 <font>
+                                    <Font name="Segoe UI" size="16.0" />
+                                 </font>
+                              </Text>
+                              <Text fill="WHITE" fontSmoothingType="LCD" layoutX="407.0" layoutY="375.0" lineSpacing="2.0" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="                                       This represents the expected or average amount of time an algorithm takes to solve a problem when provided with inputs that are likely to occur in real-world scenarios. It takes into account the probability of different types of inputs and their corresponding time taken by the algorithm." wrappingWidth="533.0">
+                                 <font>
+                                    <Font name="Segoe UI" size="16.0" />
+                                 </font>
+                              </Text>
+                              <Text fill="WHITE" fontSmoothingType="LCD" layoutX="408.0" layoutY="508.0" lineSpacing="2.0" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="                                   This refers to the maximum amount of time an algorithm takes to solve a problem when provided with the worst possible input. It represents the least optimal case for the algorithm, where it performs at its slowest speed." wrappingWidth="533.0">
+                                 <font>
+                                    <Font name="Segoe UI" size="16.0" />
+                                 </font>
+                              </Text>
+                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="155.0" layoutY="626.0" prefHeight="26.0" prefWidth="192.0" text="- Space Complexity:" textFill="#acffff">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                              </Label>
+                              <Text fill="WHITE" fontSmoothingType="LCD" layoutX="341.0" layoutY="646.0" lineSpacing="2.0" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="This refers to the amount of memory or space required by an algorithm to solve a problem. It includes the amount of memory used by variables, data structures, and other resources during the execution of the algorithm. Space complexity is typically expressed in terms of the amount of memory used as a function of the input size." wrappingWidth="671.6666870117188">
+                                 <font>
+                                    <Font name="Segoe UI" size="16.0" />
+                                 </font>
+                              </Text>
+                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="364.0" layoutY="247.0" prefHeight="26.0" prefWidth="192.0" text="- Best Time Complexity:" textFill="#c0ffad">
+                                 <font>
+                                    <Font name="System Bold" size="16.0" />
+                                 </font>
+                              </Label>
+                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="357.0" layoutY="355.0" prefHeight="26.0" prefWidth="220.0" text="- Average Time Complexity:" textFill="#ffe4ad">
+                                 <font>
+                                    <Font name="System Bold" size="16.0" />
+                                 </font>
+                              </Label>
+                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="349.0" layoutY="488.0" prefHeight="26.0" prefWidth="220.0" text="- Worst Time Complexity:" textFill="#ff9595">
+                                 <font>
+                                    <Font name="System Bold" size="16.0" />
                                  </font>
                               </Label>
                            </children>
+                           <padding>
+                              <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+                           </padding>
+                        </Pane>
+                        <Pane layoutX="42.0" layoutY="840.0" styleClass="help-section">
+                           <children>
+                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="69.0" prefWidth="217.0" text="Visualizer Page:" textFill="#c9ffcc">
+                                 <font>
+                                    <Font name="System Bold" size="23.0" />
+                                 </font>
+                              </Label>
+                              <Text fill="WHITE" fontSmoothingType="LCD" layoutX="50.0" layoutY="75.0" lineSpacing="2.0" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="This page allows you to interactively visualize various algorithms in action. You can select different sorting and searching algorithms from a list on the left and see how they work step-by-step with visualizations." wrappingWidth="671.6666870117188">
+                                 <font>
+                                    <Font name="Segoe UI" size="16.0" />
+                                 </font>
+                              </Text>
+                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="139.0" layoutY="154.0" prefHeight="26.0" prefWidth="103.0" text="- Controls:" textFill="#acffff">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                              </Label>
+                              <Text fill="WHITE" fontSmoothingType="LCD" layoutX="250.0" layoutY="175.0" lineSpacing="2.0" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="You can step forwards or backwards with the right/left arrows. You can also auto play by pressing the play button. This will play the animation at the chosen speed." wrappingWidth="671.6666870117188">
+                                 <font>
+                                    <Font name="Segoe UI" size="16.0" />
+                                 </font>
+                              </Text>
+                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="74.0" layoutY="231.0" prefHeight="26.0" prefWidth="165.0" text="- Array Generation:" textFill="#acffff">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                              </Label>
+                              <Text fill="WHITE" fontSmoothingType="LCD" layoutX="250.0" layoutY="252.0" lineSpacing="2.0" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="You may either input a comma seperated array into the array input box or leave it blank to recieve a random array. The size of the random array can be chosen using the size dropdown. Example input: 1,5,4,10,50,3" wrappingWidth="671.6666870117188">
+                                 <font>
+                                    <Font name="Segoe UI" size="16.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                           <padding>
+                              <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+                           </padding>
+                        </Pane>
+                        <Pane layoutX="47.0" layoutY="1242.0" styleClass="help-section">
+                           <children>
+                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="69.0" prefWidth="217.0" text="Compare Page:" textFill="#c9ffcc">
+                                 <font>
+                                    <Font name="System Bold" size="23.0" />
+                                 </font>
+                              </Label>
+                              <Text fill="WHITE" fontSmoothingType="LCD" layoutX="50.0" layoutY="75.0" lineSpacing="2.0" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="On this page, you can choose and compare two different algorithms side by side to see how their time and space complexities differ. This page is useful for evaluating the performance of different algorithms and identifying their strengths and weaknesses." wrappingWidth="671.6666870117188">
+                                 <font>
+                                    <Font name="Segoe UI" size="16.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                           <padding>
+                              <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+                           </padding>
+                        </Pane>
+                        <Pane layoutX="51.0" layoutY="1458.0" styleClass="help-section">
+                           <children>
+                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="69.0" prefWidth="217.0" text="Ranking Page:" textFill="#c9ffcc">
+                                 <font>
+                                    <Font name="System Bold" size="23.0" />
+                                 </font>
+                              </Label>
+                              <Text fill="WHITE" fontSmoothingType="LCD" layoutX="50.0" layoutY="75.0" lineSpacing="2.0" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="The ranking page displays a ranking of sorting and searching algorithms based on their best, average and worst case performance metrics." wrappingWidth="671.6666870117188">
+                                 <font>
+                                    <Font name="Segoe UI" size="16.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                           <padding>
+                              <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+                           </padding>
+                        </Pane>
+                        <Pane layoutX="54.0" layoutY="1656.0" styleClass="help-section">
+                           <children>
+                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="69.0" prefWidth="174.0" text="Quiz Page:" textFill="#c9ffcc">
+                                 <font>
+                                    <Font name="System Bold" size="23.0" />
+                                 </font>
+                              </Label>
+                              <Text fill="WHITE" fontSmoothingType="LCD" layoutX="50.0" layoutY="75.0" lineSpacing="2.0" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="The quiz page is designed to test your knowledge of algorithms. It contains a set of questions related to various algorithms, categorized by diffuculty. As you answer questions, the page will give you immediate feedback with an explanation regarding the answer." wrappingWidth="671.6666870117188">
+                                 <font>
+                                    <Font name="Segoe UI" size="16.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                           <padding>
+                              <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+                           </padding>
                         </Pane>
                      </children>
+                     <padding>
+                        <Insets bottom="40.0" />
+                     </padding>
                   </AnchorPane>
               </content>
             </ScrollPane>
