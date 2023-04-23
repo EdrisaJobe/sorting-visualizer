@@ -1,7 +1,7 @@
 # The Sorting-Visualizer
 
 A team based project, the Algorithm code is now seperate from the UI code,
-Below are summaries of the different classes we have.
+below are summaries of the different classes we have and some UI pictures partaining to the application.
 
 ## Abstract Algorithm
 This is an abstract class that's meant to be extended.
