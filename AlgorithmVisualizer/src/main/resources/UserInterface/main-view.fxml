@@ -45,15 +45,26 @@
       </TabPane>
       <MenuBar fx:id="menu" prefHeight="0.0" prefWidth="1367.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <menus>
+            <Menu mnemonicParsing="false" text="Algorithms">
+               <items>
+                  <Menu fx:id="sortingMenu" mnemonicParsing="false" text="Sorting" />
+                  <Menu fx:id="searchingMenu" mnemonicParsing="false" text="Searching" />
+               </items>
+            </Menu>
           <Menu mnemonicParsing="false" text="Options">
             <items>
                   <Menu fx:id="speedMenu" mnemonicParsing="false" text="Speed" />
                   <Menu fx:id="sizeMenu" mnemonicParsing="false" text="Size" />
+                  <MenuItem fx:id="arrayMenuItem" mnemonicParsing="false" onAction="#GenerateArray" text="Generate Array" />
+                  <MenuItem fx:id="treeMenuItem" mnemonicParsing="false" onAction="#GenerateTree" text="Generate Tree" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Run">
             <items>
-              <MenuItem mnemonicParsing="false" text="Binary Search" />
+              <MenuItem mnemonicParsing="false" onAction="#Play" text="Play" />
+                  <MenuItem mnemonicParsing="false" onAction="#Pause" text="Pause" />
+                  <MenuItem mnemonicParsing="false" onAction="#Forward" text="Forward" />
+                  <MenuItem mnemonicParsing="false" onAction="#Back" text="Back" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Help">

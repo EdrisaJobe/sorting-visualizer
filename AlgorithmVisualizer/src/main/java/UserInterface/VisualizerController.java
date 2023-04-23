@@ -26,7 +26,8 @@ public class VisualizerController implements Initializable {
 
     //Duration of the transitions
     protected final static float ANIM_DURATION = .95f;
-
+    @FXML
+    private MainController mainController;
     @FXML
     private Label statusText;
     @FXML
@@ -36,9 +37,9 @@ public class VisualizerController implements Initializable {
     @FXML
     private Pane visualizerPane;
     @FXML
-    private ComboBox<String> sortDropdown;
+    public ComboBox<String> sortDropdown;
     @FXML
-    private ComboBox<String> searchDropdown;
+    public ComboBox<String> searchDropdown;
     @FXML
     public ComboBox<String> speedDropdown;
     @FXML
@@ -65,6 +66,9 @@ public class VisualizerController implements Initializable {
     private Label arrayInputLabel;
     @FXML
     private ComboBox<String> bucketSize;
+
+    MenuItem treeMenuItem;
+    MenuItem arrayMenuItem;
 
 
     private int treeSize = 9;
@@ -109,7 +113,6 @@ public class VisualizerController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
         sortDropdown.getItems().setAll("Bubble Sort", "Insertion Sort", "Quick Sort",
                 "Selection Sort", "Merge Sort", "Bucket Sort", "Heap Sort", "Tree Sort");
         sortDropdown.setValue("Bubble Sort");
@@ -273,72 +276,67 @@ public class VisualizerController implements Initializable {
     @FXML
     protected void PrepareAlgorithm() {
         boolean isCustomVis = false;
+        boolean isTreeSort = false;
+
         switch (algorithmName) {
             case "Bubble Sort":
                 bucketSize.setVisible(false);
                 algorithm = new BubbleSort(boxes, x_gap, box_width);
-                btnGenArray.setDisable(false);
-                btnGenTree.setDisable(true);
                 break;
             case "Insertion Sort":
                 bucketSize.setVisible(false);
                 algorithm = new InsertionSort(boxes, x_gap, box_width);
-                btnGenArray.setDisable(false);
-                btnGenTree.setDisable(true);
                 break;
             case "Quick Sort":
                 bucketSize.setVisible(false);
                 algorithm = new QuickSort(boxes, x_gap, box_width);
-                btnGenArray.setDisable(false);
-                btnGenTree.setDisable(true);
                 break;
             case "Selection Sort":
                 bucketSize.setVisible(false);
                 algorithm = new SelectionSort(boxes, x_gap, box_width);
-                btnGenArray.setDisable(false);
-                btnGenTree.setDisable(true);
                 break;
             case "Merge Sort":
                 bucketSize.setVisible(false);
                 algorithm = new MergeSort(boxes, x_gap, box_width);
-                btnGenArray.setDisable(false);
-                btnGenTree.setDisable(true);
                 break;
             case "Bucket Sort":
-
                 bucketSize.setVisible(true);
                 int[] test1 = GenerateRandomTreeValues();
                 //will update once merged with main
                 SetUpBucketSort(test1, numBuckets);
                 bucketAlgorithm = new BucketSort(bucketNodes, NodeValues, numBuckets, visualizerPane.getWidth(), visualizerPane.getHeight());
-                btnGenArray.setDisable(false);
-                btnGenTree.setDisable(true);
                 break;
             case "Heap Sort":
                 bucketSize.setVisible(false);
                 algorithm = new HeapSort(boxes, x_gap, box_width);
-                btnGenArray.setDisable(false);
-                btnGenTree.setDisable(true);
                 break;
             case "Tree Sort":
                 bucketSize.setVisible(false);
                 algorithmTree = new TreeSort(treeNodes, NodeValues, treeNodeLines);
-                btnGenArray.setDisable(true);
-                btnGenTree.setDisable(false);
                 isCustomVis = true;
+                isTreeSort = true;
                 break;
             case "Linear Search":
                 bucketSize.setVisible(false);
                 algorithm = new LinearSearch(boxes, x_gap, box_width);
-                btnGenArray.setDisable(false);
-                btnGenTree.setDisable(true);
                 break;
             case "Binary Search":
                 bucketSize.setVisible(false);
                 algorithm = new BinarySearch(boxes, x_gap, box_width);
-                btnGenArray.setDisable(false);
-                btnGenTree.setDisable(true);
                 break;
+        }
+
+        if(isTreeSort){
+            btnGenArray.setDisable(true);
+            btnGenTree.setDisable(false);
+            treeMenuItem.setDisable(false);
+            arrayMenuItem.setDisable(true);
+        }
+        else{
+            treeMenuItem.setDisable(true);
+            btnGenArray.setDisable(false);
+            btnGenTree.setDisable(true);
+            arrayMenuItem.setDisable(false);
         }
 
         if (isCustomVis) {
@@ -348,6 +346,7 @@ public class VisualizerController implements Initializable {
             arrayInput.setDisable(false);
             arrayInputLabel.setOpacity(1);
         }
+
         if (algorithm != null) {
             statusText.setText("Selected Algorithm: " + algorithmName);
             pseudoText.setText(algorithm.pseudoCode);

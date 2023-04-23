@@ -15,6 +15,11 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
+    @FXML
+    public MenuItem treeMenuItem;
+
+    @FXML
+    public MenuItem arrayMenuItem;
 
     @FXML
     private VisualizerController visualizerController;
@@ -36,8 +41,15 @@ public class MainController implements Initializable {
 
     @FXML
     Menu speedMenu;
+
     @FXML
     Menu sizeMenu;
+
+    @FXML
+    Menu sortingMenu;
+
+    @FXML
+    Menu searchingMenu;
 
     /**
      * Initializes the UI elements.
@@ -46,6 +58,8 @@ public class MainController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        visualizerController.treeMenuItem = treeMenuItem;
+        visualizerController.arrayMenuItem = arrayMenuItem;
 
         // Add the menu items to the context menu
         speedMenu.getItems().addAll(new MenuItem("1x"), new MenuItem("2x"),
@@ -54,6 +68,37 @@ public class MainController implements Initializable {
         sizeMenu.getItems().addAll(new MenuItem("10"), new MenuItem("25"),
                 new MenuItem("50"), new MenuItem("100"));
 
+        sortingMenu.getItems().addAll(new MenuItem("Bubble Sort"), new MenuItem("Insertion Sort"), new MenuItem("Quick Sort"),
+                new MenuItem("Selection Sort"), new MenuItem("Merge Sort"),
+                new MenuItem("Bucket Sort"), new MenuItem("Heap Sort"), new MenuItem("Tree Sort"));
+
+        searchingMenu.getItems().setAll( new MenuItem("Linear Search"),  new MenuItem("Binary Search"));
+
+        // Add an action event handler to the context menu
+        sortingMenu.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                MenuItem menuItem = (MenuItem) event.getTarget();
+                String menuItemText = menuItem.getText();
+                if(speedMenu != event.getTarget()) {
+                    visualizerController.sortDropdown.setValue(menuItemText);
+                    visualizerController.SortDropdownHandler();
+                }
+            }
+        });
+
+        // Add an action event handler to the context menu
+        searchingMenu.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                MenuItem menuItem = (MenuItem) event.getTarget();
+                String menuItemText = menuItem.getText();
+                if(speedMenu != event.getTarget()) {
+                    visualizerController.searchDropdown.setValue(menuItemText);
+                    visualizerController.SearchDropdownHandler();
+                }
+            }
+        });
 
         // Add an action event handler to the context menu
         speedMenu.setOnAction(new EventHandler<ActionEvent>() {
@@ -80,16 +125,30 @@ public class MainController implements Initializable {
                 }
             }
         });
-
-
     }
 
     public void SetupVisualizer(){
         visualizerController.GenerateArray();
     }
+    public void Play(){
+        visualizerController.AnimateOnTimer();
+    }
+    public void Pause(){
+        visualizerController.StopTimer();
+    }
+    public void Forward(){
+        visualizerController.StepForward();
+    }
+    public void Back(){
+        visualizerController.StepBackward();
+    }
 
-    public void UpdateSpeed(){
-        visualizerController.speedDropdown.setValue("");
+    public void GenerateArray(){
+        visualizerController.GenerateArray();
+    }
+
+    public void GenerateTree(){
+        visualizerController.GenerateRandomBinaryTree();
     }
 
 
