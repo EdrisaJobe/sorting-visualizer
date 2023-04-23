@@ -103,7 +103,7 @@
                                  <children>
 
 
-                                    <Pane fx:id="visualizerPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="378.0" minWidth="780.0" prefHeight="414.0" prefWidth="780.0" style="-fx-background-color: #32a852;" HBox.hgrow="NEVER">
+                                    <Pane id="main-pane" fx:id="visualizerPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="378.0" minWidth="780.0" prefHeight="414.0" prefWidth="780.0" HBox.hgrow="NEVER">
                                        <HBox.margin>
                                           <Insets />
                                        </HBox.margin></Pane>

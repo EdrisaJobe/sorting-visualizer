@@ -64,11 +64,12 @@ public class LinearSearch extends AbstractAlgorithm{
     public ArrayList<AlgoState> RunAlgorithm() {
         AlgoState state;
         Random rand = new Random();
-        int targetIndex = rand.nextInt(6) + 4;
+        int targetIndex = rand.nextInt(nodes.length-1);
 
         state = new AlgoState();
         state.StoreTransition(SearchTargetHighlightNode(targetIndex));
         state.StoreVariable("i", 0);
+        state.StoreVariable("target", targetIndex);
         transitions.add(state);
 
 
@@ -77,12 +78,14 @@ public class LinearSearch extends AbstractAlgorithm{
             state = new AlgoState();
             state.StoreTransition(BaseColorNode(i > 0 ? i-1 : (0)), SecondaryHighlightNode(i));
             state.StoreVariable("i", i);
+            state.StoreVariable("target", targetIndex);
             transitions.add(state);
 
             if (nodes[i].getHeight() == nodes[targetIndex].getHeight()) {
                 state = new AlgoState();
                 state.StoreTransition(PrimaryHighlightNode(targetIndex));
                 state.StoreVariable("i", i);
+                state.StoreVariable("target", targetIndex);
                 transitions.add(state);
                 break;
             }

@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="760.0" prefWidth="1367.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserInterface.MainController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="760.0" prefWidth="1367.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserInterface.MainController">
    <children>
       <TabPane layoutX="10.0" layoutY="10.0" minWidth="700.0" prefHeight="573.0" prefWidth="875.0" style="-fx-background-color: #313933;" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="1080.0" tabMaxWidth="1920.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
          <tabs>
@@ -43,14 +43,15 @@
             </Tab>
          </tabs>
       </TabPane>
-      <MenuBar AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <MenuBar fx:id="menu" prefHeight="0.0" prefWidth="1367.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <menus>
-          <Menu mnemonicParsing="false" text="Sorting">
+          <Menu mnemonicParsing="false" text="Options">
             <items>
-              <MenuItem mnemonicParsing="false" text="BubbleSort" />
+                  <Menu fx:id="speedMenu" mnemonicParsing="false" text="Speed" />
+                  <Menu fx:id="sizeMenu" mnemonicParsing="false" text="Size" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Searching">
+          <Menu mnemonicParsing="false" text="Run">
             <items>
               <MenuItem mnemonicParsing="false" text="Binary Search" />
             </items>

@@ -1,12 +1,12 @@
 package UserInterface;
 
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
@@ -31,6 +31,13 @@ public class MainController implements Initializable {
     private Parent root;
     private int tutorialStage=0;
 
+    @FXML
+    MenuBar menu;
+
+    @FXML
+    Menu speedMenu;
+    @FXML
+    Menu sizeMenu;
 
     /**
      * Initializes the UI elements.
@@ -40,11 +47,51 @@ public class MainController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        // Add the menu items to the context menu
+        speedMenu.getItems().addAll(new MenuItem("1x"), new MenuItem("2x"),
+                new MenuItem("3x"), new MenuItem("5x"), new MenuItem("10x"), new MenuItem("100x"));// Add the menu items to the context menu
+
+        sizeMenu.getItems().addAll(new MenuItem("10"), new MenuItem("25"),
+                new MenuItem("50"), new MenuItem("100"));
+
+
+        // Add an action event handler to the context menu
+        speedMenu.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                MenuItem menuItem = (MenuItem) event.getTarget();
+                String menuItemText = menuItem.getText();
+                if(speedMenu != event.getTarget()) {
+                    visualizerController.speedDropdown.setValue(menuItemText);
+                    visualizerController.SpeedDropdownHandler();
+                }
+            }
+        });
+
+        // Add an action event handler to the context menu
+        sizeMenu.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                MenuItem menuItem = (MenuItem) event.getTarget();
+                String menuItemText = menuItem.getText();
+                if(sizeMenu != event.getTarget()) {
+                    visualizerController.nDropdown.setValue(menuItemText);
+                    visualizerController.nDropdownHandler();
+                }
+            }
+        });
+
+
     }
 
     public void SetupVisualizer(){
         visualizerController.GenerateArray();
     }
+
+    public void UpdateSpeed(){
+        visualizerController.speedDropdown.setValue("");
+    }
+
 
     public void hideTutorial(ActionEvent actionEvent) throws IOException {
         tutorialPane.setVisible(false);

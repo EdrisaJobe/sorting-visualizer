@@ -54,6 +54,11 @@
     /*-fx-min-width: 100px;*/
 }
 
+.quiz-label{
+    -fx-background-color: #1f1f1f;
+}
+
+
 .combo-box .list-cell{
     -fx-text-fill: white;
 }
@@ -73,40 +78,108 @@
     -fx-background-radius: 15;
 }
 
+
+
+
+
 .menu-bar {
-    -fx-background-color: #363636;
-
-}
-.menu-bar .label {
--fx-background-color: #363636;
-    -fx-text-fill: white;
-    -fx-font-weight: bold;
+    -fx-background-color: #1D1D1D;
 }
 
-.menu-bar .menu-button:hover, .menu-bar .menu-button:focused, .menu-bar .menu-button:showing {
-    -fx-background: #363636;
-    -fx-opacity: 0.5;
-    -fx-text-fill: white;
+.menu {
+    -fx-background-color: #131313;
+}
+
+.menu > .label {
+    -fx-text-fill: #ababab;
+    -fx-font-family: verdana;
+    -fx-font-size: 10px;
+}
+
+.menu:hover{
+    /*-fx-background-color: #222a25;*/
+    -fx-text-fill: #ffffff;
+}
+
+.menu:hover,
+.menu:showing{
+    -fx-background-color: #333f37;
+    -fx-text-fill: #ffffff;
 }
 
 .menu-item {
-    -fx-text-fill: white;
-    -fx-background:  #363636 ;
+    -fx-background-color: #333f37;
+    -fx-text-fill: #989898;
+    -fx-font-family: verdana;
+    -fx-font-size: 10px;
 }
-.menu-item .label{
-    -fx-text-fill: white;
+
+.menu-item:hover .label {
+    /*-fx-background-color: #333f37;*/
+    -fx-text-fill: #ffffff;
 }
-.menu-item:focused {
-    -fx-background:  black ;
+
+.menu-item .label {
+    -fx-text-fill: #989898;
+    -fx-font-family: verdana;
+}
+
+.menu-item:focused .label {
+    -fx-text-fill: #ffffff;
+    -fx-font-family: verdana;
 }
 
 .context-menu {
-    -fx-background-color: #363636 ;
-    /** -fx-background-insets: 0.0, 1.0, 2.0;
-    -fx-background-radius: 0.0 6.0 6.0 6.0, 0.0 5.0 5.0 5.0, 0.0 4.0 4.0 4.0;
-    -fx-padding: 0.333333em 0.083333em 0.666667em 0.083333em;
-    -fx-opacity: 0.9;*/
+    -fx-background-color: #333f37;
 }
+
+/*.menu-bar {*/
+/*    -fx-background-color: #1d1d1d;*/
+/*    !*-fx-padding: 5 10 5 10;*!*/
+/*}*/
+
+/*.menu-bar .menu {*/
+/*    -fx-background-color: #1d1d1d;*/
+/*}*/
+
+/*.menu-bar .menu:hover {*/
+/*    -fx-background-color: #595959;*/
+/*    -fx-text-fill: #f8f8f8;*/
+
+/*}*/
+
+/*.menu-bar .label {*/
+/*    !*-fx-font-size: 14px;*!*/
+/*    -fx-font-weight: bold;*/
+/*    -fx-text-fill: #707070;*/
+/*}*/
+
+/*.menu-bar .label:hover {*/
+/*    !*-fx-font-size: 14px;*!*/
+/*    !*-fx-font-weight: bold;*!*/
+/*    -fx-text-fill: #ffffff;*/
+/*}*/
+
+/*.menu-bar .menu .menu-item {*/
+/*    -fx-background-color: #6c6c6c;*/
+/*    -fx-text-fill: #f8f8f8;*/
+/*    -fx-padding: 5;*/
+/*}*/
+
+/*.menu-bar .menu .menu-item:hover{*/
+/*    -fx-background-color: #1d1d1d;*/
+/*    -fx-text-fill: #f8f8f8;*/
+
+/*}*/
+
+
+
+
+
+
+
+
+
 
 
 .text-area *.text {
@@ -126,6 +199,27 @@
 .vis-button:hover {
     -fx-background-color: #7a6208;
     -fx-cursor: hand;
+}
+
+
+
+.quiz-button{
+    -fx-background-color: #1D1D1D;
+    -fx-background-radius: 10;
+    -fx-text-fill: #86FF84;
+    -fx-font-size: 14px;
+    -fx-font-family: "Roboto", sans-serif;
+    -fx-padding: 3 6;
+}
+
+.quiz-button:hover {
+    -fx-background-color: #7a6208;
+    -fx-cursor: hand;
+}
+
+.quiz-button:disabled{
+    -fx-text-fill: #919191;
+    -fx-opacity: 0.50;
 }
 
 #input-label{
@@ -223,7 +317,8 @@
 
 /* Custom ScrollBar style */
 .scroll-bar {
-    -fx-background-color: transparent;
+    -fx-background-color: #333333;
+    -fx-background-radius: 15;
 }
 
 .scroll-bar:horizontal {
@@ -262,4 +357,8 @@
 .scroll-bar .increment-button:pressed,
 .scroll-bar .decrement-button:pressed {
     -fx-background-color: #7ECEFD; /* Set increment/decrement button color on press */
+}
+
+#main-pane{
+    -fx-background-color: #32A852;
 }

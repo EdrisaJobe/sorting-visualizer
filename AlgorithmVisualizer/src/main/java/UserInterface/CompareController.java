@@ -113,7 +113,7 @@ public class CompareController implements Initializable {
         compareContainer.lookup("#" + worstId).setVisible(true);
         compareContainer.lookup("#" + spaceId).setVisible(true);
 
-        ((Label)compareContainer.lookup("#bestTime")).setText(avg);
+        ((Label)compareContainer.lookup("#bestTime")).setText(best);
         ((Label)compareContainer.lookup("#avgTime")).setText(avg);
         ((Label)compareContainer.lookup("#worstTime")).setText(worst);
         ((Label)compareContainer.lookup("#spaceComp")).setText(space);

@@ -10,11 +10,11 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="2156.0" prefWidth="1177.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserInterface.HelpController">
+<VBox alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="2156.0" prefWidth="1177.0" style="-fx-background-color: #272727;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserInterface.HelpController">
    <children>
       <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="565.0" stylesheets="@styles.css" VBox.vgrow="ALWAYS">
          <children>
-            <ScrollPane fitToWidth="true" hbarPolicy="NEVER" hmax="0.0" maxWidth="1.7976931348623157E308" style="-fx-background-color: #272727;" styleClass="scroll-bar" HBox.hgrow="ALWAYS">
+            <ScrollPane fitToWidth="true" hbarPolicy="NEVER" hmax="0.0" maxWidth="1.7976931348623157E308" prefHeight="2136.0" prefWidth="1117.0" style="-fx-background-color: #272727;" styleClass="scroll-bar" HBox.hgrow="NEVER">
               <content>
                 <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefWidth="1175.0" style="-fx-background-color: #272727;">
                      <children>
@@ -25,7 +25,7 @@
                                     <Font name="System Bold" size="23.0" />
                                  </font>
                               </Label>
-                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="148.0" layoutY="156.0" prefHeight="26.0" prefWidth="192.0" text="- Time Complexity:" textFill="#acffff">
+                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="117.0" layoutY="156.0" prefHeight="26.0" prefWidth="192.0" text="- Time Complexity:" textFill="#acffff">
                                  <font>
                                     <Font name="System Bold" size="18.0" />
                                  </font>
@@ -35,47 +35,47 @@
                                     <Font name="Segoe UI" size="16.0" />
                                  </font>
                               </Text>
-                              <Text fill="WHITE" fontSmoothingType="LCD" layoutX="334.0" layoutY="176.0" lineSpacing="2.0" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Time complexity is a measure of the efficiency of an algorithm in terms of the amount of time it takes to solve a problem. It is often expressed using big O notation, which describes the upper bound on the growth rate of an algorithm's running time as the input size increases." wrappingWidth="671.6666870117188">
+                              <Text fill="WHITE" fontSmoothingType="LCD" layoutX="303.0" layoutY="176.0" lineSpacing="2.0" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Time complexity is a measure of the efficiency of an algorithm in terms of the amount of time it takes to solve a problem. It is often expressed using big O notation, which describes the upper bound on the growth rate of an algorithm's running time as the input size increases." wrappingWidth="671.6666870117188">
                                  <font>
                                     <Font name="Segoe UI" size="16.0" />
                                  </font>
                               </Text>
-                              <Text fill="WHITE" fontSmoothingType="LCD" layoutX="405.0" layoutY="267.0" lineSpacing="2.0" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="                                   This refers to the minimum amount of time an algorithm takes to solve a problem when provided with the best possible input. It represents the most optimal case for the algorithm, where it performs at its fastest speed." wrappingWidth="539.6666870117188">
+                              <Text fill="WHITE" fontSmoothingType="LCD" layoutX="374.0" layoutY="267.0" lineSpacing="2.0" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="                                   This refers to the minimum amount of time an algorithm takes to solve a problem when provided with the best possible input. It represents the most optimal case for the algorithm, where it performs at its fastest speed." wrappingWidth="539.6666870117188">
                                  <font>
                                     <Font name="Segoe UI" size="16.0" />
                                  </font>
                               </Text>
-                              <Text fill="WHITE" fontSmoothingType="LCD" layoutX="407.0" layoutY="375.0" lineSpacing="2.0" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="                                       This represents the expected or average amount of time an algorithm takes to solve a problem when provided with inputs that are likely to occur in real-world scenarios. It takes into account the probability of different types of inputs and their corresponding time taken by the algorithm." wrappingWidth="533.0">
+                              <Text fill="WHITE" fontSmoothingType="LCD" layoutX="376.0" layoutY="375.0" lineSpacing="2.0" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="                                       This represents the expected or average amount of time an algorithm takes to solve a problem when provided with inputs that are likely to occur in real-world scenarios. It takes into account the probability of different types of inputs and their corresponding time taken by the algorithm." wrappingWidth="533.0">
                                  <font>
                                     <Font name="Segoe UI" size="16.0" />
                                  </font>
                               </Text>
-                              <Text fill="WHITE" fontSmoothingType="LCD" layoutX="408.0" layoutY="508.0" lineSpacing="2.0" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="                                   This refers to the maximum amount of time an algorithm takes to solve a problem when provided with the worst possible input. It represents the least optimal case for the algorithm, where it performs at its slowest speed." wrappingWidth="533.0">
+                              <Text fill="WHITE" fontSmoothingType="LCD" layoutX="377.0" layoutY="508.0" lineSpacing="2.0" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="                                   This refers to the maximum amount of time an algorithm takes to solve a problem when provided with the worst possible input. It represents the least optimal case for the algorithm, where it performs at its slowest speed." wrappingWidth="533.0">
                                  <font>
                                     <Font name="Segoe UI" size="16.0" />
                                  </font>
                               </Text>
-                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="155.0" layoutY="626.0" prefHeight="26.0" prefWidth="192.0" text="- Space Complexity:" textFill="#acffff">
+                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="124.0" layoutY="626.0" prefHeight="26.0" prefWidth="192.0" text="- Space Complexity:" textFill="#acffff">
                                  <font>
                                     <Font name="System Bold" size="18.0" />
                                  </font>
                               </Label>
-                              <Text fill="WHITE" fontSmoothingType="LCD" layoutX="341.0" layoutY="646.0" lineSpacing="2.0" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="This refers to the amount of memory or space required by an algorithm to solve a problem. It includes the amount of memory used by variables, data structures, and other resources during the execution of the algorithm. Space complexity is typically expressed in terms of the amount of memory used as a function of the input size." wrappingWidth="671.6666870117188">
+                              <Text fill="WHITE" fontSmoothingType="LCD" layoutX="310.0" layoutY="646.0" lineSpacing="2.0" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="This refers to the amount of memory or space required by an algorithm to solve a problem. It includes the amount of memory used by variables, data structures, and other resources during the execution of the algorithm. Space complexity is typically expressed in terms of the amount of memory used as a function of the input size." wrappingWidth="671.6666870117188">
                                  <font>
                                     <Font name="Segoe UI" size="16.0" />
                                  </font>
                               </Text>
-                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="364.0" layoutY="247.0" prefHeight="26.0" prefWidth="192.0" text="- Best Time Complexity:" textFill="#c0ffad">
+                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="333.0" layoutY="247.0" prefHeight="26.0" prefWidth="192.0" text="- Best Time Complexity:" textFill="#c0ffad">
                                  <font>
                                     <Font name="System Bold" size="16.0" />
                                  </font>
                               </Label>
-                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="357.0" layoutY="355.0" prefHeight="26.0" prefWidth="220.0" text="- Average Time Complexity:" textFill="#ffe4ad">
+                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="326.0" layoutY="355.0" prefHeight="26.0" prefWidth="220.0" text="- Average Time Complexity:" textFill="#ffe4ad">
                                  <font>
                                     <Font name="System Bold" size="16.0" />
                                  </font>
                               </Label>
-                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="349.0" layoutY="488.0" prefHeight="26.0" prefWidth="220.0" text="- Worst Time Complexity:" textFill="#ff9595">
+                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="318.0" layoutY="488.0" prefHeight="26.0" prefWidth="220.0" text="- Worst Time Complexity:" textFill="#ff9595">
                                  <font>
                                     <Font name="System Bold" size="16.0" />
                                  </font>
@@ -179,6 +179,9 @@
                      </padding>
                   </AnchorPane>
               </content>
+               <HBox.margin>
+                  <Insets bottom="20.0" />
+               </HBox.margin>
             </ScrollPane>
          </children>
       </HBox>
