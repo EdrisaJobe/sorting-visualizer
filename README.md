@@ -1,4 +1,4 @@
-# sorting-visualizer
+# The Sorting-Visualizer
 
 The Algorithm code is now seperate from the UI code,
 Below are summaries of the different classes we have.
