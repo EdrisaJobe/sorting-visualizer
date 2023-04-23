@@ -35,7 +35,7 @@ public class BucketSort {
     //transitions
     //List containing all the transitions that this algorithm makes.
     //This allows us to go backwards and forwards.
-    public ArrayList<AlgoState> transitions = new ArrayList<>();
+    private ArrayList<AlgoState> transitions = new ArrayList<>();
     //Duration of the transitions.
     private final static float ANIM_DURATION = 0.95f;
 
