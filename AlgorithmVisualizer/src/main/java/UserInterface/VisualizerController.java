@@ -208,9 +208,12 @@ public class VisualizerController implements Initializable {
      */
     @FXML
     public void SortDropdownHandler() {
+        if(isSearchMode){
+            arrayInput.setDisable(false);
+            arrayInputLabel.setOpacity(1);
+        }
         isSearchMode = false;
-        arrayInput.setDisable(false);
-        arrayInputLabel.setOpacity(1);
+
         String dropDownVal = sortDropdown.getValue();
         if (!algorithmName.equals(dropDownVal)) {
             algorithmName = sortDropdown.getValue();
@@ -304,6 +307,7 @@ public class VisualizerController implements Initializable {
                 //will update once merged with main
                 SetUpBucketSort(test1, numBuckets);
                 bucketAlgorithm = new BucketSort(bucketNodes, NodeValues, numBuckets, visualizerPane.getWidth(), visualizerPane.getHeight());
+                isCustomVis = true;
                 break;
             case "Heap Sort":
                 bucketSize.setVisible(false);
