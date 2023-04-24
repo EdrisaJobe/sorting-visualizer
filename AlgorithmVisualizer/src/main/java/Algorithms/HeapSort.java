@@ -69,6 +69,8 @@ public class HeapSort extends AbstractAlgorithm{
         if (largest != i) {
             ArrayList<AlgoState> swap_transitions = FullSwapProcedure(i, largest);
             swap_transitions.get(swap_transitions.size() - 1).StoreVariable("i", i);
+            int[] copyArray = GetValues();
+            swap_transitions.get(0).StoreArrayStatus(copyArray);
             transitions.addAll(swap_transitions);
             heapify(arr, n, largest);
         }
@@ -94,6 +96,8 @@ public class HeapSort extends AbstractAlgorithm{
         for (int i = size - 1; i >= 0; i--) {
             ArrayList<AlgoState> swap_transitions = FullSwapProcedure(0, i);
             swap_transitions.get(swap_transitions.size() - 1).StoreVariable("i", i);
+            int[] copyArray = GetValues();
+            swap_transitions.get(0).StoreArrayStatus(copyArray);
             transitions.addAll(swap_transitions);
             heapify(nodes, i, 0);
         }

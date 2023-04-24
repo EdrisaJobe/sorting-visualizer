@@ -69,6 +69,8 @@ public class QuickSort extends AbstractAlgorithm{
                 ArrayList<AlgoState> swap_transitions = FullSwapProcedure(i, j);
                 swap_transitions.get(swap_transitions.size() - 1).StoreVariable("low", low);
                 swap_transitions.get(swap_transitions.size() - 1).StoreVariable("high", high);
+                int[] copyArray = GetValues();
+                swap_transitions.get(0).StoreArrayStatus(copyArray);
                 transitions.addAll(swap_transitions);
             }
         }
@@ -76,6 +78,8 @@ public class QuickSort extends AbstractAlgorithm{
         ArrayList<AlgoState> swap_transitions = FullSwapProcedure(i+1, high);
         swap_transitions.get(swap_transitions.size() - 1).StoreVariable("low", low);
         swap_transitions.get(swap_transitions.size() - 1).StoreVariable("high", high);
+        int[] copyArray = GetValues();
+        swap_transitions.get(0).StoreArrayStatus(copyArray);
         transitions.addAll(swap_transitions);
         return (i + 1);
     }

@@ -73,6 +73,8 @@ public class InsertionSort extends AbstractAlgorithm{
                     ArrayList<AlgoState> swap_transitions = FullSwapProcedure(j, iloc);
                     swap_transitions.get(swap_transitions.size() - 1).StoreVariable("i", i);
                     swap_transitions.get(swap_transitions.size() - 1).StoreVariable("j", j);
+                    int[] copyArray = GetValues();
+                    swap_transitions.get(0).StoreArrayStatus(copyArray);
                     transitions.addAll(swap_transitions);
                 iloc = j;
                     j--;

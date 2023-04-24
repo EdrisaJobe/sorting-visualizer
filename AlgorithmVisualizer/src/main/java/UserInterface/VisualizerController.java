@@ -186,10 +186,9 @@ public class VisualizerController implements Initializable {
             algoState.setText(String.valueOf(vars));
         }
 
-        //update array status
-        StringBuilder sorted = new StringBuilder("");
-        sorted.append(arrayStats);
-        sortedArray.setText(String.valueOf(sorted));
+        if (arrayStats != null) {
+            sortedArray.setText(arrayStats);
+        }
     }
 
 
@@ -449,7 +448,7 @@ public class VisualizerController implements Initializable {
             //update array status
             StringBuilder sorted = new StringBuilder("");
             sorted.append(arrayStats);
-            sortedArray.setText(String.valueOf(sorted));
+            sortedArray.setText("");
 
             StringBuilder input = new StringBuilder("");
             input.append(ConvertArrayToString(NodeValues));
@@ -779,13 +778,12 @@ public class VisualizerController implements Initializable {
      * @return converted array into string of form [*,*,...,]
      */
     public String ConvertArrayToString(int[] intArray) {
-        StringBuilder arrayString = new StringBuilder("[");
+        StringBuilder arrayString = new StringBuilder();
         for (int i = 0; i < intArray.length; i++) {
             arrayString.append(intArray[i]);
             if (i != intArray.length - 1)
                 arrayString.append(", ");
         }
-        arrayString.append("]");
         return arrayString.toString();
     }
 

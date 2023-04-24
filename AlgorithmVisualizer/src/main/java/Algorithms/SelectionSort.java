@@ -74,6 +74,8 @@ public class SelectionSort extends AbstractAlgorithm{
             ArrayList<AlgoState> swap_transitions = FullSwapProcedure(i, min_idx);
             swap_transitions.get(swap_transitions.size() - 1).StoreVariable("i", i);
             swap_transitions.get(swap_transitions.size() - 1).StoreVariable("min", min_idx);
+            int[] copyArray = GetValues();
+            swap_transitions.get(0).StoreArrayStatus(copyArray);
             transitions.addAll(swap_transitions);
         }
         return transitions;

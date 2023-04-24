@@ -65,6 +65,8 @@ public class MergeSort extends AbstractAlgorithm{
                     ArrayList<AlgoState> swap_transitions = FullSwapProcedure(i, j);
                     swap_transitions.get(swap_transitions.size() - 1).StoreVariable("left", start);
                     swap_transitions.get(swap_transitions.size() - 1).StoreVariable("right", end);
+                    int[] copyArray = GetValues();
+                    swap_transitions.get(0).StoreArrayStatus(copyArray);
                     transitions.addAll(swap_transitions);
                 }
             }

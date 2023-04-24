@@ -209,4 +209,12 @@ public abstract class AbstractAlgorithm {
 
         return new Pair<>(forward, reverse);
     }
+
+    public int[] GetValues() {
+        int[] values = new int[nodes.length];
+        for (int i = 0; i < nodes.length; i++) {
+            values[i] = (int) nodes[i].getHeight();
+        }
+        return values;
+    }
 }
