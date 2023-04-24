@@ -3,6 +3,7 @@ package UserInterface;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -17,18 +18,23 @@ public class MainApplication extends Application {
         MainController controller = fxmlLoader.getController();
         scene.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
 
-//        Generate a new array once the scene is fully loaded.
+        // Generate a new array once the scene is fully loaded.
         stage.setOnShown((event) -> {
             controller.SetupVisualizer();
-        });
+        });        
 
+        // set the title, width and height
         stage.setTitle("Algorithm Visualizer");
         stage.setMinWidth(width);
         stage.setMinHeight(height);
+
+        // Set the icon for the main GUI
+        Image icon = new Image(getClass().getResourceAsStream("images/main.png"));
+        stage.getIcons().add(icon);
+
         stage.setScene(scene);
         stage.show();
     }
-
 
     public static void main(String[] args) {
         launch();
