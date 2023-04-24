@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -12,31 +19,31 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserInterface.QuizController">
+<VBox alignment="CENTER" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserInterface.QuizController">
    <children>
       <HBox alignment="CENTER">
          <children>
             <Pane minHeight="0.0" minWidth="0.0" prefHeight="711.0" prefWidth="1393.0">
                <children>
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#243132" height="681.0" layoutX="7.0" layoutY="7.0" stroke="BLACK" strokeWidth="2.0" width="214.0" />
-                  <Label fx:id="qEasy" alignment="CENTER" layoutX="26.0" layoutY="28.0" prefHeight="30.0" prefWidth="183.0" styleClass="quiz-label" stylesheets="@styles.css" text="Easy" textAlignment="CENTER" textFill="#86ff84" wrapText="true">
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00000059" height="681.0" layoutX="7.0" layoutY="7.0" stroke="BLACK" strokeWidth="2.0" width="214.0" />
+                  <Label fx:id="qEasy" alignment="CENTER" layoutX="26.0" layoutY="28.0" prefHeight="30.0" prefWidth="183.0" style="-fx-border-color: green;" styleClass="quiz-label" stylesheets="@styles.css" text="Easy" textAlignment="CENTER" textFill="#86ff84" wrapText="true">
                      <padding>
                         <Insets bottom="5.0" top="5.0" />
                      </padding>
                   </Label>
-                  <Label fx:id="qMedium" alignment="CENTER" layoutX="26.0" layoutY="213.0" prefHeight="30.0" prefWidth="183.0" styleClass="quiz-label" stylesheets="@styles.css" text="Medium" textAlignment="CENTER" textFill="#ffd982" wrapText="true">
+                  <Label fx:id="qMedium" alignment="CENTER" layoutX="26.0" layoutY="213.0" prefHeight="30.0" prefWidth="183.0" style="-fx-border-color: orange;" styleClass="quiz-label" stylesheets="@styles.css" text="Medium" textAlignment="CENTER" textFill="#ffd982" wrapText="true">
                      <padding>
                         <Insets bottom="5.0" top="5.0" />
                      </padding>
                   </Label>
-                  <Label fx:id="qHard" alignment="CENTER" layoutX="26.0" layoutY="452.0" prefHeight="30.0" prefWidth="183.0" styleClass="quiz-label" stylesheets="@styles.css" text="Hard" textAlignment="CENTER" textFill="#ff7878" wrapText="true">
+                  <Label fx:id="qHard" alignment="CENTER" layoutX="26.0" layoutY="452.0" prefHeight="30.0" prefWidth="183.0" style="-fx-border-color: red;" styleClass="quiz-label" stylesheets="@styles.css" text="Hard" textAlignment="CENTER" textFill="#ff7878" wrapText="true">
                      <padding>
                         <Insets bottom="5.0" top="5.0" />
                      </padding>
                   </Label>
                   <Line endX="80.0" layoutX="123.0" layoutY="636.0" startX="-100.0" strokeWidth="3.0" />
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#243132" height="683.0" layoutX="239.0" layoutY="6.0" stroke="BLACK" strokeType="INSIDE" width="1095.0" />
-                  <Label fx:id="qTitle" alignment="CENTER" layoutX="318.0" layoutY="28.0" prefHeight="30.0" prefWidth="950.0" styleClass="quiz-label" stylesheets="@styles.css" text="Question number displays here" textAlignment="CENTER" textFill="#86ff84" wrapText="true">
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00000059" height="683.0" layoutX="239.0" layoutY="6.0" stroke="BLACK" strokeType="INSIDE" width="1095.0" />
+                  <Label fx:id="qTitle" alignment="CENTER" layoutX="318.0" layoutY="28.0" prefHeight="30.0" prefWidth="950.0" style="-fx-border-color: green;" styleClass="quiz-label" stylesheets="@styles.css" text="Question number displays here" textAlignment="CENTER" textFill="#86ff84" wrapText="true">
                      <padding>
                         <Insets bottom="5.0" top="5.0" />
                      </padding>
