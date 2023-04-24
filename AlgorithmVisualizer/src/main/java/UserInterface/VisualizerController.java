@@ -488,7 +488,6 @@ public class VisualizerController implements Initializable {
         int size = numOfBoxes;
 
         if (!arrayInput.getText().equals("") && !isSearchMode) {
-            System.out.println("NOT EMPTY");
             shouldRandomize = false;
             poss_values = convertToIntArray(arrayInput.getText());
             size = poss_values.length;

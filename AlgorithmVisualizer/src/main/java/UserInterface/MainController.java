@@ -9,6 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
@@ -26,7 +27,7 @@ public class MainController implements Initializable {
     @FXML
     private VisualizerController visualizerController;
     @FXML
-    private StackPane tutorialPane;
+    private HBox tutorialPane;
 
     @FXML
     private TextArea welcomeText, genArrayBtnText, animationBtnText, leftMenuText, tabText, pseudoText, finalText;

@@ -201,6 +201,29 @@
     -fx-cursor: hand;
 }
 
+.tutorial-button{
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 10;
+    -fx-text-fill: #000000;
+    -fx-font-size: 15px;
+    -fx-font-family: "Roboto", sans-serif;
+    -fx-padding: 3 6;
+}
+
+.tutorial-button:hover {
+    -fx-background-color: #c2c2c2;
+    -fx-cursor: hand;
+}
+
+.tutorial-text{
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 10;
+    -fx-font-size: 20px;
+    -fx-font-family: "Roboto", sans-serif;
+    -fx-padding: 3 6;
+}
+
+
 
 
 .quiz-button{
