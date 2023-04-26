@@ -19,7 +19,7 @@ public class AlgoState {
     //for example:  (i, 5), (j,8), (k,3)
     public ArrayList<Pair<String, Integer>> variables = new ArrayList<>();
 
-    public ArrayList<String> arrayStatus = new ArrayList<>();
+    public String arrayStatus = null;
 
     public AlgoState(){
     }
@@ -86,6 +86,6 @@ public class AlgoState {
      */
     public void StoreArrayStatus(int[]sorted){
         String sortedArray = ConvertArrayToString(sorted);
-        arrayStatus.add(sortedArray);
+        arrayStatus = sortedArray;
     }
 }

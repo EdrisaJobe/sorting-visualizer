@@ -62,7 +62,6 @@ public class BubbleSort extends AbstractAlgorithm {
      */
     @Override
     public ArrayList<AlgoState> RunAlgorithm() {
-        int[] copyArray = GetValues();
         int n = nodes.length;
         for (int i = 0; i < n - 1; i++) {
             for (int j = 0; j < n - i - 1; j++) {
@@ -76,11 +75,8 @@ public class BubbleSort extends AbstractAlgorithm {
                     swap_transitions.get(0).StoreVariable("i", i);
                     swap_transitions.get(0).StoreVariable("j", j);
 
-                    int larger = copyArray[j];
-                    copyArray[j] = copyArray[j + 1];
-                    copyArray[j+1]=larger;
-                    for(int status = 0;status < swap_transitions.size();status++)
-                        swap_transitions.get(status).StoreArrayStatus(copyArray);
+                    int[] copyArray = GetValues();
+                    swap_transitions.get(0).StoreArrayStatus(copyArray);
                     transitions.addAll(swap_transitions);
                 }
             }
@@ -88,13 +84,5 @@ public class BubbleSort extends AbstractAlgorithm {
         }
 
         return transitions;
-    }
-
-    private int[] GetValues() {
-        int[] values = new int[nodes.length];
-        for (int i = 0; i < nodes.length; i++) {
-            values[i] = (int) nodes[i].getHeight();
-        }
-        return values;
     }
 }

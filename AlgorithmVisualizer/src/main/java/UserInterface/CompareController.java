@@ -4,6 +4,7 @@ import Algorithms.*;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
@@ -64,9 +65,9 @@ public class CompareController implements Initializable {
             case "Bucket Sort":
                 //Only do besttime for bucket since other times can't be graphed
                 best = BucketSort.bestTime;
-                avg = BucketSort.bestTime;
-                worst = BucketSort.bestTime;
-                space = BucketSort.bestTime;
+                avg = BucketSort.averageTime;
+                worst = BucketSort.worstTime;
+                space = BucketSort.spaceComplexity;
                 break;
             case "Heap Sort":
                 algo = new HeapSort();
@@ -108,12 +109,27 @@ public class CompareController implements Initializable {
 
         ((Group)compareContainer.lookup("#" + "curves")).getChildren().forEach(node -> node.setVisible(false));
 
-        compareContainer.lookup("#" + bestId).setVisible(true);
-        compareContainer.lookup("#" + avgId).setVisible(true);
-        compareContainer.lookup("#" + worstId).setVisible(true);
-        compareContainer.lookup("#" + spaceId).setVisible(true);
+        // Retrieve the elements from the container
+        Node bestElement = compareContainer.lookup("#" + bestId);
+        Node avgElement = compareContainer.lookup("#" + avgId);
+        Node worstElement = compareContainer.lookup("#" + worstId);
+        Node spaceElement = compareContainer.lookup("#" + spaceId);
 
-        ((Label)compareContainer.lookup("#bestTime")).setText(avg);
+        // Check if the elements are not null before setting their visibility
+        if (bestElement != null) {
+            bestElement.setVisible(true);
+        }
+        if (avgElement != null) {
+            avgElement.setVisible(true);
+        }
+        if (worstElement != null) {
+            worstElement.setVisible(true);
+        }
+        if (spaceElement != null) {
+            spaceElement.setVisible(true);
+        }
+
+        ((Label)compareContainer.lookup("#bestTime")).setText(best);
         ((Label)compareContainer.lookup("#avgTime")).setText(avg);
         ((Label)compareContainer.lookup("#worstTime")).setText(worst);
         ((Label)compareContainer.lookup("#spaceComp")).setText(space);

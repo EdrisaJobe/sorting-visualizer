@@ -65,7 +65,7 @@ public class BinarySearch extends AbstractAlgorithm{
         ParallelTransition highlightsForward;
         ParallelTransition highlightsReverse;
         Random rand = new Random();
-        int targetIndex = rand.nextInt(6) + 4;
+        int targetIndex = rand.nextInt(nodes.length-1);
         double target =  nodes[targetIndex].getHeight();
 
 

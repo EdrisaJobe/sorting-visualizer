@@ -26,7 +26,8 @@ public class VisualizerController implements Initializable {
 
     //Duration of the transitions
     protected final static float ANIM_DURATION = .95f;
-
+    @FXML
+    private MainController mainController;
     @FXML
     private Label statusText;
     @FXML
@@ -36,13 +37,13 @@ public class VisualizerController implements Initializable {
     @FXML
     private Pane visualizerPane;
     @FXML
-    private ComboBox<String> sortDropdown;
+    public ComboBox<String> sortDropdown;
     @FXML
-    private ComboBox<String> searchDropdown;
+    public ComboBox<String> searchDropdown;
     @FXML
-    private ComboBox<String> speedDropdown;
+    public ComboBox<String> speedDropdown;
     @FXML
-    private ComboBox<String> nDropdown;
+    public ComboBox<String> nDropdown;
     @FXML
     private Text pseudoText;
     @FXML
@@ -65,6 +66,9 @@ public class VisualizerController implements Initializable {
     private Label arrayInputLabel;
     @FXML
     private ComboBox<String> bucketSize;
+
+    MenuItem treeMenuItem;
+    MenuItem arrayMenuItem;
 
 
     private int treeSize = 9;
@@ -109,22 +113,20 @@ public class VisualizerController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
         sortDropdown.getItems().setAll("Bubble Sort", "Insertion Sort", "Quick Sort",
                 "Selection Sort", "Merge Sort", "Bucket Sort", "Heap Sort", "Tree Sort");
         sortDropdown.setValue("Bubble Sort");
 
-        searchDropdown.getItems().setAll("Linear Search");
+        searchDropdown.getItems().setAll("Linear Search", "Binary Search");
         searchDropdown.setValue("Pick Search Algorithm");
 
-        speedDropdown.getItems().setAll("1x", "2x", "3x", "5x", "10x");
+        speedDropdown.getItems().setAll("1x", "2x", "5x", "10x", "100x");
         speedDropdown.setValue("1x");
 
         nDropdown.getItems().setAll("10", "25", "50", "100");
         nDropdown.setValue("10");
 
-        bucketSize.getItems().setAll("2", "3", "4",
-                "5");
+        bucketSize.getItems().setAll("2", "3", "4", "5");
         bucketSize.setValue("2");
 
         timer = new AnimTimer();
@@ -184,10 +186,9 @@ public class VisualizerController implements Initializable {
             algoState.setText(String.valueOf(vars));
         }
 
-        //update array status
-        StringBuilder sorted = new StringBuilder("");
-        sorted.append(arrayStats);
-        sortedArray.setText(String.valueOf(sorted));
+        if (arrayStats != null) {
+            sortedArray.setText(arrayStats);
+        }
     }
 
 
@@ -207,9 +208,12 @@ public class VisualizerController implements Initializable {
      */
     @FXML
     public void SortDropdownHandler() {
+        if(isSearchMode){
+            arrayInput.setDisable(false);
+            arrayInputLabel.setOpacity(1);
+        }
         isSearchMode = false;
-        arrayInput.setDisable(false);
-        arrayInputLabel.setOpacity(1);
+
         String dropDownVal = sortDropdown.getValue();
         if (!algorithmName.equals(dropDownVal)) {
             algorithmName = sortDropdown.getValue();
@@ -274,67 +278,70 @@ public class VisualizerController implements Initializable {
     @FXML
     protected void PrepareAlgorithm() {
         boolean isCustomVis = false;
+        boolean isTreeSort = false;
+
         switch (algorithmName) {
             case "Bubble Sort":
                 bucketSize.setVisible(false);
                 algorithm = new BubbleSort(boxes, x_gap, box_width);
-                btnGenArray.setDisable(false);
-                btnGenTree.setDisable(true);
                 break;
             case "Insertion Sort":
                 bucketSize.setVisible(false);
                 algorithm = new InsertionSort(boxes, x_gap, box_width);
-                btnGenArray.setDisable(false);
-                btnGenTree.setDisable(true);
                 break;
             case "Quick Sort":
                 bucketSize.setVisible(false);
                 algorithm = new QuickSort(boxes, x_gap, box_width);
-                btnGenArray.setDisable(false);
-                btnGenTree.setDisable(true);
                 break;
             case "Selection Sort":
                 bucketSize.setVisible(false);
                 algorithm = new SelectionSort(boxes, x_gap, box_width);
-                btnGenArray.setDisable(false);
-                btnGenTree.setDisable(true);
                 break;
             case "Merge Sort":
                 bucketSize.setVisible(false);
                 algorithm = new MergeSort(boxes, x_gap, box_width);
-                btnGenArray.setDisable(false);
-                btnGenTree.setDisable(true);
                 break;
             case "Bucket Sort":
-
                 bucketSize.setVisible(true);
                 int[] test1 = GenerateRandomTreeValues();
                 //will update once merged with main
                 SetUpBucketSort(test1, numBuckets);
                 bucketAlgorithm = new BucketSort(bucketNodes, NodeValues, numBuckets, visualizerPane.getWidth(), visualizerPane.getHeight());
-                btnGenArray.setDisable(false);
-                btnGenTree.setDisable(true);
+                isCustomVis = true;
                 break;
             case "Heap Sort":
                 bucketSize.setVisible(false);
                 algorithm = new HeapSort(boxes, x_gap, box_width);
-                btnGenArray.setDisable(false);
-                btnGenTree.setDisable(true);
                 break;
             case "Tree Sort":
                 bucketSize.setVisible(false);
                 algorithmTree = new TreeSort(treeNodes, NodeValues, treeNodeLines);
-                btnGenArray.setDisable(true);
-                btnGenTree.setDisable(false);
                 isCustomVis = true;
+                isTreeSort = true;
                 break;
             case "Linear Search":
                 bucketSize.setVisible(false);
                 algorithm = new LinearSearch(boxes, x_gap, box_width);
-                btnGenArray.setDisable(false);
-                btnGenTree.setDisable(true);
+                break;
+            case "Binary Search":
+                bucketSize.setVisible(false);
+                algorithm = new BinarySearch(boxes, x_gap, box_width);
                 break;
         }
+
+        if(isTreeSort){
+            btnGenArray.setDisable(true);
+            btnGenTree.setDisable(false);
+            treeMenuItem.setDisable(false);
+            arrayMenuItem.setDisable(true);
+        }
+        else{
+            treeMenuItem.setDisable(true);
+            btnGenArray.setDisable(false);
+            btnGenTree.setDisable(true);
+            arrayMenuItem.setDisable(false);
+        }
+
         if (isCustomVis) {
             arrayInput.setDisable(true);
             arrayInputLabel.setOpacity(0.5);
@@ -342,6 +349,7 @@ public class VisualizerController implements Initializable {
             arrayInput.setDisable(false);
             arrayInputLabel.setOpacity(1);
         }
+
         if (algorithm != null) {
             statusText.setText("Selected Algorithm: " + algorithmName);
             pseudoText.setText(algorithm.pseudoCode);
@@ -444,7 +452,7 @@ public class VisualizerController implements Initializable {
             //update array status
             StringBuilder sorted = new StringBuilder("");
             sorted.append(arrayStats);
-            sortedArray.setText(String.valueOf(sorted));
+            sortedArray.setText("");
 
             StringBuilder input = new StringBuilder("");
             input.append(ConvertArrayToString(NodeValues));
@@ -480,7 +488,6 @@ public class VisualizerController implements Initializable {
         int size = numOfBoxes;
 
         if (!arrayInput.getText().equals("") && !isSearchMode) {
-            System.out.println("NOT EMPTY");
             shouldRandomize = false;
             poss_values = convertToIntArray(arrayInput.getText());
             size = poss_values.length;
@@ -774,13 +781,12 @@ public class VisualizerController implements Initializable {
      * @return converted array into string of form [*,*,...,]
      */
     public String ConvertArrayToString(int[] intArray) {
-        StringBuilder arrayString = new StringBuilder("[");
+        StringBuilder arrayString = new StringBuilder();
         for (int i = 0; i < intArray.length; i++) {
             arrayString.append(intArray[i]);
             if (i != intArray.length - 1)
                 arrayString.append(", ");
         }
-        arrayString.append("]");
         return arrayString.toString();
     }
 

@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.BorderPane?>
@@ -10,8 +16,7 @@
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Font?>
 
-
-<VBox alignment="CENTER" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserInterface.AlgorithmRankingController">
+<VBox alignment="CENTER" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserInterface.AlgorithmRankingController">
    <children>
       <HBox alignment="CENTER">
          <children>
@@ -19,16 +24,16 @@
                <children>
                   <BorderPane layoutX="20.0" layoutY="13.0" prefHeight="673.0" prefWidth="1318.0">
                      <left>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00000063" height="660.0" stroke="#19da00" strokeWidth="2.0" width="395.0" BorderPane.alignment="CENTER" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00000063" height="660.0" stroke="#86ff84" strokeWidth="2.0" width="395.0" BorderPane.alignment="CENTER" />
                      </left>
                      <center>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00000063" height="658.0" stroke="#ffc800" strokeWidth="2.0" width="426.0" BorderPane.alignment="CENTER" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00000063" height="658.0" stroke="#ffd982" strokeWidth="2.0" width="426.0" BorderPane.alignment="CENTER" />
                      </center>
                      <right>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00000063" height="660.0" stroke="RED" strokeWidth="2.0" width="393.0" BorderPane.alignment="CENTER" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00000063" height="660.0" stroke="#ff7878" strokeWidth="2.0" width="393.0" BorderPane.alignment="CENTER" />
                      </right>
                   </BorderPane>
-                  <Label fx:id="qEasy1" alignment="CENTER" layoutX="51.0" layoutY="67.0" prefHeight="47.0" prefWidth="330.0" style="-fx-background-color: #19da00;" styleClass="side_label" stylesheets="@styles.css" text="Best Case Ranking" textAlignment="CENTER" wrapText="true">
+                  <Label fx:id="qEasy1" alignment="CENTER" layoutX="51.0" layoutY="67.0" prefHeight="47.0" prefWidth="330.0" style="-fx-background-color: #86ff84;" styleClass="side_label" stylesheets="@styles.css" text="Best Case Ranking" textAlignment="CENTER" wrapText="true">
                      <padding>
                         <Insets bottom="5.0" top="5.0" />
                      </padding>
@@ -36,7 +41,7 @@
                         <Font name="System Bold" size="16.0" />
                      </font>
                   </Label>
-                  <Label fx:id="qEasy11" alignment="CENTER" layoutX="509.0" layoutY="66.0" prefHeight="47.0" prefWidth="340.0" style="-fx-background-color: ffc800;" styleClass="side_label" stylesheets="@styles.css" text="Average Case Ranking" textAlignment="CENTER" wrapText="true">
+                  <Label fx:id="qEasy11" alignment="CENTER" layoutX="509.0" layoutY="66.0" prefHeight="47.0" prefWidth="340.0" style="-fx-background-color: #ffd982;" styleClass="side_label" stylesheets="@styles.css" text="Average Case Ranking" textAlignment="CENTER" wrapText="true">
                      <padding>
                         <Insets bottom="5.0" top="5.0" />
                      </padding>
@@ -44,7 +49,7 @@
                         <Font name="System Bold" size="16.0" />
                      </font>
                   </Label>
-                  <Label fx:id="qEasy111" alignment="CENTER" layoutX="976.0" layoutY="65.0" prefHeight="47.0" prefWidth="340.0" style="-fx-background-color: ff0000;" styleClass="side_label" stylesheets="@styles.css" text="Worst Case Ranking" textAlignment="CENTER" wrapText="true">
+                  <Label fx:id="qEasy111" alignment="CENTER" layoutX="976.0" layoutY="65.0" prefHeight="47.0" prefWidth="340.0" style="-fx-background-color: #ff7878;" styleClass="side_label" stylesheets="@styles.css" text="Worst Case Ranking" textAlignment="CENTER" wrapText="true">
                      <padding>
                         <Insets bottom="5.0" top="5.0" />
                      </padding>
@@ -52,10 +57,10 @@
                         <Font name="System Bold" size="16.0" />
                      </font>
                   </Label>
-                  <SVGPath content="M23.2746 24.5415C23.5988 24.9886 24.224 25.0883 24.6712 24.7641C25.1183 24.4399 25.2179 23.8146 24.8938 23.3675L23.2746 24.5415ZM14.1613 10.869C14.4571 10.4027 14.3189 9.78479 13.8526 9.48892C13.3862 9.19306 12.7683 9.33127 12.4724 9.79762L14.1613 10.869ZM27.7622 10.3993C28.058 9.93297 27.9198 9.31507 27.4535 9.01921C26.9871 8.72335 26.3692 8.86155 26.0734 9.3279L27.7622 10.3993ZM24.8938 23.3675C23.6566 21.6612 21.3735 19.541 18.5173 18.9108C17.0643 18.5901 15.4763 18.6603 13.8512 19.3569C12.2356 20.0495 10.6425 21.3353 9.11952 23.3518L10.7155 24.5572C12.0836 22.7457 13.4178 21.7188 14.6392 21.1952C15.851 20.6757 17.0097 20.6262 18.0864 20.8638C20.2897 21.35 22.1988 23.0578 23.2746 24.5415L24.8938 23.3675ZM12.4724 9.79762C12.1737 10.2685 11.7674 10.7839 11.3025 11.215C10.8312 11.652 10.3498 11.9559 9.90445 12.0835C9.49228 12.2016 9.10059 12.1759 8.69138 11.9292C8.24812 11.662 7.69653 11.0806 7.13651 9.90367L5.33053 10.763C5.9848 12.138 6.75711 13.0985 7.65884 13.6421C8.59462 14.2062 9.569 14.2602 10.4554 14.0061C11.3087 13.7616 12.0585 13.2414 12.6623 12.6816C13.2726 12.1157 13.7854 11.4615 14.1613 10.869L12.4724 9.79762ZM26.0734 9.3279C25.7746 9.79882 25.3683 10.3142 24.9034 10.7453C24.4321 11.1823 23.9508 11.4862 23.5054 11.6138C23.0932 11.7319 22.7015 11.7062 22.2923 11.4595C21.849 11.1923 21.2975 10.6109 20.7374 9.43395L18.9314 10.2933C19.5857 11.6683 20.358 12.6288 21.2598 13.1723C22.1955 13.7365 23.1699 13.7905 24.0564 13.5364C24.9096 13.2919 25.6594 12.7717 26.2632 12.2118C26.8735 11.646 27.3863 10.9917 27.7622 10.3993L26.0734 9.3279ZM32 15.5C32 22.786 25.4622 29 17 29V33C27.3155 33 36 25.3348 36 15.5H32ZM17 29C8.53785 29 2 22.786 2 15.5H-2C-2 25.3348 6.68447 33 17 33V29ZM2 15.5C2 8.21402 8.53785 2 17 2V-2C6.68447 -2 -2 5.66516 -2 15.5H2ZM17 2C25.4622 2 32 8.21402 32 15.5H36C36 5.66516 27.3155 -2 17 -2V2Z" fill="WHITE" layoutX="1239.0" layoutY="72.0" />
-                  <SVGPath content="M 7.75 22.699219 L 24.023438 22.699219 L 24.023438 20.699219 L 7.75 20.699219 Z M 7.75 11.851562 L 13.175781 11.851562 L 13.175781 9.851562 L 7.75 9.851562 Z M 18.601562 11.851562 L 24.023438 11.851562 L 24.023438 9.851562 L 18.601562 9.851562 Z M 30 15.5 C 30 23.507812 23.507812 30 15.5 30 C 7.492188 30 1 23.507812 1 15.5 C 1 7.492188 7.492188 1 15.5 1 C 23.507812 1 30 7.492188 30 15.5 Z M 30 15.5 " fill="#ffdba600" layoutX="778.0" layoutY="72.0" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="4.0" />
-                  <SVGPath content="M 11.011719 20.101562 C 10.667969 19.617188 10.003906 19.507812 9.527344 19.859375 C 9.050781 20.207031 8.945312 20.886719 9.289062 21.375 Z M 4.902344 12.753906 C 4.585938 13.257812 4.734375 13.929688 5.234375 14.25 C 5.730469 14.570312 6.386719 14.417969 6.699219 13.910156 Z M 19.398438 12.753906 C 19.085938 13.257812 19.234375 13.929688 19.730469 14.25 C 20.226562 14.570312 20.886719 14.417969 21.199219 13.910156 Z M 9.289062 21.375 C 10.554688 23.171875 12.898438 25.410156 15.835938 26.074219 C 17.332031 26.414062 18.96875 26.339844 20.640625 25.601562 C 22.300781 24.871094 23.9375 23.515625 25.5 21.390625 L 23.796875 20.085938 C 22.402344 21.988281 21.039062 23.0625 19.796875 23.609375 C 18.566406 24.148438 17.390625 24.203125 16.296875 23.953125 C 14.058594 23.445312 12.109375 21.660156 11.011719 20.101562 Z M 6.699219 13.910156 C 7.003906 13.417969 7.417969 12.878906 7.890625 12.429688 C 8.371094 11.972656 8.859375 11.65625 9.304688 11.523438 C 9.714844 11.402344 10.105469 11.429688 10.511719 11.683594 C 10.957031 11.957031 11.515625 12.5625 12.089844 13.796875 L 14.011719 12.867188 C 13.339844 11.417969 12.546875 10.402344 11.613281 9.824219 C 10.644531 9.226562 9.632812 9.167969 8.714844 9.4375 C 7.832031 9.695312 7.0625 10.25 6.441406 10.839844 C 5.8125 11.4375 5.285156 12.128906 4.902344 12.753906 Z M 21.199219 13.910156 C 21.503906 13.417969 21.917969 12.878906 22.390625 12.429688 C 22.871094 11.972656 23.355469 11.65625 23.804688 11.523438 C 24.214844 11.402344 24.601562 11.429688 25.011719 11.683594 C 25.457031 11.957031 26.015625 12.5625 26.585938 13.796875 L 28.511719 12.867188 C 27.839844 11.417969 27.042969 10.402344 26.113281 9.824219 C 25.144531 9.226562 24.132812 9.167969 23.214844 9.4375 C 22.332031 9.695312 21.558594 10.25 20.941406 10.839844 C 20.3125 11.4375 19.785156 12.128906 19.398438 12.753906 Z M 32.671875 16.292969 C 32.671875 23.917969 26.011719 30.417969 17.398438 30.417969 L 17.398438 34.761719 C 28.003906 34.761719 36.925781 26.667969 36.925781 16.292969 Z M 17.398438 30.417969 C 8.785156 30.417969 2.125 23.917969 2.125 16.292969 L -2.125 16.292969 C -2.125 26.667969 6.792969 34.761719 17.398438 34.761719 Z M 2.125 16.292969 C 2.125 8.667969 8.785156 2.171875 17.398438 2.171875 L 17.398438 -2.171875 C 6.792969 -2.171875 -2.125 5.921875 -2.125 16.292969 Z M 17.398438 2.171875 C 26.011719 2.171875 32.671875 8.667969 32.671875 16.292969 L 36.925781 16.292969 C 36.925781 5.921875 28.003906 -2.171875 17.398438 -2.171875 Z M 17.398438 2.171875" fill="WHITE" layoutX="299.0" layoutY="72.0" />
-                  <Label fx:id="qEasy12" alignment="CENTER" layoutX="51.0" layoutY="118.0" prefHeight="30.0" prefWidth="330.0" style="-fx-background-color: #19da00;" styleClass="side_label" stylesheets="@styles.css" text="Sorting Algorithms" textAlignment="CENTER" wrapText="true">
+                  <SVGPath content="M23.2746 24.5415C23.5988 24.9886 24.224 25.0883 24.6712 24.7641C25.1183 24.4399 25.2179 23.8146 24.8938 23.3675L23.2746 24.5415ZM14.1613 10.869C14.4571 10.4027 14.3189 9.78479 13.8526 9.48892C13.3862 9.19306 12.7683 9.33127 12.4724 9.79762L14.1613 10.869ZM27.7622 10.3993C28.058 9.93297 27.9198 9.31507 27.4535 9.01921C26.9871 8.72335 26.3692 8.86155 26.0734 9.3279L27.7622 10.3993ZM24.8938 23.3675C23.6566 21.6612 21.3735 19.541 18.5173 18.9108C17.0643 18.5901 15.4763 18.6603 13.8512 19.3569C12.2356 20.0495 10.6425 21.3353 9.11952 23.3518L10.7155 24.5572C12.0836 22.7457 13.4178 21.7188 14.6392 21.1952C15.851 20.6757 17.0097 20.6262 18.0864 20.8638C20.2897 21.35 22.1988 23.0578 23.2746 24.5415L24.8938 23.3675ZM12.4724 9.79762C12.1737 10.2685 11.7674 10.7839 11.3025 11.215C10.8312 11.652 10.3498 11.9559 9.90445 12.0835C9.49228 12.2016 9.10059 12.1759 8.69138 11.9292C8.24812 11.662 7.69653 11.0806 7.13651 9.90367L5.33053 10.763C5.9848 12.138 6.75711 13.0985 7.65884 13.6421C8.59462 14.2062 9.569 14.2602 10.4554 14.0061C11.3087 13.7616 12.0585 13.2414 12.6623 12.6816C13.2726 12.1157 13.7854 11.4615 14.1613 10.869L12.4724 9.79762ZM26.0734 9.3279C25.7746 9.79882 25.3683 10.3142 24.9034 10.7453C24.4321 11.1823 23.9508 11.4862 23.5054 11.6138C23.0932 11.7319 22.7015 11.7062 22.2923 11.4595C21.849 11.1923 21.2975 10.6109 20.7374 9.43395L18.9314 10.2933C19.5857 11.6683 20.358 12.6288 21.2598 13.1723C22.1955 13.7365 23.1699 13.7905 24.0564 13.5364C24.9096 13.2919 25.6594 12.7717 26.2632 12.2118C26.8735 11.646 27.3863 10.9917 27.7622 10.3993L26.0734 9.3279ZM32 15.5C32 22.786 25.4622 29 17 29V33C27.3155 33 36 25.3348 36 15.5H32ZM17 29C8.53785 29 2 22.786 2 15.5H-2C-2 25.3348 6.68447 33 17 33V29ZM2 15.5C2 8.21402 8.53785 2 17 2V-2C6.68447 -2 -2 5.66516 -2 15.5H2ZM17 2C25.4622 2 32 8.21402 32 15.5H36C36 5.66516 27.3155 -2 17 -2V2Z" layoutX="1249.0" layoutY="73.0" />
+                  <SVGPath content="M 7.75 22.699219 L 24.023438 22.699219 L 24.023438 20.699219 L 7.75 20.699219 Z M 7.75 11.851562 L 13.175781 11.851562 L 13.175781 9.851562 L 7.75 9.851562 Z M 18.601562 11.851562 L 24.023438 11.851562 L 24.023438 9.851562 L 18.601562 9.851562 Z M 30 15.5 C 30 23.507812 23.507812 30 15.5 30 C 7.492188 30 1 23.507812 1 15.5 C 1 7.492188 7.492188 1 15.5 1 C 23.507812 1 30 7.492188 30 15.5 Z M 30 15.5 " fill="#ffdba600" layoutX="788.0" layoutY="74.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="4.0" />
+                  <SVGPath content="M 11.011719 20.101562 C 10.667969 19.617188 10.003906 19.507812 9.527344 19.859375 C 9.050781 20.207031 8.945312 20.886719 9.289062 21.375 Z M 4.902344 12.753906 C 4.585938 13.257812 4.734375 13.929688 5.234375 14.25 C 5.730469 14.570312 6.386719 14.417969 6.699219 13.910156 Z M 19.398438 12.753906 C 19.085938 13.257812 19.234375 13.929688 19.730469 14.25 C 20.226562 14.570312 20.886719 14.417969 21.199219 13.910156 Z M 9.289062 21.375 C 10.554688 23.171875 12.898438 25.410156 15.835938 26.074219 C 17.332031 26.414062 18.96875 26.339844 20.640625 25.601562 C 22.300781 24.871094 23.9375 23.515625 25.5 21.390625 L 23.796875 20.085938 C 22.402344 21.988281 21.039062 23.0625 19.796875 23.609375 C 18.566406 24.148438 17.390625 24.203125 16.296875 23.953125 C 14.058594 23.445312 12.109375 21.660156 11.011719 20.101562 Z M 6.699219 13.910156 C 7.003906 13.417969 7.417969 12.878906 7.890625 12.429688 C 8.371094 11.972656 8.859375 11.65625 9.304688 11.523438 C 9.714844 11.402344 10.105469 11.429688 10.511719 11.683594 C 10.957031 11.957031 11.515625 12.5625 12.089844 13.796875 L 14.011719 12.867188 C 13.339844 11.417969 12.546875 10.402344 11.613281 9.824219 C 10.644531 9.226562 9.632812 9.167969 8.714844 9.4375 C 7.832031 9.695312 7.0625 10.25 6.441406 10.839844 C 5.8125 11.4375 5.285156 12.128906 4.902344 12.753906 Z M 21.199219 13.910156 C 21.503906 13.417969 21.917969 12.878906 22.390625 12.429688 C 22.871094 11.972656 23.355469 11.65625 23.804688 11.523438 C 24.214844 11.402344 24.601562 11.429688 25.011719 11.683594 C 25.457031 11.957031 26.015625 12.5625 26.585938 13.796875 L 28.511719 12.867188 C 27.839844 11.417969 27.042969 10.402344 26.113281 9.824219 C 25.144531 9.226562 24.132812 9.167969 23.214844 9.4375 C 22.332031 9.695312 21.558594 10.25 20.941406 10.839844 C 20.3125 11.4375 19.785156 12.128906 19.398438 12.753906 Z M 32.671875 16.292969 C 32.671875 23.917969 26.011719 30.417969 17.398438 30.417969 L 17.398438 34.761719 C 28.003906 34.761719 36.925781 26.667969 36.925781 16.292969 Z M 17.398438 30.417969 C 8.785156 30.417969 2.125 23.917969 2.125 16.292969 L -2.125 16.292969 C -2.125 26.667969 6.792969 34.761719 17.398438 34.761719 Z M 2.125 16.292969 C 2.125 8.667969 8.785156 2.171875 17.398438 2.171875 L 17.398438 -2.171875 C 6.792969 -2.171875 -2.125 5.921875 -2.125 16.292969 Z M 17.398438 2.171875 C 26.011719 2.171875 32.671875 8.667969 32.671875 16.292969 L 36.925781 16.292969 C 36.925781 5.921875 28.003906 -2.171875 17.398438 -2.171875 Z M 17.398438 2.171875" layoutX="310.0" layoutY="75.0" />
+                  <Label fx:id="qEasy12" alignment="CENTER" layoutX="51.0" layoutY="118.0" prefHeight="30.0" prefWidth="330.0" style="-fx-background-color: #86FF84;" styleClass="side_label" stylesheets="@styles.css" text="Sorting Algorithms" textAlignment="CENTER" wrapText="true">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
@@ -63,7 +68,7 @@
                         <Insets bottom="5.0" top="5.0" />
                      </padding>
                   </Label>
-                  <Label fx:id="qEasy121" alignment="CENTER" layoutX="509.0" layoutY="117.0" prefHeight="30.0" prefWidth="340.0" style="-fx-background-color: ffc800;" styleClass="side_label" stylesheets="@styles.css" text="Sorting Algorithms" textAlignment="CENTER" wrapText="true">
+                  <Label fx:id="qEasy121" alignment="CENTER" layoutX="509.0" layoutY="117.0" prefHeight="30.0" prefWidth="340.0" style="-fx-background-color: #ffd982;" styleClass="side_label" stylesheets="@styles.css" text="Sorting Algorithms" textAlignment="CENTER" wrapText="true">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
@@ -71,7 +76,7 @@
                         <Insets bottom="5.0" top="5.0" />
                      </padding>
                   </Label>
-                  <Label fx:id="qEasy1211" alignment="CENTER" layoutX="976.0" layoutY="117.0" prefHeight="30.0" prefWidth="340.0" style="-fx-background-color: ff0000;" styleClass="side_label" stylesheets="@styles.css" text="Sorting Algorithms" textAlignment="CENTER" wrapText="true">
+                  <Label fx:id="qEasy1211" alignment="CENTER" layoutX="976.0" layoutY="117.0" prefHeight="30.0" prefWidth="340.0" style="-fx-background-color: #ff7878;" styleClass="side_label" stylesheets="@styles.css" text="Sorting Algorithms" textAlignment="CENTER" wrapText="true">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
@@ -79,7 +84,7 @@
                         <Insets bottom="5.0" top="5.0" />
                      </padding>
                   </Label>
-                  <Label fx:id="qEasy122" alignment="CENTER" layoutX="61.0" layoutY="163.0" prefHeight="22.0" prefWidth="310.0" styleClass="side_label" stylesheets="@styles.css" text="1. Bubble Sort Ω(n)" textAlignment="CENTER" textFill="#19da00" wrapText="true">
+                  <Label fx:id="qEasy122" alignment="CENTER" layoutX="61.0" layoutY="195.0" prefHeight="22.0" prefWidth="310.0" style="-fx-border-color: green;" styleClass="side_label" stylesheets="@styles.css" text="2. Bubble Sort Ω(n)" textAlignment="CENTER" textFill="#86ff84" wrapText="true">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -87,7 +92,7 @@
                         <Insets bottom="5.0" top="5.0" />
                      </padding>
                   </Label>
-                  <Label fx:id="qEasy1221" alignment="CENTER" layoutX="61.0" layoutY="203.0" prefHeight="22.0" prefWidth="310.0" styleClass="side_label" stylesheets="@styles.css" text="2. Insertion Sort Ω(n)" textAlignment="CENTER" textFill="#19da00" wrapText="true">
+                  <Label fx:id="qEasy1221" alignment="CENTER" layoutX="61.0" layoutY="234.0" prefHeight="22.0" prefWidth="310.0" style="-fx-border-color: green;" styleClass="side_label" stylesheets="@styles.css" text="2. Insertion Sort Ω(n)" textAlignment="CENTER" textFill="#86ff84" wrapText="true">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -95,7 +100,7 @@
                         <Insets bottom="5.0" top="5.0" />
                      </padding>
                   </Label>
-                  <Label fx:id="qEasy1212" alignment="CENTER" layoutX="529.0" layoutY="163.0" prefHeight="22.0" prefWidth="310.0" styleClass="side_label" stylesheets="@styles.css" text="1. Bubble Sort θ(n^2)" textAlignment="CENTER" textFill="#ffc800" wrapText="true">
+                  <Label fx:id="qEasy1212" alignment="CENTER" layoutX="526.0" layoutY="424.0" prefHeight="22.0" prefWidth="310.0" style="-fx-border-color: orange;" styleClass="side_label" stylesheets="@styles.css" text="6. Bubble Sort θ(n^2)" textAlignment="CENTER" textFill="#ffd982" wrapText="true">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -103,7 +108,7 @@
                         <Insets bottom="5.0" top="5.0" />
                      </padding>
                   </Label>
-                  <Label fx:id="qEasy12121" alignment="CENTER" layoutX="529.0" layoutY="201.0" prefHeight="22.0" prefWidth="310.0" styleClass="side_label" stylesheets="@styles.css" text="2. Insertion Sort θ(n)" textAlignment="CENTER" textFill="#ffc800" wrapText="true">
+                  <Label fx:id="qEasy12121" alignment="CENTER" layoutX="526.0" layoutY="198.0" prefHeight="22.0" prefWidth="310.0" style="-fx-border-color: orange;" styleClass="side_label" stylesheets="@styles.css" text="2. Insertion Sort θ(n)" textAlignment="CENTER" textFill="#ffd982" wrapText="true">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -111,7 +116,7 @@
                         <Insets bottom="5.0" top="5.0" />
                      </padding>
                   </Label>
-                  <Label fx:id="qEasy12111" alignment="CENTER" layoutX="996.0" layoutY="164.0" prefHeight="22.0" prefWidth="310.0" styleClass="side_label" stylesheets="@styles.css" text="1. Bubble Sort O(n^2)" textAlignment="CENTER" textFill="RED" wrapText="true">
+                  <Label fx:id="qEasy12111" alignment="CENTER" layoutX="989.0" layoutY="347.0" prefHeight="22.0" prefWidth="310.0" style="-fx-border-color: red;" styleClass="side_label" stylesheets="@styles.css" text="5. Bubble Sort O(n^2)" textAlignment="CENTER" textFill="#ff7878" wrapText="true">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -119,7 +124,7 @@
                         <Insets bottom="5.0" top="5.0" />
                      </padding>
                   </Label>
-                  <Label fx:id="qEasy121111" alignment="CENTER" layoutX="996.0" layoutY="202.0" prefHeight="22.0" prefWidth="310.0" styleClass="side_label" stylesheets="@styles.css" text="2. Insertion Sort O(n^2)" textAlignment="CENTER" textFill="RED" wrapText="true">
+                  <Label fx:id="qEasy121111" alignment="CENTER" layoutX="989.0" layoutY="386.0" prefHeight="22.0" prefWidth="310.0" style="-fx-border-color: red;" styleClass="side_label" stylesheets="@styles.css" text="5. Insertion Sort O(n^2)" textAlignment="CENTER" textFill="#ff7878" wrapText="true">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -127,7 +132,7 @@
                         <Insets bottom="5.0" top="5.0" />
                      </padding>
                   </Label>
-                  <Label fx:id="qEasy12211" alignment="CENTER" layoutX="61.0" layoutY="242.0" prefHeight="22.0" prefWidth="310.0" styleClass="side_label" stylesheets="@styles.css" text="3. Quick Sort Ω(n log n)" textAlignment="CENTER" textFill="#19da00" wrapText="true">
+                  <Label fx:id="qEasy12211" alignment="CENTER" layoutX="61.0" layoutY="385.0" prefHeight="22.0" prefWidth="310.0" style="-fx-border-color: green;" styleClass="side_label" stylesheets="@styles.css" text="4. Quick Sort Ω(n log n)" textAlignment="CENTER" textFill="#86ff84" wrapText="true">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -135,7 +140,7 @@
                         <Insets bottom="5.0" top="5.0" />
                      </padding>
                   </Label>
-                  <Label fx:id="qEasy121211" alignment="CENTER" layoutX="529.0" layoutY="239.0" prefHeight="22.0" prefWidth="310.0" styleClass="side_label" stylesheets="@styles.css" text="3. Quick Sort θ(n log n)" textAlignment="CENTER" textFill="#ffc800" wrapText="true">
+                  <Label fx:id="qEasy121211" alignment="CENTER" layoutX="526.0" layoutY="312.0" prefHeight="22.0" prefWidth="310.0" style="-fx-border-color: orange;" styleClass="side_label" stylesheets="@styles.css" text="5. Quick Sort θ(n log n)" textAlignment="CENTER" textFill="#ffd982" wrapText="true">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -143,7 +148,7 @@
                         <Insets bottom="5.0" top="5.0" />
                      </padding>
                   </Label>
-                  <Label fx:id="qEasy1211111" alignment="CENTER" layoutX="996.0" layoutY="240.0" prefHeight="22.0" prefWidth="310.0" styleClass="side_label" stylesheets="@styles.css" text="3. Quick Sort O(n^2)" textAlignment="CENTER" textFill="RED" wrapText="true">
+                  <Label fx:id="qEasy1211111" alignment="CENTER" layoutX="989.0" layoutY="424.0" prefHeight="22.0" prefWidth="310.0" style="-fx-border-color: red;" styleClass="side_label" stylesheets="@styles.css" text="5. Quick Sort O(n^2)" textAlignment="CENTER" textFill="#ff7878" wrapText="true">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -151,7 +156,7 @@
                         <Insets bottom="5.0" top="5.0" />
                      </padding>
                   </Label>
-                  <Label fx:id="qEasy122111" alignment="CENTER" layoutX="61.0" layoutY="281.0" prefHeight="22.0" prefWidth="310.0" styleClass="side_label" stylesheets="@styles.css" text="4. Selection Sort Ω(n^2)" textAlignment="CENTER" textFill="#19da00" wrapText="true">
+                  <Label fx:id="qEasy122111" alignment="CENTER" layoutX="61.0" layoutY="463.0" prefHeight="22.0" prefWidth="310.0" style="-fx-border-color: green;" styleClass="side_label" stylesheets="@styles.css" text="5. Selection Sort Ω(n^2)" textAlignment="CENTER" textFill="#86ff84" wrapText="true">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -159,7 +164,7 @@
                         <Insets bottom="5.0" top="5.0" />
                      </padding>
                   </Label>
-                  <Label fx:id="qEasy1212111" alignment="CENTER" layoutX="529.0" layoutY="277.0" prefHeight="22.0" prefWidth="310.0" styleClass="side_label" stylesheets="@styles.css" text="4. Selection Sort θ(n^2)" textAlignment="CENTER" textFill="#ffc800" wrapText="true">
+                  <Label fx:id="qEasy1212111" alignment="CENTER" layoutX="526.0" layoutY="463.0" prefHeight="22.0" prefWidth="310.0" style="-fx-border-color: orange;" styleClass="side_label" stylesheets="@styles.css" text="6. Selection Sort θ(n^2)" textAlignment="CENTER" textFill="#ffd982" wrapText="true">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -167,7 +172,7 @@
                         <Insets bottom="5.0" top="5.0" />
                      </padding>
                   </Label>
-                  <Label fx:id="qEasy12111111" alignment="CENTER" layoutX="996.0" layoutY="277.0" prefHeight="22.0" prefWidth="310.0" styleClass="side_label" stylesheets="@styles.css" text="4. Selection Sort O(n^2)" textAlignment="CENTER" textFill="RED" wrapText="true">
+                  <Label fx:id="qEasy12111111" alignment="CENTER" layoutX="989.0" layoutY="463.0" prefHeight="22.0" prefWidth="310.0" style="-fx-border-color: red;" styleClass="side_label" stylesheets="@styles.css" text="5. Selection Sort O(n^2)" textAlignment="CENTER" textFill="#ff7878" wrapText="true">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -175,7 +180,7 @@
                         <Insets bottom="5.0" top="5.0" />
                      </padding>
                   </Label>
-                  <Label fx:id="qEasy1221111" alignment="CENTER" layoutX="61.0" layoutY="320.0" prefHeight="22.0" prefWidth="310.0" styleClass="side_label" stylesheets="@styles.css" text="5. Merge Sort Ω(n log n)" textAlignment="CENTER" textFill="#19da00" wrapText="true">
+                  <Label fx:id="qEasy1221111" alignment="CENTER" layoutX="61.0" layoutY="348.0" prefHeight="22.0" prefWidth="310.0" style="-fx-border-color: green;" styleClass="side_label" stylesheets="@styles.css" text="4. Merge Sort Ω(n log n)" textAlignment="CENTER" textFill="#86ff84" wrapText="true">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -183,7 +188,7 @@
                         <Insets bottom="5.0" top="5.0" />
                      </padding>
                   </Label>
-                  <Label fx:id="qEasy12121111" alignment="CENTER" layoutX="529.0" layoutY="315.0" prefHeight="22.0" prefWidth="310.0" styleClass="side_label" stylesheets="@styles.css" text="5. Merge Sort θ(n log n)" textAlignment="CENTER" textFill="#ffc800" wrapText="true">
+                  <Label fx:id="qEasy12121111" alignment="CENTER" layoutX="526.0" layoutY="350.0" prefHeight="22.0" prefWidth="310.0" style="-fx-border-color: orange;" styleClass="side_label" stylesheets="@styles.css" text="5. Merge Sort θ(n log n)" textAlignment="CENTER" textFill="#ffd982" wrapText="true">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -191,7 +196,7 @@
                         <Insets bottom="5.0" top="5.0" />
                      </padding>
                   </Label>
-                  <Label fx:id="qEasy121111111" alignment="CENTER" layoutX="996.0" layoutY="317.0" prefHeight="22.0" prefWidth="310.0" styleClass="side_label" stylesheets="@styles.css" text="5. Merge Sort O(n log n)" textAlignment="CENTER" textFill="RED" wrapText="true">
+                  <Label fx:id="qEasy121111111" alignment="CENTER" layoutX="989.0" layoutY="272.0" prefHeight="22.0" prefWidth="310.0" style="-fx-border-color: red;" styleClass="side_label" stylesheets="@styles.css" text="4. Merge Sort O(n log n)" textAlignment="CENTER" textFill="#ff7878" wrapText="true">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -199,7 +204,7 @@
                         <Insets bottom="5.0" top="5.0" />
                      </padding>
                   </Label>
-                  <Label fx:id="qEasy12211111" alignment="CENTER" layoutX="61.0" layoutY="359.0" prefHeight="22.0" prefWidth="310.0" styleClass="side_label" stylesheets="@styles.css" text="6. Bucket Sort Ω(n)" textAlignment="CENTER" textFill="#19da00" wrapText="true">
+                  <Label fx:id="qEasy12211111" alignment="CENTER" layoutX="61.0" layoutY="273.0" prefHeight="22.0" prefWidth="310.0" style="-fx-border-color: green;" styleClass="side_label" stylesheets="@styles.css" text="2. Bucket Sort Ω(n)" textAlignment="CENTER" textFill="#86ff84" wrapText="true">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -207,7 +212,7 @@
                         <Insets bottom="5.0" top="5.0" />
                      </padding>
                   </Label>
-                  <Label fx:id="qEasy121211111" alignment="CENTER" layoutX="529.0" layoutY="356.0" prefHeight="22.0" prefWidth="310.0" styleClass="side_label" stylesheets="@styles.css" text="6. Bucket Sort θ(n + n^2/k + k)" textAlignment="CENTER" textFill="#ffc800" wrapText="true">
+                  <Label fx:id="qEasy121211111" alignment="CENTER" layoutX="526.0" layoutY="274.0" prefHeight="22.0" prefWidth="310.0" style="-fx-border-color: orange;" styleClass="side_label" stylesheets="@styles.css" text="4. Bucket Sort θ(n + n^2/k + k)" textAlignment="CENTER" textFill="#ffd982" wrapText="true">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -215,7 +220,7 @@
                         <Insets bottom="5.0" top="5.0" />
                      </padding>
                   </Label>
-                  <Label fx:id="qEasy1211111111" alignment="CENTER" layoutX="996.0" layoutY="359.0" prefHeight="22.0" prefWidth="310.0" styleClass="side_label" stylesheets="@styles.css" text="6. Bucket Sort O(n * k)" textAlignment="CENTER" textFill="RED" wrapText="true">
+                  <Label fx:id="qEasy1211111111" alignment="CENTER" layoutX="989.0" layoutY="234.0" prefHeight="22.0" prefWidth="310.0" style="-fx-border-color: red;" styleClass="side_label" stylesheets="@styles.css" text="3. Bucket Sort O(n * k)" textAlignment="CENTER" textFill="#ff7878" wrapText="true">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -223,7 +228,7 @@
                         <Insets bottom="5.0" top="5.0" />
                      </padding>
                   </Label>
-                  <Label fx:id="qEasy122111111" alignment="CENTER" layoutX="61.0" layoutY="397.0" prefHeight="22.0" prefWidth="310.0" styleClass="side_label" stylesheets="@styles.css" text="7. Heap Sort Ω(n log n)" textAlignment="CENTER" textFill="#19da00" wrapText="true">
+                  <Label fx:id="qEasy122111111" alignment="CENTER" layoutX="61.0" layoutY="424.0" prefHeight="22.0" prefWidth="310.0" style="-fx-border-color: green;" styleClass="side_label" stylesheets="@styles.css" text="4. Heap Sort Ω(n log n)" textAlignment="CENTER" textFill="#86ff84" wrapText="true">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -231,7 +236,7 @@
                         <Insets bottom="5.0" top="5.0" />
                      </padding>
                   </Label>
-                  <Label fx:id="qEasy121211112" alignment="CENTER" layoutX="529.0" layoutY="395.0" prefHeight="22.0" prefWidth="310.0" styleClass="side_label" stylesheets="@styles.css" text="7. Heap Sort θ(n log n)" textAlignment="CENTER" textFill="#ffc800" wrapText="true">
+                  <Label fx:id="qEasy121211112" alignment="CENTER" layoutX="526.0" layoutY="387.0" prefHeight="22.0" prefWidth="310.0" style="-fx-border-color: orange;" styleClass="side_label" stylesheets="@styles.css" text="5. Heap Sort θ(n log n)" textAlignment="CENTER" textFill="#ffd982" wrapText="true">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -239,7 +244,7 @@
                         <Insets bottom="5.0" top="5.0" />
                      </padding>
                   </Label>
-                  <Label fx:id="qEasy1211111112" alignment="CENTER" layoutX="996.0" layoutY="397.0" prefHeight="22.0" prefWidth="310.0" styleClass="side_label" stylesheets="@styles.css" text="7. Heap Sort O(n log n)" textAlignment="CENTER" textFill="RED" wrapText="true">
+                  <Label fx:id="qEasy1211111112" alignment="CENTER" layoutX="989.0" layoutY="310.0" prefHeight="22.0" prefWidth="310.0" style="-fx-border-color: red;" styleClass="side_label" stylesheets="@styles.css" text="4. Heap Sort O(n log n)" textAlignment="CENTER" textFill="#ff7878" wrapText="true">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -247,7 +252,7 @@
                         <Insets bottom="5.0" top="5.0" />
                      </padding>
                   </Label>
-                  <Label fx:id="qEasy1221111111" alignment="CENTER" layoutX="51.0" layoutY="481.0" prefHeight="30.0" prefWidth="340.0" style="-fx-background-color: #19da00;" styleClass="side_label" stylesheets="@styles.css" text="Searching Algorithms" textAlignment="CENTER" wrapText="true">
+                  <Label fx:id="qEasy1221111111" alignment="CENTER" layoutX="51.0" layoutY="514.0" prefHeight="30.0" prefWidth="340.0" style="-fx-background-color: #86FF84;" styleClass="side_label" stylesheets="@styles.css" text="Searching Algorithms" textAlignment="CENTER" wrapText="true">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
@@ -255,7 +260,7 @@
                         <Insets bottom="5.0" top="5.0" />
                      </padding>
                   </Label>
-                  <Label fx:id="qEasy12211111111" alignment="CENTER" layoutX="511.0" layoutY="480.0" prefHeight="30.0" prefWidth="340.0" style="-fx-background-color: ffc800;" styleClass="side_label" stylesheets="@styles.css" text="Searching Algorithms" textAlignment="CENTER" wrapText="true">
+                  <Label fx:id="qEasy12211111111" alignment="CENTER" layoutX="511.0" layoutY="513.0" prefHeight="30.0" prefWidth="340.0" style="-fx-background-color: #ffd982;" styleClass="side_label" stylesheets="@styles.css" text="Searching Algorithms" textAlignment="CENTER" wrapText="true">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
@@ -263,7 +268,7 @@
                         <Insets bottom="5.0" top="5.0" />
                      </padding>
                   </Label>
-                  <Label fx:id="qEasy122111111111" alignment="CENTER" layoutX="977.0" layoutY="480.0" prefHeight="30.0" prefWidth="340.0" style="-fx-background-color: ff0000;" styleClass="side_label" stylesheets="@styles.css" text="Searching Algorithms" textAlignment="CENTER" wrapText="true">
+                  <Label fx:id="qEasy122111111111" alignment="CENTER" layoutX="977.0" layoutY="513.0" prefHeight="30.0" prefWidth="340.0" style="-fx-background-color: #ff7878;" styleClass="side_label" stylesheets="@styles.css" text="Searching Algorithms" textAlignment="CENTER" wrapText="true">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
@@ -271,7 +276,7 @@
                         <Insets bottom="5.0" top="5.0" />
                      </padding>
                   </Label>
-                  <Label fx:id="qEasy1221111112" alignment="CENTER" layoutX="61.0" layoutY="526.0" prefHeight="22.0" prefWidth="310.0" styleClass="side_label" stylesheets="@styles.css" text="1. Binary Search Ω(1)" textAlignment="CENTER" textFill="#19da00" wrapText="true">
+                  <Label fx:id="qEasy1221111112" alignment="CENTER" layoutX="61.0" layoutY="559.0" prefHeight="22.0" prefWidth="310.0" style="-fx-border-color: green;" styleClass="side_label" stylesheets="@styles.css" text="1. Binary Search Ω(1)" textAlignment="CENTER" textFill="#86ff84" wrapText="true">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -279,7 +284,7 @@
                         <Insets bottom="5.0" top="5.0" />
                      </padding>
                   </Label>
-                  <Label fx:id="qEasy12211111121" alignment="CENTER" layoutX="61.0" layoutY="563.0" prefHeight="22.0" prefWidth="310.0" styleClass="side_label" stylesheets="@styles.css" text="2. Linear Search Ω(1)" textAlignment="CENTER" textFill="#19da00" wrapText="true">
+                  <Label fx:id="qEasy12211111121" alignment="CENTER" layoutX="61.0" layoutY="596.0" prefHeight="22.0" prefWidth="310.0" style="-fx-border-color: green;" styleClass="side_label" stylesheets="@styles.css" text="1. Linear Search Ω(1)" textAlignment="CENTER" textFill="#86ff84" wrapText="true">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -287,7 +292,7 @@
                         <Insets bottom="5.0" top="5.0" />
                      </padding>
                   </Label>
-                  <Label fx:id="qEasy12211111122" alignment="CENTER" layoutX="524.0" layoutY="525.0" prefHeight="22.0" prefWidth="310.0" styleClass="side_label" stylesheets="@styles.css" text="1. Binary Search θ(log n)" textAlignment="CENTER" textFill="#ffc800" wrapText="true">
+                  <Label fx:id="qEasy12211111122" alignment="CENTER" layoutX="524.0" layoutY="558.0" prefHeight="22.0" prefWidth="310.0" style="-fx-border-color: orange;" styleClass="side_label" stylesheets="@styles.css" text="1. Binary Search θ(log n)" textAlignment="CENTER" textFill="#ffd982" wrapText="true">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -295,7 +300,7 @@
                         <Insets bottom="5.0" top="5.0" />
                      </padding>
                   </Label>
-                  <Label fx:id="qEasy122111111221" alignment="CENTER" layoutX="524.0" layoutY="561.0" prefHeight="22.0" prefWidth="310.0" styleClass="side_label" stylesheets="@styles.css" text="2. Linear Search θ(n)" textAlignment="CENTER" textFill="#ffc800" wrapText="true">
+                  <Label fx:id="qEasy122111111221" alignment="CENTER" layoutX="524.0" layoutY="594.0" prefHeight="22.0" prefWidth="310.0" style="-fx-border-color: orange;" styleClass="side_label" stylesheets="@styles.css" text="2. Linear Search θ(n)" textAlignment="CENTER" textFill="#ffd982" wrapText="true">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -303,7 +308,7 @@
                         <Insets bottom="5.0" top="5.0" />
                      </padding>
                   </Label>
-                  <Label fx:id="qEasy122111111222" alignment="CENTER" layoutX="989.0" layoutY="525.0" prefHeight="22.0" prefWidth="310.0" styleClass="side_label" stylesheets="@styles.css" text="1. Binary Search O(log n)" textAlignment="CENTER" textFill="RED" wrapText="true">
+                  <Label fx:id="qEasy122111111222" alignment="CENTER" layoutX="990.0" layoutY="558.0" prefHeight="22.0" prefWidth="310.0" style="-fx-border-color: red;" styleClass="side_label" stylesheets="@styles.css" text="1. Binary Search O(log n)" textAlignment="CENTER" textFill="#ff7878" wrapText="true">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -311,7 +316,7 @@
                         <Insets bottom="5.0" top="5.0" />
                      </padding>
                   </Label>
-                  <Label fx:id="qEasy1221111112221" alignment="CENTER" layoutX="989.0" layoutY="562.0" prefHeight="22.0" prefWidth="310.0" styleClass="side_label" stylesheets="@styles.css" text="2. Linear Search O(n)" textAlignment="CENTER" textFill="RED" wrapText="true">
+                  <Label fx:id="qEasy1221111112221" alignment="CENTER" layoutX="990.0" layoutY="595.0" prefHeight="22.0" prefWidth="310.0" style="-fx-border-color: red;" styleClass="side_label" stylesheets="@styles.css" text="2. Linear Search O(n)" textAlignment="CENTER" textFill="#ff7878" wrapText="true">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -319,7 +324,7 @@
                         <Insets bottom="5.0" top="5.0" />
                      </padding>
                   </Label>
-                  <Label fx:id="qEasy12111111121" alignment="CENTER" layoutX="996.0" layoutY="435.0" prefHeight="22.0" prefWidth="310.0" styleClass="side_label" stylesheets="@styles.css" text="8. Tree Sort O(log n)" textAlignment="CENTER" textFill="RED" wrapText="true">
+                  <Label fx:id="qEasy12111111121" alignment="CENTER" layoutX="989.0" layoutY="159.0" prefHeight="22.0" prefWidth="310.0" style="-fx-border-color: red;" styleClass="side_label" stylesheets="@styles.css" text="1. Tree Sort O(log n)" textAlignment="CENTER" textFill="#ff7878" wrapText="true">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -327,7 +332,7 @@
                         <Insets bottom="5.0" top="5.0" />
                      </padding>
                   </Label>
-                  <Label fx:id="qEasy1212111121" alignment="CENTER" layoutX="529.0" layoutY="433.0" prefHeight="22.0" prefWidth="310.0" styleClass="side_label" stylesheets="@styles.css" text="8. Tree Sort θ(log n)" textAlignment="CENTER" textFill="#ffc800" wrapText="true">
+                  <Label fx:id="qEasy1212111121" alignment="CENTER" layoutX="526.0" layoutY="160.0" prefHeight="22.0" prefWidth="310.0" style="-fx-border-color: orange;" styleClass="side_label" stylesheets="@styles.css" text="1. Tree Sort θ(log n)" textAlignment="CENTER" textFill="#ffd982" wrapText="true">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -335,7 +340,31 @@
                         <Insets bottom="5.0" top="5.0" />
                      </padding>
                   </Label>
-                  <Label fx:id="qEasy1221111113" alignment="CENTER" layoutX="61.0" layoutY="435.0" prefHeight="22.0" prefWidth="310.0" styleClass="side_label" stylesheets="@styles.css" text="8. Tree Sort Ω(1)" textAlignment="CENTER" textFill="#19da00" wrapText="true">
+                  <Label fx:id="qEasy1221111113" alignment="CENTER" layoutX="61.0" layoutY="157.0" prefHeight="22.0" prefWidth="310.0" style="-fx-border-color: green;" styleClass="side_label" stylesheets="@styles.css" text="1. Tree Sort Ω(1)" textAlignment="CENTER" textFill="#86ff84" wrapText="true">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="5.0" top="5.0" />
+                     </padding>
+                  </Label>
+                  <Label fx:id="qEasy12211111131" alignment="CENTER" layoutX="61.0" layoutY="311.0" prefHeight="22.0" prefWidth="310.0" style="-fx-border-color: green;" styleClass="side_label" stylesheets="@styles.css" text="3. Counting Sort Ω(n + k)" textAlignment="CENTER" textFill="#86ff84" wrapText="true">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="5.0" top="5.0" />
+                     </padding>
+                  </Label>
+                  <Label fx:id="qEasy12121111211" alignment="CENTER" layoutX="526.0" layoutY="236.0" prefHeight="22.0" prefWidth="310.0" style="-fx-border-color: orange;" styleClass="side_label" stylesheets="@styles.css" text="3. Counting Sort θ(n + k)" textAlignment="CENTER" textFill="#ffd982" wrapText="true">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="5.0" top="5.0" />
+                     </padding>
+                  </Label>
+                  <Label fx:id="qEasy121111111211" alignment="CENTER" layoutX="989.0" layoutY="196.0" prefHeight="22.0" prefWidth="310.0" style="-fx-border-color: red;" styleClass="side_label" stylesheets="@styles.css" text="2. Counting Sort O(n + k)" textAlignment="CENTER" textFill="#ff7878" wrapText="true">
                      <font>
                         <Font size="14.0" />
                      </font>

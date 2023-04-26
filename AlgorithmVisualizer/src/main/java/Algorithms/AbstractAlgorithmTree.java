@@ -16,10 +16,10 @@ public abstract class AbstractAlgorithmTree {
 
     public String pseudoCode = "";
 
-    public String bestTime = "";
-    public String averageTime = "";
-    public String worstTime = "";
-    public String spaceComplexity = "";
+    public static String bestTime = "Ω(1)";
+    public static String averageTime = "θ(log n)";
+    public static String worstTime = "O(log n)";
+    public static String spaceComplexity = "O(1)";
 
 
     //Highlight Colors.
