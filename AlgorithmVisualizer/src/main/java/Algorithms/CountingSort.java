@@ -1,10 +1,9 @@
 package Algorithms;
 
 import UserInterface.VisualizerController;
-import javafx.animation.FillTransition;
-import javafx.animation.ParallelTransition;
-import javafx.animation.StrokeTransition;
-import javafx.animation.Transition;
+import javafx.animation.*;
+import javafx.geometry.Pos;
+import javafx.geometry.VPos;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -21,7 +20,7 @@ import java.util.ArrayList;
 /**
  * CountingSort algorithm
  */
-public class CountingSort{
+public class CountingSort {
 
 
     //circles which are nodes
@@ -62,13 +61,12 @@ public class CountingSort{
     private final static float ANIM_DURATION = 0.95f;
 
 
-
     /**
      * Constructor, sets the array of nodes.
      *
      * @param nodes Array of boxes
      */
-    public CountingSort(StackPane[] inputArray, StackPane[] possibleValuesStackPane, StackPane[] countedValues,StackPane[] sortedArray,int[] nodeValues,int[] possibleValues) {
+    public CountingSort(StackPane[] inputArray, StackPane[] possibleValuesStackPane, StackPane[] countedValues, StackPane[] sortedArray, int[] nodeValues, int[] possibleValues) {
         this.inputArray = inputArray;
         this.possibleValuesStackPane = possibleValuesStackPane;
         this.countedValues = countedValues;
@@ -87,7 +85,9 @@ public class CountingSort{
      */
     public ArrayList<AlgoState> RunAlgorithm() {
 
-        for(int i=0;i<inputArray.length;i++){
+        int[] trueCountState = new int[countedValues.length];
+
+        for (int i = 0; i < inputArray.length; i++) {
             Rectangle node = (Rectangle) inputArray[i].lookup("#myRect");
             AlgoState stage = new AlgoState(SecondaryHighlightNode(node));
             stage.StoreVariable("i", 0);
@@ -104,30 +104,93 @@ public class CountingSort{
             stage.StoreVariable("i", 0);
             transitions.add(stage);
 
+
             Rectangle nodeCountRect = (Rectangle) countedValues[value].lookup("#myRect");
             //SecondaryHighlightNode(nodeValueRect);
-            Text textCount = (Text) countedValues[i].lookup("#myValue");
+
             stage = new AlgoState(SecondaryHighlightNode(nodeCountRect));
             stage.StoreVariable("i", 0);
             transitions.add(stage);
 
+            Text textCount = (Text) countedValues[value].lookup("#myValue");
+            int count = trueCountState[value];
+            count++;
+            Timeline timeline = new Timeline(
+                    new KeyFrame(Duration.ZERO, new KeyValue(textCount.textProperty(), String.valueOf(trueCountState[value]))),
+                    new KeyFrame(Duration.seconds(0.95), new KeyValue(textCount.textProperty(), String.valueOf(count)))
+            );
+            trueCountState[value] = count;
 
+            ParallelTransition forward = new ParallelTransition(timeline);
+            Pair<Transition, Transition> anims = new Pair<>(forward, forward);
+
+            stage = new AlgoState(anims);
+            stage.StoreVariable("i", 0);
+            transitions.add(stage);
+
+            stage = new AlgoState(ResetHighlightNode(nodeValueRect));
+            stage.StoreVariable("i", 0);
+            transitions.add(stage);
+
+            stage = new AlgoState(ResetHighlightNode(nodeCountRect));
+            stage.StoreVariable("i", 0);
+            transitions.add(stage);
+
+        }
+        int newSum = 0;
+        int prevSum =0;
+        for (int k = 0; k < trueCountState.length; k++) {
+            newSum += trueCountState[k];
+            for (int j = prevSum; j < newSum; j++) {
+                Text textVal = (Text) sortedArray[j].lookup("#myValue");
+                Timeline timeline = new Timeline(
+                        new KeyFrame(Duration.ZERO, new KeyValue(textVal.textProperty(), String.valueOf(0))),
+                        new KeyFrame(Duration.seconds(0.95), new KeyValue(textVal.textProperty(), String.valueOf(k)))
+                );
+                ParallelTransition forward = new ParallelTransition(timeline);
+                Pair<Transition, Transition> anims = new Pair<>(forward, forward);
+                AlgoState stage = new AlgoState(anims);
+                stage.StoreVariable("i", 0);
+                transitions.add(stage);
+                prevSum = newSum;
+
+                Rectangle node = (Rectangle) sortedArray[j].lookup("#myRect");
+                stage = new AlgoState(SecondaryHighlightNode(node));
+                stage.StoreVariable("i", 0);
+                transitions.add(stage);
+
+            }
         }
         return transitions;
     }
 
 
-
-
     /**
      * Returns a transition of highlighting a node with the secondary color.
+     *
      * @param index Index of the node to highlight.
      * @return The transition highlighting the node.
      */
-    final public Pair<Transition, Transition> SecondaryHighlightNode(Rectangle node){
+    final public Pair<Transition, Transition> SecondaryHighlightNode(Rectangle node) {
         //Rectangle node = (Rectangle) inputArray[index].lookup("#myRect");
-        StrokeTransition strokeChangeForward = new StrokeTransition(Duration.seconds(ANIM_DURATION),node,BASE_COLOR,SECONDARY_COLOR);
-        StrokeTransition strokeChangeReverse = new StrokeTransition(Duration.seconds(ANIM_DURATION),node,SECONDARY_COLOR,BASE_COLOR);
+        StrokeTransition strokeChangeForward = new StrokeTransition(Duration.seconds(ANIM_DURATION), node, BASE_COLOR, SECONDARY_COLOR);
+        StrokeTransition strokeChangeReverse = new StrokeTransition(Duration.seconds(ANIM_DURATION), node, SECONDARY_COLOR, BASE_COLOR);
+        ParallelTransition forward = new ParallelTransition(strokeChangeForward);
+        ParallelTransition reverse = new ParallelTransition(strokeChangeReverse);
+
+        return new Pair<>(forward, reverse);
+    }
+
+    /**
+     * Returns a transition of highlighting a node with the secondary color.
+     *
+     * @param index Index of the node to highlight.
+     * @return The transition highlighting the node.
+     */
+    final public Pair<Transition, Transition> ResetHighlightNode(Rectangle node) {
+        //Rectangle node = (Rectangle) inputArray[index].lookup("#myRect");
+        StrokeTransition strokeChangeForward = new StrokeTransition(Duration.seconds(ANIM_DURATION), node, SECONDARY_COLOR, Color.WHITESMOKE);
+        StrokeTransition strokeChangeReverse = new StrokeTransition(Duration.seconds(ANIM_DURATION), node, Color.WHITESMOKE, SECONDARY_COLOR);
         ParallelTransition forward = new ParallelTransition(strokeChangeForward);
         ParallelTransition reverse = new ParallelTransition(strokeChangeReverse);
 
