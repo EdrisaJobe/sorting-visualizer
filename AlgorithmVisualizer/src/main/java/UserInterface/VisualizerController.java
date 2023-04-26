@@ -5,6 +5,7 @@ import javafx.animation.AnimationTimer;
 import javafx.animation.Transition;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Bounds;
 import javafx.geometry.VPos;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
@@ -74,7 +75,10 @@ public class VisualizerController implements Initializable {
     private int treeSize = 9;
     private int numBuckets=2;
     private Circle[] treeNodes;
-    private StackPane[] bucketNodes;
+    private StackPane[] stackPaneNodes;
+    private StackPane[] stackPanePossibleValues;
+    private StackPane[] stackPaneCountValues;
+    private StackPane[] stackPaneSortedArray;
     private Text[] nodeLabels;
     private int[] NodeValues;
     private Line[] treeNodeLines;
@@ -86,6 +90,7 @@ public class VisualizerController implements Initializable {
     private AbstractAlgorithm algorithm;
     private BucketSort bucketAlgorithm;
     private AbstractAlgorithmTree algorithmTree;
+    private CountingSort algorithmCounting;
     private String algorithmName = "Bubble Sort";
     private ArrayList<AlgoState> transitions = null;
     private int currentTransitionIndex = 0;
@@ -114,7 +119,7 @@ public class VisualizerController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         sortDropdown.getItems().setAll("Bubble Sort", "Insertion Sort", "Quick Sort",
-                "Selection Sort", "Merge Sort", "Bucket Sort", "Heap Sort", "Tree Sort");
+                "Selection Sort", "Merge Sort", "Bucket Sort", "Heap Sort", "Tree Sort", "Counting Sort");
         sortDropdown.setValue("Bubble Sort");
 
         searchDropdown.getItems().setAll("Linear Search", "Binary Search");
@@ -306,7 +311,7 @@ public class VisualizerController implements Initializable {
                 int[] test1 = GenerateRandomTreeValues();
                 //will update once merged with main
                 SetUpBucketSort(test1, numBuckets);
-                bucketAlgorithm = new BucketSort(bucketNodes, NodeValues, numBuckets, visualizerPane.getWidth(), visualizerPane.getHeight());
+                bucketAlgorithm = new BucketSort(stackPaneNodes, NodeValues, numBuckets, visualizerPane.getWidth(), visualizerPane.getHeight());
                 isCustomVis = true;
                 break;
             case "Heap Sort":
@@ -326,6 +331,11 @@ public class VisualizerController implements Initializable {
             case "Binary Search":
                 bucketSize.setVisible(false);
                 algorithm = new BinarySearch(boxes, x_gap, box_width);
+                break;
+            case "Counting Sort":
+                SetUpCountingSort();
+                algorithmCounting = new CountingSort(stackPaneNodes, stackPanePossibleValues, stackPaneCountValues, stackPaneSortedArray, NodeValues, new int[]{0, 1, 2, 3, 4, 5});
+                //CountingSort(StackPane[] inputArray, StackPane[] possibleValuesStackPane, StackPane[] countedValues,StackPane[] sortedArray,int[] nodeValues,int[] possibleValues)
                 break;
         }
 
@@ -458,7 +468,45 @@ public class VisualizerController implements Initializable {
             input.append(ConvertArrayToString(NodeValues));
             inputArrayLabel.setText(String.valueOf(input));
 
+        }else if (algorithmCounting != null) {
+
+            statusText.setText("Selected Algorithm: " + algorithmName);
+            pseudoText.setText(algorithmCounting.pseudoCode);
+            bestTime.setText(algorithmCounting.bestTime);
+            avgTime.setText(algorithmCounting.averageTime);
+            worstTime.setText(algorithmCounting.worstTime);
+            spaceComp.setText(algorithmCounting.spaceComplexity);
+            this.transitions = algorithmCounting.RunAlgorithm();
+            //Loop until we find valid algo state as initial state.
+            var variables = transitions.get(0).variables;
+            var arrayStats = transitions.get(0).arrayStatus;
+            int index = 0;
+            while (variables.size() == 0) {
+                index++;
+                variables = transitions.get(index).variables;
+                arrayStats = transitions.get(index).arrayStatus;
+            }
+
+            if (variables.size() > 0) {
+                StringBuilder vars = new StringBuilder("Algo State: ");
+                for (int i = 0; i < variables.size() - 1; i++) {
+                    vars.append(variables.get(i).toString()).append(", ");
+                }
+                vars.append(variables.get(variables.size() - 1).toString());
+                algoState.setText(String.valueOf(vars));
+            }
+
+            //update array status
+            StringBuilder sorted = new StringBuilder("");
+            sorted.append(arrayStats);
+            sortedArray.setText(String.valueOf(sorted));
+
+            StringBuilder input = new StringBuilder("");
+            input.append(ConvertArrayToString(NodeValues));
+            inputArrayLabel.setText(String.valueOf(input));
+
         }
+
 
     }
 
@@ -830,7 +878,7 @@ public class VisualizerController implements Initializable {
     protected void DrawBucketNodes(int[] input) {
 
         //circle and text nodes
-        bucketNodes = new StackPane[input.length];
+        stackPaneNodes = new StackPane[input.length];
         Text[] treeText = new Text[input.length];
 
         //place the root node
@@ -875,7 +923,7 @@ public class VisualizerController implements Initializable {
             stackPane.setTranslateX(firstX + (pos * xOffset));
             stackPane.setTranslateY(firstY + (r * yOffset));
             //store stackPane
-            bucketNodes[i] = stackPane;
+            stackPaneNodes[i] = stackPane;
             //draw stackpane
             visualizerPane.getChildren().add(stackPane);
             nodeLabels[i] = newText;
@@ -936,6 +984,195 @@ public class VisualizerController implements Initializable {
         SetUpBucketSort(NodeValues,numBuckets);
         ResetAlgorithm();
         PrepareAlgorithm();
+    }
+
+    private void SetUpCountingSort() {
+
+        int[] testArray = new int[]{0, 0, 1, 1, 2, 3, 4, 5};
+
+        stackPaneNodes = new StackPane[testArray.length];
+
+        int squareSize = 30;
+        int padding = 75;
+        Text inputArray = new Text("Input Array :");
+        inputArray.setScaleX(2);
+        inputArray.setScaleY(2);
+        inputArray.setStroke(Color.WHITESMOKE);
+        inputArray.setTranslateX(padding);
+        inputArray.setTranslateY(padding);
+        visualizerPane.getChildren().clear();
+        visualizerPane.getChildren().add(inputArray);
+
+        Bounds endOfText = inputArray.getBoundsInParent();
+        double nodeStartX = endOfText.getMaxX() + squareSize;
+
+        for (int i = 0; i < testArray.length; i++) {
+            Rectangle newRect = new Rectangle(squareSize, squareSize);
+            newRect.setStrokeWidth(4);
+            newRect.setId("myRect");
+            newRect.setStroke(Color.WHITESMOKE);
+
+            Text newText = new Text(String.valueOf(testArray[i]));
+            newText.setStroke(Color.WHITESMOKE);
+            newText.setId("myValue");
+
+            //create stackpane
+            StackPane stackPane = new StackPane();
+
+            // Set the text as the child of the circle
+            stackPane.getChildren().addAll(newRect, newText);
+
+            // Center the text inside the circle
+            newText.setBoundsType(TextBoundsType.VISUAL);
+            newText.setTextOrigin(VPos.CENTER);
+            newText.layoutBoundsProperty().addListener((observable, oldValue, newValue) -> {
+                newText.setTranslateX(newRect.getX() - newText.getBoundsInLocal().getWidth() / 2);
+                newText.setTranslateY(newRect.getY() - newText.getBoundsInLocal().getHeight() / 2);
+            });
+
+            // palce the stackPane
+            stackPane.setTranslateX(nodeStartX + (i * (squareSize+4)));
+            stackPane.setTranslateY(padding - squareSize / 2);
+
+            visualizerPane.getChildren().add(stackPane);
+            stackPaneNodes[i] = stackPane;
+        }
+
+        DrawPossibleValues();
+        DrawSortedArray();
+    }
+
+    private void DrawPossibleValues() {
+
+        int[] rangeValues = new int[]{0, 1, 2, 3, 4, 5};
+        int[] valueCounts = new int[rangeValues.length];
+        stackPanePossibleValues = new StackPane[rangeValues.length];
+        stackPaneCountValues = new StackPane[valueCounts.length];
+
+        int squareSize = 30;
+        int padding = 75;
+        Text possValues = new Text("Possible Values :");
+        possValues.setScaleX(2);
+        possValues.setScaleY(2);
+        possValues.setStroke(Color.WHITESMOKE);
+        possValues.setTranslateX(padding);
+        possValues.setTranslateY(padding * 2);
+        visualizerPane.getChildren().add(possValues);
+
+        Text countValues = new Text("Count Values :");
+        countValues.setScaleX(2);
+        countValues.setScaleY(2);
+        countValues.setStroke(Color.WHITESMOKE);
+        countValues.setTranslateX(padding);
+        countValues.setTranslateY((padding * 2) + squareSize);
+        visualizerPane.getChildren().add(countValues);
+
+        Bounds endOfText = possValues.getBoundsInParent();
+        double nodeStartX = endOfText.getMaxX() + squareSize;
+
+        for (int i = 0; i < rangeValues.length; i++) {
+            Rectangle newRectValue = new Rectangle(squareSize, squareSize);
+            newRectValue.setId("myRect");
+            newRectValue.setStrokeWidth(4);
+            newRectValue.setStroke(Color.WHITESMOKE);
+            Rectangle newRectCount = new Rectangle(squareSize, squareSize);
+            newRectCount.setId("myRect");
+            newRectCount.setStrokeWidth(4);
+            newRectCount.setStroke(Color.WHITESMOKE);
+            Text newTextValue = new Text(String.valueOf(rangeValues[i]));
+            Text newTextCount = new Text(String.valueOf(valueCounts[i]));
+            newTextValue.setStroke(Color.WHITESMOKE);
+            newTextValue.setId("myValue");
+            newTextCount.setStroke(Color.WHITESMOKE);
+            newTextCount.setId("myValue");
+
+            //create stackpane
+            StackPane stackPaneValue = new StackPane();
+            StackPane stackPaneCount = new StackPane();
+
+            // Set the text as the child of the circle
+            stackPaneValue.getChildren().addAll(newRectValue, newTextValue);
+            stackPaneCount.getChildren().addAll(newRectCount, newTextCount);
+
+            // Center the text inside the circle
+            newTextValue.setBoundsType(TextBoundsType.VISUAL);
+            newTextValue.setTextOrigin(VPos.CENTER);
+            newTextValue.layoutBoundsProperty().addListener((observable, oldValue, newValue) -> {
+                newTextValue.setTranslateX(newRectValue.getX() - newTextValue.getBoundsInLocal().getWidth() / 2);
+                newTextValue.setTranslateY(newRectValue.getY() - newTextValue.getBoundsInLocal().getHeight() / 2);
+            });
+
+            // Center the text inside the circle
+            newTextCount.setBoundsType(TextBoundsType.VISUAL);
+            newTextCount.setTextOrigin(VPos.CENTER);
+            newTextCount.layoutBoundsProperty().addListener((observable, oldValue, newValue) -> {
+                newTextCount.setTranslateX(newRectCount.getX() - newTextCount.getBoundsInLocal().getWidth() / 2);
+                newTextCount.setTranslateY(newRectCount.getY() - newTextCount.getBoundsInLocal().getHeight() / 2);
+            });
+
+            // palce the stackPane
+            stackPaneValue.setTranslateX(nodeStartX + (i * (squareSize+4)));
+            stackPaneValue.setTranslateY((padding * 2) - squareSize / 2);
+
+            stackPaneCount.setTranslateX(nodeStartX + (i * (squareSize+4)));
+            stackPaneCount.setTranslateY((padding * 2) - (squareSize / 2) + squareSize+4);
+
+            visualizerPane.getChildren().addAll(stackPaneValue, stackPaneCount);
+            stackPanePossibleValues[i] = stackPaneValue;
+            stackPaneCountValues[i] = stackPaneCount;
+        }
+
+
+    }
+
+    private void DrawSortedArray() {
+        int[] testArray = new int[]{0, 0, 1, 1, 2, 3, 4, 5};
+        int[] sortedArray = new int[testArray.length];
+        stackPaneSortedArray = new StackPane[sortedArray.length];
+
+        int squareSize = 30;
+        int padding = 75;
+        Text sortedArrayText = new Text("Sorted Array :");
+        sortedArrayText.setScaleX(2);
+        sortedArrayText.setScaleY(2);
+        sortedArrayText.setStroke(Color.WHITESMOKE);
+        sortedArrayText.setTranslateX(padding);
+        sortedArrayText.setTranslateY(padding * 3);
+        visualizerPane.getChildren().add(sortedArrayText);
+
+        Bounds endOfText = sortedArrayText.getBoundsInParent();
+        double nodeStartX = endOfText.getMaxX() + squareSize;
+
+        for (int i = 0; i < sortedArray.length; i++) {
+            Rectangle newRectValue = new Rectangle(squareSize, squareSize);
+            newRectValue.setId("myRect");
+            newRectValue.setStrokeWidth(4);
+            newRectValue.setStroke(Color.WHITESMOKE);
+            Text newTextValue = new Text(String.valueOf(sortedArray[i]));
+            newTextValue.setStroke(Color.WHITESMOKE);
+            newTextValue.setId("myValue");
+
+            //create stackpane
+            StackPane stackPaneValue = new StackPane();
+
+            // Set the text as the child of the circle
+            stackPaneValue.getChildren().addAll(newRectValue, newTextValue);
+
+            // Center the text inside the circle
+            newTextValue.setBoundsType(TextBoundsType.VISUAL);
+            newTextValue.setTextOrigin(VPos.CENTER);
+            newTextValue.layoutBoundsProperty().addListener((observable, oldValue, newValue) -> {
+                newTextValue.setTranslateX(newRectValue.getX() - newTextValue.getBoundsInLocal().getWidth() / 2);
+                newTextValue.setTranslateY(newRectValue.getY() - newTextValue.getBoundsInLocal().getHeight() / 2);
+            });
+
+            // palce the stackPane
+            stackPaneValue.setTranslateX(nodeStartX + (i * squareSize));
+            stackPaneValue.setTranslateY((padding * 3) - squareSize / 2);
+
+            visualizerPane.getChildren().addAll(stackPaneValue);
+            stackPaneSortedArray[i] = stackPaneValue;
+        }
     }
 
 
