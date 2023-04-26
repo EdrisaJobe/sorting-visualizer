@@ -10,6 +10,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.util.Duration;
 import javafx.util.Pair;
 
@@ -115,13 +116,26 @@ public class CountingSort {
             Text textCount = (Text) countedValues[value].lookup("#myValue");
             int count = trueCountState[value];
             count++;
-            Timeline timeline = new Timeline(
+            Timeline updateText = new Timeline(
                     new KeyFrame(Duration.ZERO, new KeyValue(textCount.textProperty(), String.valueOf(trueCountState[value]))),
                     new KeyFrame(Duration.seconds(0.95), new KeyValue(textCount.textProperty(), String.valueOf(count)))
             );
+
+            // Create the animation to move the Text node to the center of the StackPane
+            Timeline centerText = new Timeline(
+                    new KeyFrame(Duration.ZERO,
+                            new KeyValue(textCount.translateXProperty(), textCount.getTranslateX()),
+                            new KeyValue(textCount.translateYProperty(), textCount.getTranslateY())
+                    ),
+                    new KeyFrame(Duration.seconds(0.95),
+                            new KeyValue(textCount.translateXProperty(), countedValues[value].getWidth() / 2),
+                            new KeyValue(textCount.translateYProperty(), countedValues[value].getHeight() / 2)
+                    )
+            );
+
             trueCountState[value] = count;
 
-            ParallelTransition forward = new ParallelTransition(timeline);
+            ParallelTransition forward = new ParallelTransition(updateText,centerText);
             Pair<Transition, Transition> anims = new Pair<>(forward, forward);
 
             stage = new AlgoState(anims);
@@ -143,11 +157,23 @@ public class CountingSort {
             newSum += trueCountState[k];
             for (int j = prevSum; j < newSum; j++) {
                 Text textVal = (Text) sortedArray[j].lookup("#myValue");
-                Timeline timeline = new Timeline(
+                Timeline updateText = new Timeline(
                         new KeyFrame(Duration.ZERO, new KeyValue(textVal.textProperty(), String.valueOf(0))),
                         new KeyFrame(Duration.seconds(0.95), new KeyValue(textVal.textProperty(), String.valueOf(k)))
                 );
-                ParallelTransition forward = new ParallelTransition(timeline);
+                // Create the animation to move the Text node to the center of the StackPane
+                Timeline centerText = new Timeline(
+                        new KeyFrame(Duration.ZERO,
+                                new KeyValue(textVal.translateXProperty(), textVal.getTranslateX()),
+                                new KeyValue(textVal.translateYProperty(), textVal.getTranslateY())
+                        ),
+                        new KeyFrame(Duration.seconds(0.95),
+                                new KeyValue(textVal.translateXProperty(), sortedArray[j].getWidth() / 2),
+                                new KeyValue(textVal.translateYProperty(), sortedArray[j].getHeight() / 2)
+                        )
+                );
+
+                ParallelTransition forward = new ParallelTransition(updateText,centerText);
                 Pair<Transition, Transition> anims = new Pair<>(forward, forward);
                 AlgoState stage = new AlgoState(anims);
                 stage.StoreVariable("i", 0);
@@ -172,7 +198,6 @@ public class CountingSort {
      * @return The transition highlighting the node.
      */
     final public Pair<Transition, Transition> SecondaryHighlightNode(Rectangle node) {
-        //Rectangle node = (Rectangle) inputArray[index].lookup("#myRect");
         StrokeTransition strokeChangeForward = new StrokeTransition(Duration.seconds(ANIM_DURATION), node, BASE_COLOR, SECONDARY_COLOR);
         StrokeTransition strokeChangeReverse = new StrokeTransition(Duration.seconds(ANIM_DURATION), node, SECONDARY_COLOR, BASE_COLOR);
         ParallelTransition forward = new ParallelTransition(strokeChangeForward);

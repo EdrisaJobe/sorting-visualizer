@@ -988,14 +988,15 @@ public class VisualizerController implements Initializable {
     private void SetUpCountingSort(int[] inputArray) {
 
         NodeValues = inputArray;
-
         stackPaneNodes = new StackPane[NodeValues.length];
 
         int squareSize = 30;
         int padding = 75;
+        int textScale = 2;
+        int strokeWidth =4;
         Text inputArrayText = new Text("Input Array :");
-        inputArrayText.setScaleX(2);
-        inputArrayText.setScaleY(2);
+        inputArrayText.setScaleX(textScale);
+        inputArrayText.setScaleY(textScale);
         inputArrayText.setStroke(Color.WHITESMOKE);
         inputArrayText.setTranslateX(padding);
         inputArrayText.setTranslateY(padding);
@@ -1007,7 +1008,7 @@ public class VisualizerController implements Initializable {
 
         for (int i = 0; i < NodeValues.length; i++) {
             Rectangle newRect = new Rectangle(squareSize, squareSize);
-            newRect.setStrokeWidth(4);
+            newRect.setStrokeWidth(strokeWidth);
             newRect.setId("myRect");
             newRect.setStroke(Color.WHITESMOKE);
 
@@ -1030,7 +1031,7 @@ public class VisualizerController implements Initializable {
             });
 
             // palce the stackPane
-            stackPane.setTranslateX(nodeStartX + (i * (squareSize + 4)));
+            stackPane.setTranslateX(nodeStartX + (i * (squareSize + strokeWidth)));
             stackPane.setTranslateY(padding - squareSize / 2);
 
             visualizerPane.getChildren().add(stackPane);
@@ -1050,21 +1051,31 @@ public class VisualizerController implements Initializable {
 
         int squareSize = 30;
         int padding = 75;
+        int textScale =2;
+        int strokeWidth =4;
         Text possValues = new Text("Possible Values :");
-        possValues.setScaleX(2);
-        possValues.setScaleY(2);
+        possValues.setScaleX(textScale);
+        possValues.setScaleY(textScale);
         possValues.setStroke(Color.WHITESMOKE);
         possValues.setTranslateX(padding);
         possValues.setTranslateY(padding * 2);
         visualizerPane.getChildren().add(possValues);
 
         Text countValues = new Text("Count Values :");
-        countValues.setScaleX(2);
-        countValues.setScaleY(2);
+        countValues.setScaleX(textScale);
+        countValues.setScaleY(textScale);
         countValues.setStroke(Color.WHITESMOKE);
         countValues.setTranslateX(padding);
         countValues.setTranslateY((padding * 2) + squareSize);
         visualizerPane.getChildren().add(countValues);
+
+        Text indexValues = new Text("Index Values :");
+        indexValues.setScaleX(textScale);
+        indexValues.setScaleY(textScale);
+        indexValues.setStroke(Color.WHITESMOKE);
+        indexValues.setTranslateX(padding);
+        indexValues.setTranslateY((padding * 3) + squareSize);
+        visualizerPane.getChildren().add(indexValues);
 
         Bounds endOfText = possValues.getBoundsInParent();
         double nodeStartX = endOfText.getMaxX() + squareSize;
@@ -1072,11 +1083,11 @@ public class VisualizerController implements Initializable {
         for (int i = 0; i < rangeValues.length; i++) {
             Rectangle newRectValue = new Rectangle(squareSize, squareSize);
             newRectValue.setId("myRect");
-            newRectValue.setStrokeWidth(4);
+            newRectValue.setStrokeWidth(strokeWidth);
             newRectValue.setStroke(Color.WHITESMOKE);
             Rectangle newRectCount = new Rectangle(squareSize, squareSize);
             newRectCount.setId("myRect");
-            newRectCount.setStrokeWidth(4);
+            newRectCount.setStrokeWidth(strokeWidth);
             newRectCount.setStroke(Color.WHITESMOKE);
             Text newTextValue = new Text(String.valueOf(rangeValues[i]));
             Text newTextCount = new Text(String.valueOf(valueCounts[i]));
@@ -1110,11 +1121,11 @@ public class VisualizerController implements Initializable {
             });
 
             // palce the stackPane
-            stackPaneValue.setTranslateX(nodeStartX + (i * (squareSize + 4)));
+            stackPaneValue.setTranslateX(nodeStartX + (i * (squareSize + strokeWidth)));
             stackPaneValue.setTranslateY((padding * 2) - squareSize / 2);
 
-            stackPaneCount.setTranslateX(nodeStartX + (i * (squareSize + 4)));
-            stackPaneCount.setTranslateY((padding * 2) - (squareSize / 2) + squareSize + 4);
+            stackPaneCount.setTranslateX(nodeStartX + (i * (squareSize + strokeWidth)));
+            stackPaneCount.setTranslateY((padding * 2) - (squareSize / 2) + squareSize + strokeWidth);
 
             visualizerPane.getChildren().addAll(stackPaneValue, stackPaneCount);
             stackPanePossibleValues[i] = stackPaneValue;
@@ -1130,12 +1141,14 @@ public class VisualizerController implements Initializable {
 
         int squareSize = 30;
         int padding = 75;
+        int textScale = 2;
+        int strokeWidth =4;
         Text sortedArrayText = new Text("Sorted Array :");
-        sortedArrayText.setScaleX(2);
-        sortedArrayText.setScaleY(2);
+        sortedArrayText.setScaleX(textScale);
+        sortedArrayText.setScaleY(textScale);
         sortedArrayText.setStroke(Color.WHITESMOKE);
         sortedArrayText.setTranslateX(padding);
-        sortedArrayText.setTranslateY(padding * 3);
+        sortedArrayText.setTranslateY(padding * 4);
         visualizerPane.getChildren().add(sortedArrayText);
 
         Bounds endOfText = sortedArrayText.getBoundsInParent();
@@ -1144,7 +1157,7 @@ public class VisualizerController implements Initializable {
         for (int i = 0; i < sortedArray.length; i++) {
             Rectangle newRectValue = new Rectangle(squareSize, squareSize);
             newRectValue.setId("myRect");
-            newRectValue.setStrokeWidth(4);
+            newRectValue.setStrokeWidth(strokeWidth);
             newRectValue.setStroke(Color.WHITESMOKE);
             Text newTextValue = new Text(String.valueOf(sortedArray[i]));
             newTextValue.setStroke(Color.WHITESMOKE);
@@ -1165,8 +1178,8 @@ public class VisualizerController implements Initializable {
             });
 
             // palce the stackPane
-            stackPaneValue.setTranslateX(nodeStartX + (i * (squareSize+4)));
-            stackPaneValue.setTranslateY((padding * 3) - (squareSize+4) / 2);
+            stackPaneValue.setTranslateX(nodeStartX + (i * (squareSize+strokeWidth)));
+            stackPaneValue.setTranslateY((padding * 4) - (squareSize+strokeWidth) / 2);
 
             visualizerPane.getChildren().addAll(stackPaneValue);
             stackPaneSortedArray[i] = stackPaneValue;
