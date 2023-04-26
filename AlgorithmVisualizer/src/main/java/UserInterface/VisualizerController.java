@@ -73,7 +73,7 @@ public class VisualizerController implements Initializable {
 
 
     private int treeSize = 9;
-    private int numBuckets=2;
+    private int numBuckets = 2;
     private Circle[] treeNodes;
     private StackPane[] stackPaneNodes;
     private StackPane[] stackPanePossibleValues;
@@ -213,7 +213,7 @@ public class VisualizerController implements Initializable {
      */
     @FXML
     public void SortDropdownHandler() {
-        if(isSearchMode){
+        if (isSearchMode) {
             arrayInput.setDisable(false);
             arrayInputLabel.setOpacity(1);
         }
@@ -308,9 +308,9 @@ public class VisualizerController implements Initializable {
                 break;
             case "Bucket Sort":
                 bucketSize.setVisible(true);
-                int[] test1 = GenerateRandomTreeValues();
+                int[] randomArray = GenerateRandomTreeValues();
                 //will update once merged with main
-                SetUpBucketSort(test1, numBuckets);
+                SetUpBucketSort(randomArray, numBuckets);
                 bucketAlgorithm = new BucketSort(stackPaneNodes, NodeValues, numBuckets, visualizerPane.getWidth(), visualizerPane.getHeight());
                 isCustomVis = true;
                 break;
@@ -333,19 +333,19 @@ public class VisualizerController implements Initializable {
                 algorithm = new BinarySearch(boxes, x_gap, box_width);
                 break;
             case "Counting Sort":
-                SetUpCountingSort();
+                randomArray = GenerateRandomCountingSortArray();
+                SetUpCountingSort(randomArray);
                 algorithmCounting = new CountingSort(stackPaneNodes, stackPanePossibleValues, stackPaneCountValues, stackPaneSortedArray, NodeValues, new int[]{0, 1, 2, 3, 4, 5});
                 //CountingSort(StackPane[] inputArray, StackPane[] possibleValuesStackPane, StackPane[] countedValues,StackPane[] sortedArray,int[] nodeValues,int[] possibleValues)
                 break;
         }
 
-        if(isTreeSort){
+        if (isTreeSort) {
             btnGenArray.setDisable(true);
             btnGenTree.setDisable(false);
             treeMenuItem.setDisable(false);
             arrayMenuItem.setDisable(true);
-        }
-        else{
+        } else {
             treeMenuItem.setDisable(true);
             btnGenArray.setDisable(false);
             btnGenTree.setDisable(true);
@@ -468,7 +468,7 @@ public class VisualizerController implements Initializable {
             input.append(ConvertArrayToString(NodeValues));
             inputArrayLabel.setText(String.valueOf(input));
 
-        }else if (algorithmCounting != null) {
+        } else if (algorithmCounting != null) {
 
             statusText.setText("Selected Algorithm: " + algorithmName);
             pseudoText.setText(algorithmCounting.pseudoCode);
@@ -588,7 +588,6 @@ public class VisualizerController implements Initializable {
         }
         visualizerPane.getChildren().clear();
         visualizerPane.getChildren().addAll(boxes);
-
 
 
         PrepareAlgorithm();
@@ -979,40 +978,40 @@ public class VisualizerController implements Initializable {
         DrawBucketNodes(inputArray);
     }
 
-    public void SetNumBuckets(){
+    public void SetNumBuckets() {
         numBuckets = Integer.valueOf(bucketSize.getValue());
-        SetUpBucketSort(NodeValues,numBuckets);
+        SetUpBucketSort(NodeValues, numBuckets);
         ResetAlgorithm();
         PrepareAlgorithm();
     }
 
-    private void SetUpCountingSort() {
+    private void SetUpCountingSort(int[] inputArray) {
 
-        int[] testArray = new int[]{0, 0, 1, 1, 2, 3, 4, 5};
+        NodeValues = inputArray;
 
-        stackPaneNodes = new StackPane[testArray.length];
+        stackPaneNodes = new StackPane[NodeValues.length];
 
         int squareSize = 30;
         int padding = 75;
-        Text inputArray = new Text("Input Array :");
-        inputArray.setScaleX(2);
-        inputArray.setScaleY(2);
-        inputArray.setStroke(Color.WHITESMOKE);
-        inputArray.setTranslateX(padding);
-        inputArray.setTranslateY(padding);
+        Text inputArrayText = new Text("Input Array :");
+        inputArrayText.setScaleX(2);
+        inputArrayText.setScaleY(2);
+        inputArrayText.setStroke(Color.WHITESMOKE);
+        inputArrayText.setTranslateX(padding);
+        inputArrayText.setTranslateY(padding);
         visualizerPane.getChildren().clear();
-        visualizerPane.getChildren().add(inputArray);
+        visualizerPane.getChildren().add(inputArrayText);
 
-        Bounds endOfText = inputArray.getBoundsInParent();
+        Bounds endOfText = inputArrayText.getBoundsInParent();
         double nodeStartX = endOfText.getMaxX() + squareSize;
 
-        for (int i = 0; i < testArray.length; i++) {
+        for (int i = 0; i < NodeValues.length; i++) {
             Rectangle newRect = new Rectangle(squareSize, squareSize);
             newRect.setStrokeWidth(4);
             newRect.setId("myRect");
             newRect.setStroke(Color.WHITESMOKE);
 
-            Text newText = new Text(String.valueOf(testArray[i]));
+            Text newText = new Text(String.valueOf(NodeValues[i]));
             newText.setStroke(Color.WHITESMOKE);
             newText.setId("myValue");
 
@@ -1031,7 +1030,7 @@ public class VisualizerController implements Initializable {
             });
 
             // palce the stackPane
-            stackPane.setTranslateX(nodeStartX + (i * (squareSize+4)));
+            stackPane.setTranslateX(nodeStartX + (i * (squareSize + 4)));
             stackPane.setTranslateY(padding - squareSize / 2);
 
             visualizerPane.getChildren().add(stackPane);
@@ -1111,11 +1110,11 @@ public class VisualizerController implements Initializable {
             });
 
             // palce the stackPane
-            stackPaneValue.setTranslateX(nodeStartX + (i * (squareSize+4)));
+            stackPaneValue.setTranslateX(nodeStartX + (i * (squareSize + 4)));
             stackPaneValue.setTranslateY((padding * 2) - squareSize / 2);
 
-            stackPaneCount.setTranslateX(nodeStartX + (i * (squareSize+4)));
-            stackPaneCount.setTranslateY((padding * 2) - (squareSize / 2) + squareSize+4);
+            stackPaneCount.setTranslateX(nodeStartX + (i * (squareSize + 4)));
+            stackPaneCount.setTranslateY((padding * 2) - (squareSize / 2) + squareSize + 4);
 
             visualizerPane.getChildren().addAll(stackPaneValue, stackPaneCount);
             stackPanePossibleValues[i] = stackPaneValue;
@@ -1126,9 +1125,8 @@ public class VisualizerController implements Initializable {
     }
 
     private void DrawSortedArray() {
-        int[] testArray = new int[]{0, 0, 1, 1, 2, 3, 4, 5};
-        int[] sortedArray = new int[testArray.length];
-        stackPaneSortedArray = new StackPane[sortedArray.length];
+        int[] sortedArray = new int[NodeValues.length];
+        stackPaneSortedArray = new StackPane[NodeValues.length];
 
         int squareSize = 30;
         int padding = 75;
@@ -1175,5 +1173,15 @@ public class VisualizerController implements Initializable {
         }
     }
 
+    private int[] GenerateRandomCountingSortArray() {
+
+        int[] inputArray = new int[10];
+
+        for (int i = 0; i < inputArray.length; i++) {
+            inputArray[i] = (int) (Math.random() * 6);
+        }
+
+        return inputArray;
+    }
 
 }
