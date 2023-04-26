@@ -1165,8 +1165,8 @@ public class VisualizerController implements Initializable {
             });
 
             // palce the stackPane
-            stackPaneValue.setTranslateX(nodeStartX + (i * squareSize));
-            stackPaneValue.setTranslateY((padding * 3) - squareSize / 2);
+            stackPaneValue.setTranslateX(nodeStartX + (i * (squareSize+4)));
+            stackPaneValue.setTranslateY((padding * 3) - (squareSize+4) / 2);
 
             visualizerPane.getChildren().addAll(stackPaneValue);
             stackPaneSortedArray[i] = stackPaneValue;
