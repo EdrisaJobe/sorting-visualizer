@@ -105,7 +105,7 @@ public class MainController implements Initializable {
         sortingMenu.getItems().addAll(new MenuItem("Bubble Sort"), new MenuItem("Insertion Sort"),
                 new MenuItem("Quick Sort"),
                 new MenuItem("Selection Sort"), new MenuItem("Merge Sort"),
-                new MenuItem("Bucket Sort"), new MenuItem("Heap Sort"), new MenuItem("Tree Sort"));
+                new MenuItem("Bucket Sort"), new MenuItem("Heap Sort"), new MenuItem("Tree Sort"),new MenuItem("Counting Sort"));
 
         searchingMenu.getItems().setAll(new MenuItem("Linear Search"), new MenuItem("Binary Search"));
 
@@ -145,6 +145,9 @@ public class MainController implements Initializable {
                 }
             }
         });
+
+
+
     }
 
     public void SetupVisualizer() {

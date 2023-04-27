@@ -187,7 +187,6 @@ public class BucketSort {
                 sortedArrayStatus[sortedArrayIndex]=bucketContainer[val];
                 Pair<Transition, Transition> transition = SecondaryHighlightNode(nodeIndex);
                 stage = new AlgoState(transition);
-                stage.StoreVariable("i", val);
                 stage.StoreArrayStatus(sortedArrayStatus);
                 transitions.add(stage);
                 sortedArrayIndex++;

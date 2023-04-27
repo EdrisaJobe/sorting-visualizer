@@ -2,6 +2,7 @@ package UserInterface;
 
 import Algorithms.*;
 import javafx.animation.AnimationTimer;
+import javafx.animation.ParallelTransition;
 import javafx.animation.Transition;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -104,7 +105,9 @@ public class VisualizerController implements Initializable {
     private int box_width;
     private int numOfBoxes = 10;
     private int[] nodeValuesInput = new int[numOfBoxes];
+    private double[] originalValueInput = new double[]{-1};
 
+    private boolean stateLock = false;
 
     /**
      * Initializes the UI elements.
@@ -131,6 +134,23 @@ public class VisualizerController implements Initializable {
         bucketSizeDropdown.setValue("2");
 
         timer = new AnimTimer();
+        //add a listener for window resizing
+        visualizerPane.widthProperty().addListener((observableValue, oldWidth, newWidth) -> {
+            if (oldWidth != newWidth) {
+                stateLock = true;
+                ResizeVisualizerPaneNodes();
+                stateLock = false;
+            }
+        });
+        visualizerPane.heightProperty().addListener((observableValue, oldHeight, newHeight) -> {
+            if (oldHeight != newHeight) {
+                stateLock = true;
+                ResizeVisualizerPaneNodes();
+                stateLock = false;
+            }
+
+        });
+
     }
 
     /**
@@ -174,6 +194,15 @@ public class VisualizerController implements Initializable {
     }
 
     /**
+     * Plays next animation
+     */
+    private void playPreviousAnimation() {
+        Transition currentTransition = transitions.get(currentTransitionIndex - 1).forwardTransition;
+        currentTransition.setRate(speed);
+        currentTransition.play();
+    }
+
+    /**
      * Moves one step forward in the animation.
      */
     @FXML
@@ -207,7 +236,6 @@ public class VisualizerController implements Initializable {
             vars.append(variables.get(variables.size() - 1).toString());
             algoStateLabel.setText(String.valueOf(vars));
         }
-
         if (arrayStats != null) {
             sortedArrayText.setText(arrayStats);
         }
@@ -240,26 +268,23 @@ public class VisualizerController implements Initializable {
         isSearchMode = false;
         String dropDownVal = sortDropdown.getValue();
         if (!algorithmName.equals(dropDownVal)) algorithmName = sortDropdown.getValue();
-        if(algorithmName.equals("Tree Sort")) {
+        if (algorithmName.equals("Tree Sort")) {
             btnGenTree.setDisable(false);
             btnGenArray.setDisable(true);
-        }
-        else{
+        } else {
             btnGenTree.setDisable(true);
             btnGenArray.setDisable(false);
         }
-        if(algorithmName.equals("Tree Sort") || algorithmName.equals("Bucket Sort") || algorithmName.equals("Counting Sort")) {
+        if (algorithmName.equals("Tree Sort") || algorithmName.equals("Bucket Sort") || algorithmName.equals("Counting Sort")) {
             arrayInputText.setDisable(true);
             nDropdown.setDisable(true);
-        }
-        else{
+        } else {
             arrayInputText.setDisable(false);
             nDropdown.setDisable(false);
         }
         LoadNewVisualizerPane();
 
     }
-
 
 
     /**
@@ -334,16 +359,78 @@ public class VisualizerController implements Initializable {
     }
 
     /**
+     * Using the current state of the algorithm this draws the right visualization
+     */
+    public void ResizeVisualizerPaneNodes() {
+        StopTimer();
+        switch (algorithmName) {
+            case "Tree Sort":
+                GenerateBinaryTree();
+                break;
+            case "Bucket Sort":
+                SetUpBucketSort(nodeValuesInput, numBuckets);
+                break;
+            case "Counting Sort":
+                SetUpCountingSort(nodeValuesInput);
+                break;
+            default:
+                GenerateBarHeights();
+                SetUpBarGraph();
+                break;
+        }
+        PrepareAlgorithm();
+        ParallelTransition catchUp = new ParallelTransition();
+        for (int i = 0; i < Math.min(currentTransitionIndex,transitions.size()); i++) {
+            Transition oldTransition = transitions.get(i).forwardTransition;
+            //UpdateState();
+            oldTransition.setRate(5000);
+            catchUp.getChildren().add(oldTransition);
+
+        }
+        catchUp.play();
+    }
+
+    /**
      * Gets the input array
      * Resets the algorithm
      * Draws the Visualizer
      * Prepares the Algorithm
      */
-    public void LoadNewVisualizerPane(){
+    public void LoadNewVisualizerPane() {
         StopTimer();
         GetInputArray();
         ResetAlgorithm();
         DrawInitialVisualization();
+        PrepareAlgorithm();
+    }
+
+    /**
+     * Gets the input array
+     * Resets the algorithm
+     * Draws the Visualizer
+     * Prepares the Algorithm
+     */
+    public void ReloadSameState() {
+        if (boxes == null) return;
+        int size = this.nodeValuesInput.length;
+        float HORIZONTAL_BUFFER = 4;
+        double b = visualizerPane.getWidth() - HORIZONTAL_BUFFER;
+        float BOX_WIDTH_RATIO = 2 / 3F;
+        this.box_width = (int) (b / size * BOX_WIDTH_RATIO);
+        this.x_gap = (int) b / size - box_width;
+        if (box_width == 0)
+            this.box_width = 1;
+        float MIN_BAR_HEIGHT = 1 / 6F;
+        float adj;
+        adj = x_gap / 2.0F;
+        int minHeight = (int) (visualizerPane.getHeight() * MIN_BAR_HEIGHT);
+
+        for (int i = 0; i < boxes.length; i++) {
+            boxes[i].setWidth(box_width);
+            boxes[i].setHeight(this.nodeValuesInput[i] + minHeight);
+            boxes[i].setTranslateY(visualizerPane.getHeight() - this.nodeValuesInput[i] - minHeight);
+            boxes[i].setTranslateX(boxes[i].getTranslateX() + (visualizerPane.getWidth() / 2.0f - (x_gap + box_width) * (this.nodeValuesInput.length / 2.0f)) + adj);
+        }
         PrepareAlgorithm();
     }
 
@@ -444,8 +531,8 @@ public class VisualizerController implements Initializable {
                 var variables = transitions.get(0).variables;
 
                 int index = 0;
-                boolean hasVariables = transitions.get(0).variables.size() !=0;
-                if(hasVariables) {
+                boolean hasVariables = transitions.get(0).variables.size() != 0;
+                if (hasVariables) {
                     while (variables.size() == 0) {
                         index++;
                         variables = transitions.get(index).variables;
@@ -459,7 +546,7 @@ public class VisualizerController implements Initializable {
                     }
                     vars.append(variables.get(variables.size() - 1).toString());
                     algoStateLabel.setText(String.valueOf(vars));
-                }else  algoStateLabel.setText("");
+                } else algoStateLabel.setText("");
             }
             if (nodeValuesInput != null) {
                 inputArraySatusLabel.setText(String.valueOf(ConvertArrayToString(nodeValuesInput)));
@@ -468,7 +555,6 @@ public class VisualizerController implements Initializable {
 
         }
     }
-
 
 
     /**
@@ -483,9 +569,64 @@ public class VisualizerController implements Initializable {
             nodeValuesInput = GenerateRandomCountingSortArray();
         } else if (algorithmName.equals("Tree Sort") || algorithmName.equals("Bucket Sort")) {
             nodeValuesInput = GenerateRandomTreeValues();
-        } else nodeValuesInput = new int[numOfBoxes];
+        } else GenerateBarHeights();
     }
 
+    protected void GenerateBarHeights() {
+        int size = numOfBoxes;
+        boolean userInput = !arrayInputText.getText().equals("");
+        float HORIZONTAL_BUFFER = 4;
+        double b = visualizerPane.getWidth() - HORIZONTAL_BUFFER;
+        float BOX_WIDTH_RATIO = 2 / 3F;
+        this.box_width = (int) (b / size * BOX_WIDTH_RATIO);
+        this.x_gap = (int) b / size - box_width;
+        if (box_width == 0)
+            this.box_width = 1;
+        float PANE_HEIGHT_RATIO = 5 / 6F;
+        int paneHeight = (int) (visualizerPane.getHeight() * PANE_HEIGHT_RATIO);
+        float MIN_BAR_HEIGHT = 1 / 6F;
+        int minHeight = (int) (visualizerPane.getHeight() * MIN_BAR_HEIGHT);
+        boxes = new Rectangle[numOfBoxes];
+        nodeValuesInput = new int[numOfBoxes];
+        int increment = (paneHeight - minHeight) / size;
+        for (int i = 0; i < size; i++) {
+            if (userInput && !isSearchMode) {
+                originalValueInput[i] = this.nodeValuesInput[i];
+                this.nodeValuesInput[i] = this.nodeValuesInput[i] + minHeight;
+            } else if (stateLock && originalValueInput.length != 1) {
+                this.nodeValuesInput[i] = (int) (this.originalValueInput[i] + minHeight);
+            } else {
+                this.nodeValuesInput[i] = minHeight + increment * i;
+            }
+        }
+        if (!stateLock || originalValueInput.length == 1) {
+            originalValueInput = new double[numOfBoxes];
+            //put into array list
+            ArrayList<Integer> vals_list = new ArrayList<>();
+            for (int j : this.nodeValuesInput) {
+                vals_list.add(j);
+            }
+            if (!algorithmName.equals("Binary Search") && arrayInputText.getText().equals("")) {
+                //shuffle the order of the sizes
+                Collections.shuffle(vals_list);
+            }
+
+            for (int i = 0; i < vals_list.size(); i++) {
+                double height = vals_list.get(i);
+                originalValueInput[i] = height - minHeight;
+                nodeValuesInput[i] = (int) height;
+            }
+        } else {
+            originalValueInput = new double[numOfBoxes];
+            for (int i = 0; i < nodeValuesInput.length; i++) {
+                double height = nodeValuesInput[i];
+                originalValueInput[i] = height - minHeight;
+                nodeValuesInput[i] = (int) height;
+            }
+        }
+
+
+    }
 
     /**
      * Generates a bar graph for the input array
@@ -493,6 +634,7 @@ public class VisualizerController implements Initializable {
     @FXML
     protected void SetUpBarGraph() {
 
+        /*
         int size = this.nodeValuesInput.length;
         boolean userInput = !arrayInputText.getText().equals("");
         float HORIZONTAL_BUFFER = 4;
@@ -523,12 +665,14 @@ public class VisualizerController implements Initializable {
             //shuffle the order of the sizes
             Collections.shuffle(vals_list);
         }
+
+         */
+        boxes = new Rectangle[nodeValuesInput.length];
         float adj;
         adj = x_gap / 2.0F;
-        nodeValuesInput = new int[this.nodeValuesInput.length];
         for (int i = 0; i < this.nodeValuesInput.length; i++) {
-            double height = vals_list.get(i);
-            nodeValuesInput[i] = (int) height;
+            double height = nodeValuesInput[i];//vals_list.get(i);
+            //nodeValuesInput[i] = (int) height;
             boxes[i] = new Rectangle(box_width, height);
             boxes[i].setTranslateX((x_gap + box_width) * i + (visualizerPane.getWidth() / 2.0f - (x_gap + box_width) * (this.nodeValuesInput.length / 2.0f)) + adj);
 
@@ -619,21 +763,21 @@ public class VisualizerController implements Initializable {
 
         visualizerPane.getChildren().clear();
         stackPaneInputNodes = new StackPane[nodeValuesInput.length];
-        treeNodeLines = new Line[nodeValuesInput.length-1];
+        treeNodeLines = new Line[nodeValuesInput.length - 1];
 
         //set radius and x/y offset
         double radius = 20;
         double xOffset = 35;
         double yOffset = 45;
         //place the root node
-        double rootX = (visualizerPane.getWidth() / 2) -radius;
+        double rootX = (visualizerPane.getWidth() / 2) - radius;
         double rootY = 25;
 
-        double stokeWidth=4;
+        double stokeWidth = 4;
 
 
         //create root circle
-        Circle rootCircle = new Circle(radius-(stokeWidth/2));
+        Circle rootCircle = new Circle(radius - (stokeWidth / 2));
         //label circle for later reference
         rootCircle.setId("myCircle");
         rootCircle.setStrokeWidth(stokeWidth);
@@ -690,12 +834,12 @@ public class VisualizerController implements Initializable {
                     parent = stackPaneInputNodes[k];
                 }
             }
-            Line line1 = new Line(parent.getTranslateX()+radius, parent.getTranslateY()+ (2*radius), newCirclePosX+radius, newCirclePosY+1);
+            Line line1 = new Line(parent.getTranslateX() + radius, parent.getTranslateY() + (2 * radius), newCirclePosX + radius, newCirclePosY + 1);
             line1.setStrokeWidth(stokeWidth);
             treeNodeLines[i - 1] = line1;
             visualizerPane.getChildren().add(line1);
 
-            Circle newChild = new Circle(radius-(stokeWidth/2));
+            Circle newChild = new Circle(radius - (stokeWidth / 2));
             newChild.setStrokeWidth(stokeWidth);
             newChild.setStroke(Color.BLACK);
             newChild.setId("myCircle");
@@ -733,12 +877,6 @@ public class VisualizerController implements Initializable {
     }
 
 
-
-
-
-
-
-
     /**
      * Draw buckets for bucket sorting
      *
@@ -755,7 +893,7 @@ public class VisualizerController implements Initializable {
         int padding = 50;
         //set bottom layer of buckets
         Rectangle base = new Rectangle(visualizerPane.getWidth() - padding, 5);
-        base.setX(padding / (double)2);
+        base.setX(padding / (double) 2);
         base.setY(visualizerPane.getHeight() - 10);
         visualizerPane.getChildren().add(base);
         //draw dividers to break up base
@@ -834,7 +972,7 @@ public class VisualizerController implements Initializable {
     /**
      * this function returns all the integer values that represent the bucket ranges
      *
-     * @param input Input array
+     * @param input      Input array
      * @param numBuckets number of buckets
      * @return returns an integer array containing the diving integer values for the buckets
      */
@@ -886,7 +1024,7 @@ public class VisualizerController implements Initializable {
         stackPaneInputNodes = new StackPane[nodeValuesInput.length];
 
         int squareSize = 30;
-        int padding = 75;
+        int padding = (int) ((visualizerPane.getHeight() - (squareSize * 2)) / 4);
         int textScale = 2;
         int strokeWidth = 4;
         Bounds endOfText = DrawArrayText(textScale, padding, squareSize);
@@ -975,7 +1113,8 @@ public class VisualizerController implements Initializable {
                 if (row == 2 || row == 4) {
                     stackPane.setTranslateY((padding * (row - skipPadding) + (squareSize + strokeWidth) / ((float) 2)));
                     if (i == arraySizes[row] - 1) skipPadding += 1;
-                } else stackPane.setTranslateY((padding * (row + 1 - skipPadding)) - (squareSize + strokeWidth) / ((float) 2));
+                } else
+                    stackPane.setTranslateY((padding * (row + 1 - skipPadding)) - (squareSize + strokeWidth) / ((float) 2));
 
                 stackPane.setTranslateX(nodeStartX + i * (squareSize + strokeWidth));
 
@@ -1016,6 +1155,7 @@ public class VisualizerController implements Initializable {
             }
         }
     }
+
     /**
      * Auto animates on a timer.
      */

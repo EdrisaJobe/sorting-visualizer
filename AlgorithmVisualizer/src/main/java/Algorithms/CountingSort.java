@@ -39,13 +39,11 @@ public class CountingSort {
     public static String worstTime = "O(n*k)";
     public static String spaceComplexity = "O(n+k)";
 
-    public String pseudoCode = " create B empty buckets\n" +
-            " for each element\n" +
-            "     map element into a bucket\n" +
-            " for each bucket\n" +
-            "     sort each bucket\n" +
-            "       concat all the sorted elements\n" +
-            " output the sorted elements";
+    public String pseudoCode = "Count the number of occurrences for each value \n\n" +
+            "Add the previous count to each current count\n\n" +
+            "Shift the new count values to the right one index to get the first index of insert\n\n" +
+            "Loop back through input array. For each value find the first index of insert in the shifted index array.\n" +
+            "Insert into sorted array at that index. Increment the index by 1\n";
 
 
     //Highlight Colors.
@@ -59,14 +57,13 @@ public class CountingSort {
 
 
     /**
-     *
-     * @param inputArray stack pane of input array
-     * @param possibleValuesStackPane   stack pane of possible values in the input
-     * @param countedValues ...
-     * @param sortedArray ...
-     * @param nodeValues ...
-     * @param indexValues ...
-     * @param shiftedIndex ...
+     * @param inputArray              stack pane of input array
+     * @param possibleValuesStackPane stack pane of possible values in the input
+     * @param countedValues           ...
+     * @param sortedArray             ...
+     * @param nodeValues              ...
+     * @param indexValues             ...
+     * @param shiftedIndex            ...
      */
     public CountingSort(StackPane[] inputArray, StackPane[] possibleValuesStackPane, StackPane[] countedValues, StackPane[] sortedArray, int[] nodeValues, StackPane[] indexValues, StackPane[] shiftedIndex) {
         this.inputArray = inputArray;
@@ -127,10 +124,13 @@ public class CountingSort {
         for (int k = 0; k < indexValues.length; k++) {
             shiftedValue[k] = newSum;
             newSum += trueCountState[k];
-            Rectangle[] sumBlock = new Rectangle[k + 1];
-            for (int sumContributer = 0; sumContributer < (k + 1); sumContributer++) {
-                sumBlock[sumContributer] = (Rectangle) countedValues[sumContributer].lookup("#myRect");
-            }
+            Rectangle[] sumBlock;
+            if (k == 0) sumBlock = new Rectangle[]{(Rectangle) countedValues[k].lookup("#myRect")};
+            else
+                sumBlock = new Rectangle[]{(Rectangle) countedValues[k].lookup("#myRect"), (Rectangle) countedValues[k - 1].lookup("#myRect")};
+            //for (int sumContributer = 0; sumContributer < (k + 1); sumContributer++) {
+            //    sumBlock[sumContributer] = (Rectangle) countedValues[sumContributer].lookup("#myRect");
+            //}
             //highlight the set of blocks contributing to the sum rectangle
             AlgoState stage = new AlgoState(CustomHighlightNode(sumBlock, STROKE_BASE, TARGET_COLOR));
             transitions.add(stage);
@@ -144,6 +144,12 @@ public class CountingSort {
             //change the index values to the sum of the previous counts
             ParallelTransition forward = UpdateText(textVal, 0, newSum);
             Pair<Transition, Transition> anims = new Pair<>(forward, forward);
+            stage = new AlgoState(anims);
+            transitions.add(stage);
+            //change the count values to the sum of the previous counts
+            textVal = (Text) countedValues[k].lookup("#myValue");
+            forward = UpdateText(textVal, trueCountState[k], newSum);
+            anims = new Pair<>(forward, forward);
             stage = new AlgoState(anims);
             transitions.add(stage);
 
@@ -261,7 +267,6 @@ public class CountingSort {
 
 
     /**
-     *
      * @param node node to highlight
      * @param from start color
      * @param to   to color
@@ -283,7 +288,6 @@ public class CountingSort {
     }
 
     /**
-     *
      * @param node node to highlight
      * @return return pair transition
      */

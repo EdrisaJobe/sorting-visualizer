@@ -205,6 +205,9 @@
                      </HBox.margin>
                   </Button>
                                    </children>
+               <VBox.margin>
+                  <Insets bottom="50.0" />
+               </VBox.margin>
                                 </HBox>
                            </children>
                         </VBox>
