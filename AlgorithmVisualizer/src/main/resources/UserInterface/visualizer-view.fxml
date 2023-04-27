@@ -119,12 +119,12 @@
             </Label>
             <HBox alignment="CENTER" prefHeight="37.0" prefWidth="780.0" spacing="20.0">
                <children>
-                                      <Button fx:id="btnGenArray" alignment="CENTER" onAction="#DrawInitialVisualization" prefHeight="33.0" prefWidth="156.0" styleClass="vis-button" text="Generate New Array" textAlignment="CENTER">
+                                      <Button fx:id="btnGenArray" alignment="CENTER" onAction="#LoadNewVisualizerPane" prefHeight="33.0" prefWidth="156.0" styleClass="vis-button" text="Generate New Array" textAlignment="CENTER">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
                   </Button>
-                  <Button fx:id="btnGenTree" alignment="CENTER" disable="true" onAction="#DrawInitialVisualization" prefHeight="33.0" prefWidth="144.0" styleClass="vis-button" text="Generate New Tree" textAlignment="CENTER">
+                  <Button fx:id="btnGenTree" alignment="CENTER" disable="true" onAction="#LoadNewVisualizerPane" prefHeight="33.0" prefWidth="144.0" styleClass="vis-button" text="Generate New Tree" textAlignment="CENTER">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>

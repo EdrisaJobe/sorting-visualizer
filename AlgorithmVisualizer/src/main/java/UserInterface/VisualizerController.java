@@ -158,6 +158,9 @@ public class VisualizerController implements Initializable {
         }
     }
 
+    /**
+     * Plays next animation
+     */
     private void playNextAnim() {
         Transition currentTransition = transitions.get(currentTransitionIndex).forwardTransition;
 
@@ -186,6 +189,9 @@ public class VisualizerController implements Initializable {
     }
 
 
+    /**
+     * updates algorithm state at bottom of pane
+     */
     private void UpdateState() {
         var variables = transitions.get(currentTransitionIndex).variables;
         var arrayStats = transitions.get(currentTransitionIndex).arrayStatus;
@@ -219,10 +225,12 @@ public class VisualizerController implements Initializable {
 
 
     /**
-     * Prepares the transitions for the given algorithm on the given array
+     * Handles Sorting Algorithms Dropdown actions
+     * Updates visualizer pane and algorithm on event
      */
     @FXML
     public void SortDropdownHandler() {
+        StopTimer();
         if (isSearchMode) {
             arrayInputText.setDisable(false);
             arrayInputTextFieldLabel.setOpacity(1);
@@ -239,38 +247,25 @@ public class VisualizerController implements Initializable {
             btnGenTree.setDisable(true);
             btnGenArray.setDisable(false);
         }
-        DrawInitialVisualization();
+        LoadNewVisualizerPane();
 
     }
 
-    public void DrawInitialVisualization() {
-        GetInputArray();
-        ResetAlgorithm();
-        if (algorithmName.equals("Tree Sort")) {
-            GenerateBinaryTree();
-        } else if (algorithmName.equals("Bucket Sort")) {
-            SetUpBucketSort(nodeValuesInput, numBuckets);
-        } else if (algorithmName.equals("Counting Sort")) {
-            SetUpCountingSort(nodeValuesInput);
-        } else
-            SetUpBarGraph();
-        PrepareAlgorithm();
-    }
+
 
     /**
-     * Prepares the transitions for the given algorithm on the given array
+     * Handles Searching Dropdown events
+     * Updates visualizer pane and algorithm on event
      */
     @FXML
     public void SearchDropdownHandler() {
+        StopTimer();
         btnGenTree.setDisable(true);
         isSearchMode = true;
         String dropDownVal = searchDropdown.getValue();
         if (!algorithmName.equals(dropDownVal)) {
             algorithmName = searchDropdown.getValue();
-            ResetAlgorithm();
-            StopTimer();
-            GetInputArray();
-            SetUpBarGraph();
+            LoadNewVisualizerPane();
         }
         arrayInputText.setDisable(true);
         arrayInputTextFieldLabel.setOpacity(0.5);
@@ -297,19 +292,42 @@ public class VisualizerController implements Initializable {
         }
     }
 
+    /**
+     * Handles drop down events for the size of array
+     * Updates visualizer pane and algorithm on event
+     */
     @FXML
     public void nDropdownHandler() {
-
+        StopTimer();
         String dropDownVal = nDropdown.getValue();
         if (!algorithmName.equals(dropDownVal)) {
             this.numOfBoxes = Integer.parseInt(dropDownVal);
-            GetInputArray();
-            DrawInitialVisualization();
+            LoadNewVisualizerPane();
         }
 
     }
 
-    public void LoadNewVisaulizerPane(){
+    /**
+     * Using the current state of the algorithm this draws the right visualization
+     */
+    public void DrawInitialVisualization() {
+        if (algorithmName.equals("Tree Sort")) {
+            GenerateBinaryTree();
+        } else if (algorithmName.equals("Bucket Sort")) {
+            SetUpBucketSort(nodeValuesInput, numBuckets);
+        } else if (algorithmName.equals("Counting Sort")) {
+            SetUpCountingSort(nodeValuesInput);
+        } else
+            SetUpBarGraph();
+    }
+
+    /**
+     * Gets the input array
+     * Resets the algorithm
+     * Draws the Visualizer
+     * Prepares the Algorithm
+     */
+    public void LoadNewVisualizerPane(){
         GetInputArray();
         ResetAlgorithm();
         DrawInitialVisualization();
@@ -345,9 +363,6 @@ public class VisualizerController implements Initializable {
                 break;
             case "Bucket Sort":
                 bucketSizeDropdown.setVisible(true);
-                int[] randomArray = GenerateRandomTreeValues();
-                //will update once merged with main
-                SetUpBucketSort(randomArray, numBuckets);
                 algorithmBucket = new BucketSort(stackPaneInputNodes, nodeValuesInput, numBuckets, visualizerPane.getWidth(), visualizerPane.getHeight());
                 break;
             case "Heap Sort":
@@ -367,8 +382,6 @@ public class VisualizerController implements Initializable {
                 algorithm = new BinarySearch(boxes, x_gap, box_width);
                 break;
             case "Counting Sort":
-                randomArray = GenerateRandomCountingSortArray();
-                SetUpCountingSort(randomArray);
                 algorithmCounting = new CountingSort(stackPaneInputNodes, stackPanePossibleValues, stackPaneCountValues, stackPaneSortedArray, nodeValuesInput, possibleCountSortValues, stackPaneIndexValues, stackPaneShiftedIndex);
                 break;
         }
@@ -533,7 +546,6 @@ public class VisualizerController implements Initializable {
         int[] intArray = new int[stringArray.length];
         int min = Integer.MAX_VALUE;
         int max = Integer.MIN_VALUE;
-
         // Parse each string element to int and find min/max values
         for (int i = 0; i < stringArray.length; i++) {
             intArray[i] = Integer.parseInt(stringArray[i]);
@@ -544,14 +556,11 @@ public class VisualizerController implements Initializable {
                 max = intArray[i];
             }
         }
-
         // Normalize each value to be between 0 and 100
         int range = max - min;
         for (int i = 0; i < intArray.length; i++) {
             intArray[i] = (int) (((double) (intArray[i] - min) / (double) range) * 250) + 50;
         }
-
-
         return intArray;
     }
 
@@ -893,9 +902,7 @@ public class VisualizerController implements Initializable {
 
     public void SetNumBuckets() {
         numBuckets = Integer.valueOf(bucketSizeDropdown.getValue());
-        SetUpBucketSort(nodeValuesInput, numBuckets);
-        ResetAlgorithm();
-        PrepareAlgorithm();
+        LoadNewVisualizerPane();
     }
 
     private void SetUpCountingSort(int[] inputArray) {
@@ -914,7 +921,7 @@ public class VisualizerController implements Initializable {
         stackPaneIndexValues = new StackPane[possibleCountSortValues.length];
         stackPaneShiftedIndex = new StackPane[possibleCountSortValues.length];
         stackPaneSortedArray = new StackPane[nodeValuesInput.length];
-        DrawStackPaneNodes(squareSize, padding, strokeWidth, nodeStartX);
+        DrawCountingSortArrayBlocks(squareSize, padding, strokeWidth, nodeStartX);
     }
 
 
@@ -956,7 +963,7 @@ public class VisualizerController implements Initializable {
         return largestBound;
     }
 
-    private void DrawStackPaneNodes(int squareSize, int padding, int strokeWidth, double nodeStartX) {
+    private void DrawCountingSortArrayBlocks(int squareSize, int padding, int strokeWidth, double nodeStartX) {
 
         int[] arraySizes = new int[]{nodeValuesInput.length, possibleCountSortValues.length, possibleCountSortValues.length, possibleCountSortValues.length, possibleCountSortValues.length, nodeValuesInput.length};
         int skipPadding = 0;
@@ -1008,7 +1015,5 @@ public class VisualizerController implements Initializable {
 
             }
         }
-
     }
-
 }
