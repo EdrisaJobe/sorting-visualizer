@@ -26,9 +26,11 @@ public class CountingSort {
 
     //circles which are nodes
     private StackPane[] inputArray;
+    private StackPane[] shiftedIndex;
     private StackPane[] possibleValuesStackPane;
     private StackPane[] countedValues;
     private StackPane[] sortedArray;
+    private StackPane[] indexValues;
     //actual int values of nodes
     private int[] nodeValues;
     //possible values
@@ -67,13 +69,15 @@ public class CountingSort {
      *
      * @param nodes Array of boxes
      */
-    public CountingSort(StackPane[] inputArray, StackPane[] possibleValuesStackPane, StackPane[] countedValues, StackPane[] sortedArray, int[] nodeValues, int[] possibleValues) {
+    public CountingSort(StackPane[] inputArray, StackPane[] possibleValuesStackPane, StackPane[] countedValues, StackPane[] sortedArray, int[] nodeValues, int[] possibleValues, StackPane[] indexValues, StackPane[] shiftedIndex) {
         this.inputArray = inputArray;
         this.possibleValuesStackPane = possibleValuesStackPane;
         this.countedValues = countedValues;
         this.sortedArray = sortedArray;
         this.nodeValues = nodeValues;
         this.possibleValues = possibleValues;
+        this.indexValues = indexValues;
+        this.shiftedIndex = shiftedIndex;
     }
 
     /**
@@ -135,7 +139,7 @@ public class CountingSort {
 
             trueCountState[value] = count;
 
-            ParallelTransition forward = new ParallelTransition(updateText,centerText);
+            ParallelTransition forward = new ParallelTransition(updateText, centerText);
             Pair<Transition, Transition> anims = new Pair<>(forward, forward);
 
             stage = new AlgoState(anims);
@@ -152,41 +156,142 @@ public class CountingSort {
 
         }
         int newSum = 0;
-        int prevSum =0;
-        for (int k = 0; k < trueCountState.length; k++) {
+        int[] shiftedValue = new int[indexValues.length];
+        for (int k = 0; k < indexValues.length; k++) {
+            shiftedValue[k]=newSum;
             newSum += trueCountState[k];
-            for (int j = prevSum; j < newSum; j++) {
-                Text textVal = (Text) sortedArray[j].lookup("#myValue");
-                Timeline updateText = new Timeline(
-                        new KeyFrame(Duration.ZERO, new KeyValue(textVal.textProperty(), String.valueOf(0))),
-                        new KeyFrame(Duration.seconds(0.95), new KeyValue(textVal.textProperty(), String.valueOf(k)))
-                );
-                // Create the animation to move the Text node to the center of the StackPane
-                Timeline centerText = new Timeline(
-                        new KeyFrame(Duration.ZERO,
-                                new KeyValue(textVal.translateXProperty(), textVal.getTranslateX()),
-                                new KeyValue(textVal.translateYProperty(), textVal.getTranslateY())
-                        ),
-                        new KeyFrame(Duration.seconds(0.95),
-                                new KeyValue(textVal.translateXProperty(), sortedArray[j].getWidth() / 2),
-                                new KeyValue(textVal.translateYProperty(), sortedArray[j].getHeight() / 2)
-                        )
-                );
 
-                ParallelTransition forward = new ParallelTransition(updateText,centerText);
-                Pair<Transition, Transition> anims = new Pair<>(forward, forward);
-                AlgoState stage = new AlgoState(anims);
-                stage.StoreVariable("i", 0);
-                transitions.add(stage);
-                prevSum = newSum;
 
-                Rectangle node = (Rectangle) sortedArray[j].lookup("#myRect");
-                stage = new AlgoState(SecondaryHighlightNode(node));
-                stage.StoreVariable("i", 0);
-                transitions.add(stage);
+            Text textVal = (Text) indexValues[k].lookup("#myValue");
+            Timeline updateText = new Timeline(
+                    new KeyFrame(Duration.ZERO, new KeyValue(textVal.textProperty(), String.valueOf(0))),
+                    new KeyFrame(Duration.seconds(0.95), new KeyValue(textVal.textProperty(), String.valueOf(newSum)))
+            );
+            // Create the animation to move the Text node to the center of the StackPane
+            Timeline centerText = new Timeline(
+                    new KeyFrame(Duration.ZERO,
+                            new KeyValue(textVal.translateXProperty(), textVal.getTranslateX()),
+                            new KeyValue(textVal.translateYProperty(), textVal.getTranslateY())
+                    ),
+                    new KeyFrame(Duration.seconds(0.95),
+                            new KeyValue(textVal.translateXProperty(), indexValues[k].getWidth() / 2),
+                            new KeyValue(textVal.translateYProperty(), indexValues[k].getHeight() / 2)
+                    )
+            );
 
-            }
+            ParallelTransition forward = new ParallelTransition(updateText, centerText);
+            Pair<Transition, Transition> anims = new Pair<>(forward, forward);
+            AlgoState stage = new AlgoState(anims);
+            stage.StoreVariable("i", 0);
+            transitions.add(stage);
+
+            Rectangle node = (Rectangle) indexValues[k].lookup("#myRect");
+            stage = new AlgoState(SecondaryHighlightNode(node));
+            stage.StoreVariable("i", 0);
+            transitions.add(stage);
         }
+
+        for (int k = 0; k < indexValues.length; k++) {
+            int newValue = shiftedValue[k];
+
+
+            Text textVal = (Text) shiftedIndex[k].lookup("#myValue");
+            Timeline updateText = new Timeline(
+                    new KeyFrame(Duration.ZERO, new KeyValue(textVal.textProperty(), String.valueOf(0))),
+                    new KeyFrame(Duration.seconds(0.95), new KeyValue(textVal.textProperty(), String.valueOf(newValue)))
+            );
+            // Create the animation to move the Text node to the center of the StackPane
+            Timeline centerText = new Timeline(
+                    new KeyFrame(Duration.ZERO,
+                            new KeyValue(textVal.translateXProperty(), textVal.getTranslateX()),
+                            new KeyValue(textVal.translateYProperty(), textVal.getTranslateY())
+                    ),
+                    new KeyFrame(Duration.seconds(0.95),
+                            new KeyValue(textVal.translateXProperty(), shiftedIndex[k].getWidth() / 2),
+                            new KeyValue(textVal.translateYProperty(), shiftedIndex[k].getHeight() / 2)
+                    )
+            );
+
+            ParallelTransition forward = new ParallelTransition(updateText, centerText);
+            Pair<Transition, Transition> anims = new Pair<>(forward, forward);
+            AlgoState stage = new AlgoState(anims);
+            stage.StoreVariable("i", 0);
+            transitions.add(stage);
+
+            Rectangle node = (Rectangle) shiftedIndex[k].lookup("#myRect");
+            stage = new AlgoState(SecondaryHighlightNode(node));
+            stage.StoreVariable("i", 0);
+            transitions.add(stage);
+        }
+
+        for (int k = 0; k < nodeValues.length; k++) {
+            int val = 0;
+            while (nodeValues[k] != val) val++;
+            //highlight shifted index
+            Rectangle node = (Rectangle) shiftedIndex[val].lookup("#myRect");
+            AlgoState stage = new AlgoState(SecondaryHighlightNode(node));
+            stage.StoreVariable("i", 0);
+            transitions.add(stage);
+
+            //highlight sorted array insert
+            int indexInsert = shiftedValue[val];
+            shiftedValue[val]++;
+            trueCountState[val]++;
+            node = (Rectangle) sortedArray[indexInsert].lookup("#myRect");
+            stage = new AlgoState(SecondaryHighlightNode(node));
+            stage.StoreVariable("i", 0);
+            transitions.add(stage);
+            //update sorted array text
+            Text textVal = (Text) sortedArray[indexInsert].lookup("#myValue");
+            Timeline updateText = new Timeline(
+                    new KeyFrame(Duration.ZERO, new KeyValue(textVal.textProperty(), String.valueOf(0))),
+                    new KeyFrame(Duration.seconds(0.95), new KeyValue(textVal.textProperty(), String.valueOf(nodeValues[k])))
+            );
+            // Create the animation to move the Text node to the center of the StackPane
+            Timeline centerText = new Timeline(
+                    new KeyFrame(Duration.ZERO,
+                            new KeyValue(textVal.translateXProperty(), textVal.getTranslateX()),
+                            new KeyValue(textVal.translateYProperty(), textVal.getTranslateY())
+                    ),
+                    new KeyFrame(Duration.seconds(0.95),
+                            new KeyValue(textVal.translateXProperty(), sortedArray[indexInsert].getWidth() / 2),
+                            new KeyValue(textVal.translateYProperty(), sortedArray[indexInsert].getHeight() / 2)
+                    )
+            );
+
+            ParallelTransition forward = new ParallelTransition(updateText, centerText);
+            Pair<Transition, Transition> anims = new Pair<>(forward, forward);
+            stage = new AlgoState(anims);
+            stage.StoreVariable("i", 0);
+            transitions.add(stage);
+
+            //updated shifted text
+            textVal = (Text) shiftedIndex[val].lookup("#myValue");
+            updateText = new Timeline(
+                    new KeyFrame(Duration.ZERO, new KeyValue(textVal.textProperty(), String.valueOf(0))),
+                    new KeyFrame(Duration.seconds(0.95), new KeyValue(textVal.textProperty(), String.valueOf(trueCountState[val] + 1)))
+            );
+            // Create the animation to move the Text node to the center of the StackPane
+            centerText = new Timeline(
+                    new KeyFrame(Duration.ZERO,
+                            new KeyValue(textVal.translateXProperty(), textVal.getTranslateX()),
+                            new KeyValue(textVal.translateYProperty(), textVal.getTranslateY())
+                    ),
+                    new KeyFrame(Duration.seconds(0.95),
+                            new KeyValue(textVal.translateXProperty(), sortedArray[indexInsert].getWidth() / 2),
+                            new KeyValue(textVal.translateYProperty(), sortedArray[indexInsert].getHeight() / 2)
+                    )
+            );
+
+            forward = new ParallelTransition(updateText, centerText);
+            anims = new Pair<>(forward, forward);
+            stage = new AlgoState(anims);
+            stage.StoreVariable("i", 0);
+            transitions.add(stage);
+
+
+        }
+
         return transitions;
     }
 
