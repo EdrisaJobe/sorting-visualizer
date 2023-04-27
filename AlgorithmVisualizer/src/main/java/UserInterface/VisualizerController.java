@@ -30,7 +30,7 @@ public class VisualizerController implements Initializable {
     @FXML
     private Label statusLabel;
     @FXML
-    private Label sortedArrayLabel;
+    private Label sortedArrayText;
     @FXML
     private Label inputArraySatusLabel;
     @FXML
@@ -194,7 +194,7 @@ public class VisualizerController implements Initializable {
         }
 
         if (arrayStats != null) {
-            sortedArrayLabel.setText(arrayStats);
+            sortedArrayText.setText(arrayStats);
         }
     }
 
@@ -234,6 +234,14 @@ public class VisualizerController implements Initializable {
             btnGenTree.setDisable(true);
             btnGenArray.setDisable(false);
         }
+        if(algorithmName.equals("Tree Sort") || algorithmName.equals("Bucket Sort") || algorithmName.equals("Counting Sort")) {
+            arrayInputText.setDisable(true);
+            nDropdown.setDisable(true);
+        }
+        else{
+            arrayInputText.setDisable(false);
+            nDropdown.setDisable(false);
+        }
         LoadNewVisualizerPane();
 
     }
@@ -247,6 +255,7 @@ public class VisualizerController implements Initializable {
     @FXML
     public void SearchDropdownHandler() {
         btnGenTree.setDisable(true);
+        btnGenArray.setDisable(false);
         isSearchMode = true;
         String dropDownVal = searchDropdown.getValue();
         if (!algorithmName.equals(dropDownVal)) {
@@ -440,7 +449,7 @@ public class VisualizerController implements Initializable {
             }
             if (nodeValuesInput != null) {
                 inputArraySatusLabel.setText(String.valueOf(ConvertArrayToString(nodeValuesInput)));
-                sortedArrayLabel.setText("");
+                sortedArrayText.setText("");
             }
 
         }
@@ -506,7 +515,7 @@ public class VisualizerController implements Initializable {
         for (int j : this.nodeValuesInput) {
             vals_list.add(j);
         }
-        if (!isSearchMode && arrayInputText.getText().equals("")) {
+        if (!algorithmName.equals("Binary Search") && arrayInputText.getText().equals("")) {
             //shuffle the order of the sizes
             Collections.shuffle(vals_list);
         }
@@ -677,7 +686,7 @@ public class VisualizerController implements Initializable {
                     parent = stackPaneInputNodes[k];
                 }
             }
-            Line line1 = new Line(parent.getTranslateX()+radius, parent.getTranslateY()+radius + radius-5, newCirclePosX+radius, newCirclePosY+1);
+            Line line1 = new Line(parent.getTranslateX()+radius, parent.getTranslateY()+ (2*radius), newCirclePosX+radius, newCirclePosY+1);
             line1.setStrokeWidth(stokeWidth);
             treeNodeLines[i - 1] = line1;
             visualizerPane.getChildren().add(line1);
