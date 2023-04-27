@@ -95,20 +95,17 @@ public class CountingSort {
             //higlight node in the input array
             Rectangle node = (Rectangle) inputArray[i].lookup("#myRect");
             AlgoState stage = new AlgoState(CustomHighlightNode(new Rectangle[]{node}, STROKE_BASE, SECONDARY_COLOR));
-            stage.StoreVariable("i", 0);
             transitions.add(stage);
 
             //highlight value slot in possible input value
             int value = nodeValues[i];
             Rectangle nodeValueRect = (Rectangle) possibleValuesStackPane[value].lookup("#myRect");
             stage = new AlgoState(CustomHighlightNode(new Rectangle[]{nodeValueRect}, STROKE_BASE, SECONDARY_COLOR));
-            stage.StoreVariable("i", 0);
             transitions.add(stage);
 
             //highlight the count node under the possible input values
             Rectangle nodeCountRect = (Rectangle) countedValues[value].lookup("#myRect");
             stage = new AlgoState(CustomHighlightNode(new Rectangle[]{nodeCountRect}, STROKE_BASE, SECONDARY_COLOR));
-            stage.StoreVariable("i", 0);
             transitions.add(stage);
 
             //animate the text update
@@ -116,15 +113,12 @@ public class CountingSort {
             ParallelTransition forward = UpdateText(textCount, trueCountState[value], trueCountState[value] += 1);
             Pair<Transition, Transition> anims = new Pair<>(forward, forward);
             stage = new AlgoState(anims);
-            stage.StoreVariable("i", 0);
             transitions.add(stage);
 
             //reset borders
             stage = new AlgoState(ResetHighlightNode(nodeValueRect));
-            stage.StoreVariable("i", 0);
             transitions.add(stage);
             stage = new AlgoState(ResetHighlightNode(nodeCountRect));
-            stage.StoreVariable("i", 0);
             transitions.add(stage);
         }
         int newSum = 0;
@@ -138,13 +132,11 @@ public class CountingSort {
             }
             //highlight the set of blocks contributing to the sum rectangle
             AlgoState stage = new AlgoState(CustomHighlightNode(sumBlock, STROKE_BASE, TARGET_COLOR));
-            stage.StoreVariable("i", 0);
             transitions.add(stage);
 
             //highlight the node to TARGGET
             Rectangle node = (Rectangle) indexValues[k].lookup("#myRect");
             stage = new AlgoState(CustomHighlightNode(new Rectangle[]{node}, STROKE_BASE, TARGET_COLOR));
-            stage.StoreVariable("i", 0);
             transitions.add(stage);
 
             Text textVal = (Text) indexValues[k].lookup("#myValue");
@@ -152,19 +144,16 @@ public class CountingSort {
             ParallelTransition forward = UpdateText(textVal, 0, newSum);
             Pair<Transition, Transition> anims = new Pair<>(forward, forward);
             stage = new AlgoState(anims);
-            stage.StoreVariable("i", 0);
             transitions.add(stage);
 
             //highlight the node to SECONDARY
             node = (Rectangle) indexValues[k].lookup("#myRect");
             stage = new AlgoState(CustomHighlightNode(new Rectangle[]{node}, TARGET_COLOR, SECONDARY_COLOR));
-            stage.StoreVariable("i", 0);
             transitions.add(stage);
 
 
             //reset highlight the set of blocks contributing to the sum rectangle
             stage = new AlgoState(CustomHighlightNode(sumBlock, TARGET_COLOR, STROKE_BASE));
-            stage.StoreVariable("i", 0);
             transitions.add(stage);
         }
 
@@ -174,26 +163,22 @@ public class CountingSort {
             ParallelTransition forward = UpdateText(textVal, 0, shiftedValue[k]);
             Pair<Transition, Transition> anims = new Pair<>(forward, forward);
             AlgoState stage = new AlgoState(anims);
-            stage.StoreVariable("i", 0);
             transitions.add(stage);
             //highlight the rectangle
             Rectangle node = (Rectangle) shiftedIndex[k].lookup("#myRect");
             stage = new AlgoState(CustomHighlightNode(new Rectangle[]{node}, STROKE_BASE, SECONDARY_COLOR));
-            stage.StoreVariable("i", 0);
             transitions.add(stage);
 
             //remove highlight from original index values
             if (k > 0) {
                 node = (Rectangle) indexValues[k - 1].lookup("#myRect");
                 stage = new AlgoState(ResetHighlightNode(node));
-                stage.StoreVariable("i", 0);
                 transitions.add(stage);
             }
 
             if (k == (indexValues.length - 1)) {
                 node = (Rectangle) indexValues[k].lookup("#myRect");
                 stage = new AlgoState(ResetHighlightNode(node));
-                stage.StoreVariable("i", 0);
                 transitions.add(stage);
             }
         }
@@ -209,26 +194,22 @@ public class CountingSort {
             //color input index
             Rectangle node = (Rectangle) inputArray[k].lookup("#myRect");
             AlgoState stage = new AlgoState(ColorNode(TARGET_COLOR, node));
-            stage.StoreVariable("i", 0);
             transitions.add(stage);
 
             //highlight value array
             node = (Rectangle) possibleValuesStackPane[val].lookup("#myRect");
             stage = new AlgoState(CustomHighlightNode(new Rectangle[]{node}, STROKE_BASE, TARGET_COLOR));
-            stage.StoreVariable("i", 0);
             transitions.add(stage);
 
             //highlight shifted index
             node = (Rectangle) shiftedIndex[val].lookup("#myRect");
             stage = new AlgoState(CustomHighlightNode(new Rectangle[]{node}, SECONDARY_COLOR, TARGET_COLOR));
-            stage.StoreVariable("i", 0);
             transitions.add(stage);
 
             //highlight sorted array insert before insert
             int index = indexInsert[val];
             node = (Rectangle) sortedArray[index].lookup("#myRect");
             stage = new AlgoState(CustomHighlightNode(new Rectangle[]{node}, STROKE_BASE, SECONDARY_COLOR));
-            stage.StoreVariable("i", 0);
             transitions.add(stage);
 
             //update sorted array text
@@ -237,13 +218,11 @@ public class CountingSort {
             ParallelTransition forward = UpdateText(textVal, 0, nodeValues[k]);
             Pair<Transition, Transition> anims = new Pair<>(forward, forward);
             stage = new AlgoState(anims);
-            stage.StoreVariable("i", 0);
             transitions.add(stage);
 
             //highlight node after insertion
             node = (Rectangle) sortedArray[index].lookup("#myRect");
             stage = new AlgoState(CustomHighlightNode(new Rectangle[]{node}, SECONDARY_COLOR, TARGET_COLOR));
-            stage.StoreVariable("i", 0);
             transitions.add(stage);
 
             //updated shifted text
@@ -251,20 +230,17 @@ public class CountingSort {
             forward = UpdateText(textVal, shiftedValue[val] + (index - shiftedValue[val]), indexInsert[val] += 1);
             anims = new Pair<>(forward, forward);
             stage = new AlgoState(anims);
-            stage.StoreVariable("i", 0);
             transitions.add(stage);
 
 
             //reset highlight shifted index
             node = (Rectangle) shiftedIndex[val].lookup("#myRect");
             stage = new AlgoState(CustomHighlightNode(new Rectangle[]{node}, TARGET_COLOR, SECONDARY_COLOR));
-            stage.StoreVariable("i", 0);
             transitions.add(stage);
 
             //reset highlight value array
             node = (Rectangle) possibleValuesStackPane[val].lookup("#myRect");
             stage = new AlgoState(CustomHighlightNode(new Rectangle[]{node}, TARGET_COLOR, STROKE_BASE));
-            stage.StoreVariable("i", 0);
             transitions.add(stage);
 
 

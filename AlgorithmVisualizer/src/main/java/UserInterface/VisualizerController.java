@@ -421,19 +421,22 @@ public class VisualizerController implements Initializable {
                 var variables = transitions.get(0).variables;
 
                 int index = 0;
-                while (variables.size() == 0) {
-                    index++;
-                    variables = transitions.get(index).variables;
+                boolean hasVariables = transitions.get(0).variables.size() !=0;
+                if(hasVariables) {
+                    while (variables.size() == 0) {
+                        index++;
+                        variables = transitions.get(index).variables;
 
-                }
+                    }
 
-                StringBuilder vars = new StringBuilder("Algo State: ");
+                    StringBuilder vars = new StringBuilder("Algo State: ");
 
-                for (int i = 0; i < variables.size() - 1; i++) {
-                    vars.append(variables.get(i).toString()).append(", ");
-                }
-                vars.append(variables.get(variables.size() - 1).toString());
-                algoStateLabel.setText(String.valueOf(vars));
+                    for (int i = 0; i < variables.size() - 1; i++) {
+                        vars.append(variables.get(i).toString()).append(", ");
+                    }
+                    vars.append(variables.get(variables.size() - 1).toString());
+                    algoStateLabel.setText(String.valueOf(vars));
+                }else  algoStateLabel.setText("");
             }
             if (nodeValuesInput != null) {
                 inputArraySatusLabel.setText(String.valueOf(ConvertArrayToString(nodeValuesInput)));
@@ -625,10 +628,8 @@ public class VisualizerController implements Initializable {
         //create text
         Text circleText = new Text(String.valueOf(nodeValuesInput[0]));
         circleText.setStroke(Color.WHITESMOKE);
-
         //create stackpane
         StackPane stackPane = new StackPane();
-
         // Set the text as the child of the circle
         stackPane.getChildren().addAll(rootCircle, circleText);
 

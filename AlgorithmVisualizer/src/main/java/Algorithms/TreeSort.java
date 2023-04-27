@@ -77,7 +77,6 @@ public class TreeSort extends AbstractAlgorithmTree {
                         child = k;
                         Pair<Transition, Transition> transition = HighlightRing(child);
                         stage = new AlgoState(transition);
-                        stage.StoreVariable("j", j);
                         stage.StoreArrayStatus(sortedArray);
                         if(!visitedNodes.contains(child)) {
                             transitions.add(stage);
@@ -89,7 +88,6 @@ public class TreeSort extends AbstractAlgorithmTree {
                         //line transition
                         Pair<Transition, Transition> transition = ConnectNodes(child);
                         stage = new AlgoState(transition);
-                        stage.StoreVariable("i", j);
                         stage.StoreArrayStatus(sortedArray);
                         if(!connectedLines.contains(child)) {
                             transitions.add(stage);
@@ -98,7 +96,6 @@ public class TreeSort extends AbstractAlgorithmTree {
                         //node highlight transition
                         transition = HighlightRing(child);
                         stage = new AlgoState(transition);
-                        stage.StoreVariable("k", j);
                         stage.StoreArrayStatus(sortedArray);
                         if(!visitedNodes.contains(child)) {
                             transitions.add(stage);
@@ -113,7 +110,7 @@ public class TreeSort extends AbstractAlgorithmTree {
             //fill the node to confirm its visited
             Pair<Transition, Transition>transition = SearchTargetHighlightNode(child);
             stage = new AlgoState(transition);
-            stage.StoreVariable("k", j);
+          //  stage.StoreVariable("k", j);
 
             if(!filledNodes.contains(child)) {
                 transitions.add(stage);

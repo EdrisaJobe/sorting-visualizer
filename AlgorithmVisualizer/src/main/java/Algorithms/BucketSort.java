@@ -154,7 +154,6 @@ public class BucketSort {
                     if (newIndex != bucketContainers[k-1].length) {
                         Pair<Transition, Transition> transition = MakeRoom(newIndex, k - 1);
                         stage = new AlgoState(transition);
-                        stage.StoreVariable("i", k);
                         transitions.add(stage);
                     }
                     //update bucket array
@@ -171,7 +170,6 @@ public class BucketSort {
                     //create animation for insertion
                     Pair<Transition, Transition> transition = PlaceIntoBucket(i, k - 1, newIndex);
                     stage = new AlgoState(transition);
-                    stage.StoreVariable("j", k);
                     //store animation
                     transitions.add(stage);
                     break;
