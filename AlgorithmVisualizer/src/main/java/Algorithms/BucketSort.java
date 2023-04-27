@@ -16,17 +16,18 @@ import java.util.*;
 /**
  * BucketSort algorithm
  */
+@SuppressWarnings("IntegerDivisionInFloatingPointContext")
 public class BucketSort {
 
 
     //circles which are nodes
-    private double vizzWidth;
+    private final double vizzWidth;
     //circles which are nodes
-    private double vizzHeight;
+    private final double vizzHeight;
     //stackpane which holds both the nodes and the text
-    private StackPane[] nodes;
+    private final StackPane[] nodes;
     //actual int values of nodes
-    private int[] nodeValues;
+    private final int[] nodeValues;
     //bounds for each container
     private int[] bucketLabels;
     // array of arrays
@@ -50,10 +51,9 @@ public class BucketSort {
     private final Color SECONDARY_COLOR = Color.web("#fc6868");
     private final Color TARGET_COLOR = Color.web("#96f6ff");
 
-    private int x_gap = 45;
-    private int bucketPadding =50;
+    private final int bucketPadding =50;
 
-    private int y_gap = 45;
+    private final int y_gap = 45;
 
     public String pseudoCode = " create B empty buckets\n" +
             " for each element\n" +
@@ -70,10 +70,10 @@ public class BucketSort {
      */
     public BucketSort(StackPane[] nodes, int[] nodeValues, int numBuckets, double vizzWidth, double vizzHeight) {
 
-        this.bestTime = "Ω(n)";
-        this.averageTime = "θ(n + n^2/k + k)";
-        this.worstTime = "O(n*k)";
-        this.spaceComplexity = "O(n+k)";
+        bestTime = "Ω(n)";
+        averageTime = "θ(n + n^2/k + k)";
+        worstTime = "O(n*k)";
+        spaceComplexity = "O(n+k)";
 
         this.nodes = nodes;
         this.nodeValues = nodeValues;
@@ -87,17 +87,16 @@ public class BucketSort {
      *
      * @param nodeVals   the array of values to be bucket sorted
      * @param numBuckets is the number of buckets we need
-     * @return is and int array
      */
     private void GetBucketLabels(int[] nodeVals, int numBuckets) {
         int[] bucketLabels = new int[numBuckets + 1];
         int min = 0;
         int max = 0;
-        for (int i = 0; i < nodeVals.length; i++) {
-            if (nodeVals[i] > max)
-                max = nodeVals[i];
-            if (nodeVals[i] < min)
-                min = nodeVals[i];
+        for (int nodeVal : nodeVals) {
+            if (nodeVal > max)
+                max = nodeVal;
+            if (nodeVal < min)
+                min = nodeVal;
         }
         int diff = max - min;
         int bucketSize = diff / numBuckets;
@@ -180,10 +179,10 @@ public class BucketSort {
             }
         }
         //loop through the bucket containers to color nodes in order and store their animation
-        for (int bucket = 0; bucket < bucketContainers.length;bucket++){
-            for (int val = 0 ; val <bucketContainers[bucket].length;val++){
-                int nodeIndex = GetNode(bucketContainers[bucket][val]);
-                Pair<Transition, Transition> transition  = SecondaryHighlightNode(nodeIndex);
+        for (int[] bucketContainer : bucketContainers) {
+            for (int val = 0; val < bucketContainer.length; val++) {
+                int nodeIndex = GetNode(bucketContainer[val]);
+                Pair<Transition, Transition> transition = SecondaryHighlightNode(nodeIndex);
                 stage = new AlgoState(transition);
                 stage.StoreVariable("i", val);
                 transitions.add(stage);
@@ -199,7 +198,6 @@ public class BucketSort {
      * @param nodeIndex   index which points to the node to move
      * @param bucket      bucket to be moved to
      * @param indexInsert index of bucket insertion
-     * @return
      */
     final public Pair<Transition, Transition> PlaceIntoBucket(int nodeIndex, int bucket, int indexInsert) {
         //get starting position of stack pane
@@ -236,10 +234,8 @@ public class BucketSort {
         ParallelTransition forward = new ParallelTransition(node_path_forward);
         ParallelTransition reverse = new ParallelTransition(node_path_reverse);
 
-        Pair<Transition, Transition> anims = new Pair<>(forward, reverse);
-
         //Think of it as storing multiple transitions in one transition.
-        return anims;
+        return new Pair<>(forward, reverse);
     }
 
     /**
@@ -297,10 +293,8 @@ public class BucketSort {
 
         }
 
-        Pair<Transition, Transition> anims = new Pair<>(forward, reverse);
-
         //Think of it as storing multiple transitions in one transition.
-        return anims;
+        return new Pair<>(forward, reverse);
     }
 
 
@@ -311,8 +305,7 @@ public class BucketSort {
      * @return the x position of the node after being inserted into bucket
      */
     private double GetBucketX(int bucketIncrement, int bucket) {
-        double endX = bucketPadding + (bucketIncrement * ((bucket * 2) + 1)) - bucketPadding/2;
-        return endX;
+        return bucketPadding + (bucketIncrement * ((bucket * 2) + 1)) - bucketPadding/2;
 
     }
 
@@ -322,8 +315,7 @@ public class BucketSort {
      * @return the y position of the node after being inserted
      */
     private double GetBucketY(int indexInsert) {
-        double endY = vizzHeight - (y_gap * (indexInsert+1));
-        return endY;
+        return vizzHeight - (y_gap * (indexInsert+1));
 
     }
 
@@ -334,7 +326,6 @@ public class BucketSort {
      */
     final public Pair<Transition, Transition> SecondaryHighlightNode(int index){
         Circle node = (Circle) nodes[index].lookup("#myCircle");
-
         return ColorNode(SECONDARY_COLOR, node);
     }
 
@@ -358,9 +349,7 @@ public class BucketSort {
 
         //node.setFill(color);
 
-        reverse.setOnFinished(evnt -> {
-            node.setFill(currentColor);
-        });
+        reverse.setOnFinished(evnt -> node.setFill(currentColor));
 
         return new Pair<>(forward, reverse);
     }
