@@ -91,20 +91,20 @@ public class CountingSort {
         for (int i = 0; i < inputArray.length; i++) {
             //higlight node in the input array
             Rectangle node = (Rectangle) inputArray[i].lookup("#myRect");
-            AlgoState stage = new AlgoState(CustomHighlightNode(node, STROKE_BASE,SECONDARY_COLOR));
+            AlgoState stage = new AlgoState(CustomHighlightNode(new Rectangle[]{node}, STROKE_BASE, SECONDARY_COLOR));
             stage.StoreVariable("i", 0);
             transitions.add(stage);
 
             //highlight value slot in possible input value
             int value = nodeValues[i];
             Rectangle nodeValueRect = (Rectangle) possibleValuesStackPane[value].lookup("#myRect");
-            stage = new AlgoState(CustomHighlightNode(nodeValueRect, STROKE_BASE,SECONDARY_COLOR));
+            stage = new AlgoState(CustomHighlightNode(new Rectangle[]{nodeValueRect}, STROKE_BASE, SECONDARY_COLOR));
             stage.StoreVariable("i", 0);
             transitions.add(stage);
 
             //highlight the count node under the possible input values
             Rectangle nodeCountRect = (Rectangle) countedValues[value].lookup("#myRect");
-            stage = new AlgoState(CustomHighlightNode(nodeCountRect, STROKE_BASE,SECONDARY_COLOR));
+            stage = new AlgoState(CustomHighlightNode(new Rectangle[]{nodeCountRect}, STROKE_BASE, SECONDARY_COLOR));
             stage.StoreVariable("i", 0);
             transitions.add(stage);
 
@@ -129,18 +129,38 @@ public class CountingSort {
         for (int k = 0; k < indexValues.length; k++) {
             shiftedValue[k] = newSum;
             newSum += trueCountState[k];
+            Rectangle[] sumBlock = new Rectangle[k + 1];
+            for (int sumContributer = 0; sumContributer < (k + 1); sumContributer++) {
+                sumBlock[sumContributer] = (Rectangle) countedValues[sumContributer].lookup("#myRect");
+            }
+            //highlight the set of blocks contributing to the sum rectangle
+            AlgoState stage = new AlgoState(CustomHighlightNode(sumBlock, STROKE_BASE, TARGET_COLOR));
+            stage.StoreVariable("i", 0);
+            transitions.add(stage);
 
+            //highlight the node to TARGGET
+            Rectangle node = (Rectangle) indexValues[k].lookup("#myRect");
+            stage = new AlgoState(CustomHighlightNode(new Rectangle[]{node}, STROKE_BASE, TARGET_COLOR));
+            stage.StoreVariable("i", 0);
+            transitions.add(stage);
 
             Text textVal = (Text) indexValues[k].lookup("#myValue");
             //change the index values to the sum of the previous counts
             ParallelTransition forward = UpdateText(textVal, 0, newSum);
             Pair<Transition, Transition> anims = new Pair<>(forward, forward);
-            AlgoState stage = new AlgoState(anims);
+            stage = new AlgoState(anims);
             stage.StoreVariable("i", 0);
             transitions.add(stage);
-            //highlight the node
-            Rectangle node = (Rectangle) indexValues[k].lookup("#myRect");
-            stage = new AlgoState(CustomHighlightNode(node, STROKE_BASE,SECONDARY_COLOR));
+
+            //highlight the node to SECONDARY
+            node = (Rectangle) indexValues[k].lookup("#myRect");
+            stage = new AlgoState(CustomHighlightNode(new Rectangle[]{node}, TARGET_COLOR, SECONDARY_COLOR));
+            stage.StoreVariable("i", 0);
+            transitions.add(stage);
+
+
+            //reset highlight the set of blocks contributing to the sum rectangle
+            stage = new AlgoState(CustomHighlightNode(sumBlock, TARGET_COLOR, STROKE_BASE));
             stage.StoreVariable("i", 0);
             transitions.add(stage);
         }
@@ -155,26 +175,25 @@ public class CountingSort {
             transitions.add(stage);
             //highlight the rectangle
             Rectangle node = (Rectangle) shiftedIndex[k].lookup("#myRect");
-            stage = new AlgoState(CustomHighlightNode(node, STROKE_BASE,SECONDARY_COLOR));
+            stage = new AlgoState(CustomHighlightNode(new Rectangle[]{node}, STROKE_BASE, SECONDARY_COLOR));
             stage.StoreVariable("i", 0);
             transitions.add(stage);
 
             //remove highlight from original index values
-            if (k >0) {
-                node = (Rectangle) indexValues[k-1].lookup("#myRect");
+            if (k > 0) {
+                node = (Rectangle) indexValues[k - 1].lookup("#myRect");
                 stage = new AlgoState(ResetHighlightNode(node));
                 stage.StoreVariable("i", 0);
                 transitions.add(stage);
             }
 
-            if (k==(indexValues.length-1)){
+            if (k == (indexValues.length - 1)) {
                 node = (Rectangle) indexValues[k].lookup("#myRect");
                 stage = new AlgoState(ResetHighlightNode(node));
                 stage.StoreVariable("i", 0);
                 transitions.add(stage);
             }
         }
-
 
 
         int[] indexInsert = new int[shiftedValue.length];
@@ -194,20 +213,20 @@ public class CountingSort {
 
             //highlight value array
             node = (Rectangle) possibleValuesStackPane[val].lookup("#myRect");
-            stage = new AlgoState(CustomHighlightNode(node, STROKE_BASE,TARGET_COLOR));
+            stage = new AlgoState(CustomHighlightNode(new Rectangle[]{node}, STROKE_BASE, TARGET_COLOR));
             stage.StoreVariable("i", 0);
             transitions.add(stage);
 
             //highlight shifted index
             node = (Rectangle) shiftedIndex[val].lookup("#myRect");
-            stage = new AlgoState(CustomHighlightNode(node, SECONDARY_COLOR,TARGET_COLOR));
+            stage = new AlgoState(CustomHighlightNode(new Rectangle[]{node}, SECONDARY_COLOR, TARGET_COLOR));
             stage.StoreVariable("i", 0);
             transitions.add(stage);
 
             //highlight sorted array insert before insert
             int index = indexInsert[val];
             node = (Rectangle) sortedArray[index].lookup("#myRect");
-            stage = new AlgoState(CustomHighlightNode(node, STROKE_BASE,SECONDARY_COLOR));
+            stage = new AlgoState(CustomHighlightNode(new Rectangle[]{node}, STROKE_BASE, SECONDARY_COLOR));
             stage.StoreVariable("i", 0);
             transitions.add(stage);
 
@@ -222,27 +241,28 @@ public class CountingSort {
 
             //highlight node after insertion
             node = (Rectangle) sortedArray[index].lookup("#myRect");
-            stage = new AlgoState(CustomHighlightNode(node, SECONDARY_COLOR,TARGET_COLOR));
+            stage = new AlgoState(CustomHighlightNode(new Rectangle[]{node}, SECONDARY_COLOR, TARGET_COLOR));
             stage.StoreVariable("i", 0);
             transitions.add(stage);
 
             //updated shifted text
             textVal = (Text) shiftedIndex[val].lookup("#myValue");
-            forward = UpdateText(textVal, shiftedValue[val] + (index-shiftedValue[val]), indexInsert[val] += 1);
+            forward = UpdateText(textVal, shiftedValue[val] + (index - shiftedValue[val]), indexInsert[val] += 1);
             anims = new Pair<>(forward, forward);
             stage = new AlgoState(anims);
             stage.StoreVariable("i", 0);
             transitions.add(stage);
 
+
             //reset highlight shifted index
             node = (Rectangle) shiftedIndex[val].lookup("#myRect");
-            stage = new AlgoState(CustomHighlightNode(node, TARGET_COLOR,SECONDARY_COLOR));
+            stage = new AlgoState(CustomHighlightNode(new Rectangle[]{node}, TARGET_COLOR, SECONDARY_COLOR));
             stage.StoreVariable("i", 0);
             transitions.add(stage);
 
             //reset highlight value array
             node = (Rectangle) possibleValuesStackPane[val].lookup("#myRect");
-            stage = new AlgoState(CustomHighlightNode(node, TARGET_COLOR,STROKE_BASE));
+            stage = new AlgoState(CustomHighlightNode(new Rectangle[]{node}, TARGET_COLOR, STROKE_BASE));
             stage.StoreVariable("i", 0);
             transitions.add(stage);
 
@@ -259,11 +279,17 @@ public class CountingSort {
      * @param index Index of the node to highlight.
      * @return The transition highlighting the node.
      */
-    final public Pair<Transition, Transition> CustomHighlightNode(Rectangle node,Color from, Color to) {
-        StrokeTransition strokeChangeForward = new StrokeTransition(Duration.seconds(ANIM_DURATION), node, from, to);
-        StrokeTransition strokeChangeReverse = new StrokeTransition(Duration.seconds(ANIM_DURATION), node, to, from);
-        ParallelTransition forward = new ParallelTransition(strokeChangeForward);
-        ParallelTransition reverse = new ParallelTransition(strokeChangeReverse);
+    final public Pair<Transition, Transition> CustomHighlightNode(Rectangle[] node, Color from, Color to) {
+        ParallelTransition forward = new ParallelTransition();
+        ParallelTransition reverse = new ParallelTransition();
+
+        for (int i = 0; i < node.length; i++) {
+            StrokeTransition strokeChangeForward = new StrokeTransition(Duration.seconds(ANIM_DURATION), node[i], from, to);
+            StrokeTransition strokeChangeReverse = new StrokeTransition(Duration.seconds(ANIM_DURATION), node[i], to, from);
+            forward.getChildren().add(strokeChangeForward);
+            reverse.getChildren().add(strokeChangeReverse);
+        }
+
 
         return new Pair<>(forward, reverse);
     }
@@ -275,7 +301,6 @@ public class CountingSort {
      * @return The transition highlighting the node.
      */
     final public Pair<Transition, Transition> ResetHighlightNode(Rectangle node) {
-        //Rectangle node = (Rectangle) inputArray[index].lookup("#myRect");
         StrokeTransition strokeChangeForward = new StrokeTransition(Duration.seconds(ANIM_DURATION), node, SECONDARY_COLOR, STROKE_BASE);
         StrokeTransition strokeChangeReverse = new StrokeTransition(Duration.seconds(ANIM_DURATION), node, STROKE_BASE, SECONDARY_COLOR);
         ParallelTransition forward = new ParallelTransition(strokeChangeForward);
@@ -308,11 +333,12 @@ public class CountingSort {
 
     /**
      * Utility function returning a transition coloring a node.
+     *
      * @param color New Color of the node.
-     * @param node The node to color.
+     * @param node  The node to color.
      * @return The transition containing the filling of the node.
      */
-    private Pair<Transition, Transition> ColorNode(Color color, Shape node){
+    private Pair<Transition, Transition> ColorNode(Color color, Shape node) {
         FillTransition forward = new FillTransition(Duration.seconds(ANIM_DURATION));
         FillTransition reverse = new FillTransition(Duration.seconds(ANIM_DURATION));
         Color currentColor = (Color) node.getFill();
