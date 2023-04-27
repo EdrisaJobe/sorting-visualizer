@@ -124,7 +124,7 @@
                         <Insets />
                      </opaqueInsets>
                   </Button>
-                  <Button fx:id="btnGenTree" alignment="CENTER" onAction="#SetUpBinaryTree" prefHeight="33.0" prefWidth="144.0" styleClass="vis-button" text="Generate New Tree" textAlignment="CENTER">
+                  <Button fx:id="btnGenTree" alignment="CENTER" disable="true" onAction="#DrawInitialVisualization" prefHeight="33.0" prefWidth="144.0" styleClass="vis-button" text="Generate New Tree" textAlignment="CENTER">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>

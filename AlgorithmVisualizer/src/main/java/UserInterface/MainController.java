@@ -187,7 +187,7 @@ public class MainController implements Initializable {
     }
 
     public void GenerateTree() {
-        visualizerController.SetUpBinaryTree();
+        visualizerController.GenerateBinaryTree();
     }
 
     public void hideTutorial(ActionEvent actionEvent) throws IOException {

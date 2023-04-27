@@ -211,6 +211,8 @@ public class VisualizerController implements Initializable {
     protected void ResetAlgorithm() {
         algorithm = null;
         algorithmTree = null;
+        algorithmCounting = null;
+        algorithmBucket = null;
         currentTransitionIndex = 0;
         this.transitions = null;
     }
@@ -229,7 +231,14 @@ public class VisualizerController implements Initializable {
 
         String dropDownVal = sortDropdown.getValue();
         if (!algorithmName.equals(dropDownVal)) algorithmName = sortDropdown.getValue();
-
+        if(algorithmName.equals("Tree Sort")) {
+            btnGenTree.setDisable(false);
+            btnGenArray.setDisable(true);
+        }
+        else{
+            btnGenTree.setDisable(true);
+            btnGenArray.setDisable(false);
+        }
         DrawInitialVisualization();
 
     }
@@ -237,15 +246,15 @@ public class VisualizerController implements Initializable {
     public void DrawInitialVisualization() {
         GetInputArray();
         ResetAlgorithm();
-        PrepareAlgorithm();
         if (algorithmName.equals("Tree Sort")) {
-            SetUpBinaryTree();
+            GenerateBinaryTree();
         } else if (algorithmName.equals("Bucket Sort")) {
             SetUpBucketSort(nodeValuesInput, numBuckets);
         } else if (algorithmName.equals("Counting Sort")) {
             SetUpCountingSort(nodeValuesInput);
         } else
             SetUpBarGraph();
+        PrepareAlgorithm();
     }
 
     /**
@@ -253,6 +262,7 @@ public class VisualizerController implements Initializable {
      */
     @FXML
     public void SearchDropdownHandler() {
+        btnGenTree.setDisable(true);
         isSearchMode = true;
         String dropDownVal = searchDropdown.getValue();
         if (!algorithmName.equals(dropDownVal)) {
@@ -295,10 +305,15 @@ public class VisualizerController implements Initializable {
             this.numOfBoxes = Integer.parseInt(dropDownVal);
             GetInputArray();
             DrawInitialVisualization();
-            ResetAlgorithm();
-            PrepareAlgorithm();
         }
 
+    }
+
+    public void LoadNewVisaulizerPane(){
+        GetInputArray();
+        ResetAlgorithm();
+        DrawInitialVisualization();
+        PrepareAlgorithm();
     }
 
     /**
@@ -306,8 +321,6 @@ public class VisualizerController implements Initializable {
      */
     @FXML
     protected void PrepareAlgorithm() {
-        boolean isCustomVis = false;
-        boolean isTreeSort = false;
 
         switch (algorithmName) {
             case "Bubble Sort":
@@ -336,7 +349,6 @@ public class VisualizerController implements Initializable {
                 //will update once merged with main
                 SetUpBucketSort(randomArray, numBuckets);
                 algorithmBucket = new BucketSort(stackPaneInputNodes, nodeValuesInput, numBuckets, visualizerPane.getWidth(), visualizerPane.getHeight());
-                isCustomVis = true;
                 break;
             case "Heap Sort":
                 bucketSizeDropdown.setVisible(false);
@@ -345,8 +357,6 @@ public class VisualizerController implements Initializable {
             case "Tree Sort":
                 bucketSizeDropdown.setVisible(false);
                 algorithmTree = new TreeSort(treeNodes, nodeValuesInput, treeNodeLines);
-                isCustomVis = true;
-                isTreeSort = true;
                 break;
             case "Linear Search":
                 bucketSizeDropdown.setVisible(false);
@@ -360,27 +370,7 @@ public class VisualizerController implements Initializable {
                 randomArray = GenerateRandomCountingSortArray();
                 SetUpCountingSort(randomArray);
                 algorithmCounting = new CountingSort(stackPaneInputNodes, stackPanePossibleValues, stackPaneCountValues, stackPaneSortedArray, nodeValuesInput, possibleCountSortValues, stackPaneIndexValues, stackPaneShiftedIndex);
-                //CountingSort(StackPane[] inputArray, StackPane[] possibleValuesStackPane, StackPane[] countedValues,StackPane[] sortedArray,int[] nodeValues,int[] possibleValues)
                 break;
-        }
-
-        if (isTreeSort) {
-            btnGenArray.setDisable(true);
-            btnGenTree.setDisable(false);
-            treeMenuItem.setDisable(false);
-            arrayMenuItem.setDisable(true);
-        } else {
-            treeMenuItem.setDisable(true);
-            btnGenArray.setDisable(false);
-            btnGenTree.setDisable(true);
-            arrayMenuItem.setDisable(false);
-        }
-        if (isCustomVis) {
-            arrayInputText.setDisable(true);
-            arrayInputTextFieldLabel.setOpacity(0.5);
-        } else {
-            arrayInputText.setDisable(false);
-            arrayInputTextFieldLabel.setOpacity(1);
         }
         boolean ifThereIsAlgorithm = false;
         if (algorithm != null) {
@@ -466,6 +456,11 @@ public class VisualizerController implements Initializable {
 
     }
 
+    /**
+     * Generates the Input array,
+     * Either randomly for the algorithm
+     * Or the user input
+     */
     protected void GetInputArray() {
         if (!arrayInputText.getText().equals("") && !isSearchMode) {
             nodeValuesInput = convertToIntArray(arrayInputText.getText());
@@ -478,7 +473,7 @@ public class VisualizerController implements Initializable {
 
 
     /**
-     * Generates a random array and sets up the algorithm
+     * Generates a bar graph for the input array
      */
     @FXML
     protected void SetUpBarGraph() {
@@ -525,8 +520,6 @@ public class VisualizerController implements Initializable {
         }
         visualizerPane.getChildren().clear();
         visualizerPane.getChildren().addAll(boxes);
-
-        PrepareAlgorithm();
     }
 
     /**
@@ -603,27 +596,13 @@ public class VisualizerController implements Initializable {
 
 
     /**
-     * Generate random binary tree
-     * generates a random array for a tree and draws the tree
-     */
-    @FXML
-    protected void SetUpBinaryTree() {
-        GenerateBinaryTree(GenerateRandomTreeValues());
-        ResetAlgorithm();
-        PrepareAlgorithm();
-    }
-
-    /**
      * Generate binary tree from array of values
      * creates an array of Circles, Lines, Text and calls a function to draw them to the pane
      */
     @FXML
-    protected void GenerateBinaryTree(int[] newNodeVals) {
+    protected void GenerateBinaryTree() {
 
         visualizerPane.getChildren().clear();
-
-        //int value of node
-        nodeValuesInput = newNodeVals;
 
         //cirlces for nodes
         treeNodes = new Circle[nodeValuesInput.length];
@@ -686,9 +665,7 @@ public class VisualizerController implements Initializable {
             line1.setStrokeWidth(4);
             treeNodeLines[i - 1] = line1;
         }
-
         drawTree(treeNodes, treeText, treeNodeLines);
-
     }
 
     /**
