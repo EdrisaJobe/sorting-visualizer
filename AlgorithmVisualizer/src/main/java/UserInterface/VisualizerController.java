@@ -295,6 +295,7 @@ public class VisualizerController implements Initializable {
     public void SearchDropdownHandler() {
         btnGenTree.setDisable(true);
         btnGenArray.setDisable(false);
+        nDropdown.setDisable(false);
         isSearchMode = true;
         String dropDownVal = searchDropdown.getValue();
         if (!algorithmName.equals(dropDownVal)) {
