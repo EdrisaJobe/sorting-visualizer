@@ -10,7 +10,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -164,7 +163,7 @@ public class MainController implements Initializable {
     }
 
     public void SetupVisualizer() {
-        visualizerController.GenerateArray();
+        visualizerController.SetUpBarGraph();
     }
 
     public void Play() {
@@ -184,11 +183,11 @@ public class MainController implements Initializable {
     }
 
     public void GenerateArray() {
-        visualizerController.GenerateArray();
+        visualizerController.SetUpBarGraph();
     }
 
     public void GenerateTree() {
-        visualizerController.GenerateRandomBinaryTree();
+        visualizerController.SetUpBinaryTree();
     }
 
     public void hideTutorial(ActionEvent actionEvent) throws IOException {
