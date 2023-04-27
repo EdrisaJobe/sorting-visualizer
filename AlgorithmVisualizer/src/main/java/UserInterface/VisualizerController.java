@@ -133,6 +133,21 @@ public class VisualizerController implements Initializable {
         timer = new AnimTimer();
     }
 
+    /**
+     * Returns a boolean indicating if the last transition animation is playing.
+     *
+     * @return boolean
+     */
+    private boolean lastTransitionsIsRunning() {
+        if (transitions != null) {
+            if (currentTransitionIndex == 0 || currentTransitionIndex > transitions.size() - 1)
+                return false;
+            return transitions.get(currentTransitionIndex - 1).forwardTransition.getStatus().toString().equals("RUNNING")
+                    || transitions.get(currentTransitionIndex).reverseTransition.getStatus().toString().equals("RUNNING");
+        }
+        return false;
+    }
+
 
     /**
      * Moves one step forward in the animation.
@@ -223,7 +238,6 @@ public class VisualizerController implements Initializable {
             arrayInputTextFieldLabel.setOpacity(1);
         }
         isSearchMode = false;
-
         String dropDownVal = sortDropdown.getValue();
         if (!algorithmName.equals(dropDownVal)) algorithmName = sortDropdown.getValue();
         if(algorithmName.equals("Tree Sort")) {
@@ -455,17 +469,7 @@ public class VisualizerController implements Initializable {
         }
     }
 
-    /**
-     * Auto animates on a timer.
-     */
-    @FXML
-    protected void AnimateOnTimer() {
 
-        if (transitions != null) {
-            timer.start();
-        }
-
-    }
 
     /**
      * Generates the Input array,
@@ -729,60 +733,11 @@ public class VisualizerController implements Initializable {
     }
 
 
-    /**
-     * Timer to auto animate swaps.
-     */
-    private class AnimTimer extends AnimationTimer {
-        long lastTime = 0;
 
-        @Override
-        public void handle(long now) {
-            if ((now - lastTime) / 1000000000.0 > ANIM_DURATION / speed) {
-                doHandle();
-                lastTime = now;
-            }
-        }
 
-        private void doHandle() {
 
-            if (currentTransitionIndex < transitions.size()) {
-                playNextAnim();
-            } else {
-                timer.stop();
-            }
-        }
-    }
 
-    /**
-     * Returns a boolean indicating if the last transition animation is playing.
-     *
-     * @return boolean
-     */
-    private boolean lastTransitionsIsRunning() {
-        if (transitions != null) {
-            if (currentTransitionIndex == 0 || currentTransitionIndex > transitions.size() - 1)
-                return false;
-            return transitions.get(currentTransitionIndex - 1).forwardTransition.getStatus().toString().equals("RUNNING")
-                    || transitions.get(currentTransitionIndex).reverseTransition.getStatus().toString().equals("RUNNING");
-        }
-        return false;
-    }
 
-    /**
-     * converts a passed array of integers to a string
-     *
-     * @param intArray array of ints to be convereted to string
-     * @return converted array into string of form [*,*,...,]
-     */
-    public String ConvertArrayToString(int[] intArray) {
-        StringBuilder arrayString = new StringBuilder();
-        for (int i = 0; i < intArray.length; i++) {
-            arrayString.append(intArray[i]);
-            if (i != intArray.length - 1)
-                arrayString.append(", ");
-        }
-        return arrayString.toString();
-    }
 
     /**
      * Draw buckets for bucket sorting
@@ -1035,4 +990,58 @@ public class VisualizerController implements Initializable {
             }
         }
     }
+
+    //misc helper functions
+
+    /**
+     * Timer to auto animate swaps.
+     */
+    private class AnimTimer extends AnimationTimer {
+        long lastTime = 0;
+
+        @Override
+        public void handle(long now) {
+            if ((now - lastTime) / 1000000000.0 > ANIM_DURATION / speed) {
+                doHandle();
+                lastTime = now;
+            }
+        }
+
+        private void doHandle() {
+
+            if (currentTransitionIndex < transitions.size()) {
+                playNextAnim();
+            } else {
+                timer.stop();
+            }
+        }
+    }
+    /**
+     * Auto animates on a timer.
+     */
+    @FXML
+    protected void AnimateOnTimer() {
+
+        if (transitions != null) {
+            timer.start();
+        }
+
+    }
+
+    /**
+     * converts a passed array of integers to a string
+     *
+     * @param intArray array of ints to be convereted to string
+     * @return converted array into string of form [*,*,...,]
+     */
+    public String ConvertArrayToString(int[] intArray) {
+        StringBuilder arrayString = new StringBuilder();
+        for (int i = 0; i < intArray.length; i++) {
+            arrayString.append(intArray[i]);
+            if (i != intArray.length - 1)
+                arrayString.append(", ");
+        }
+        return arrayString.toString();
+    }
+
 }

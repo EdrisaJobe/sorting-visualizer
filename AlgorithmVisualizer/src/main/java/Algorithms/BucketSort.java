@@ -135,6 +135,7 @@ public class BucketSort {
      * @return The Arraylist of transitions.
      */
     public ArrayList<AlgoState> RunAlgorithm() {
+        int[] sortedArrayStatus = new int[nodeValues.length];
         AlgoState stage;
         //get number of buckets
         int numBuckets = this.bucketLabels.length - 1;
@@ -154,6 +155,7 @@ public class BucketSort {
                     if (newIndex != bucketContainers[k-1].length) {
                         Pair<Transition, Transition> transition = MakeRoom(newIndex, k - 1);
                         stage = new AlgoState(transition);
+                        stage.StoreArrayStatus(sortedArrayStatus);
                         transitions.add(stage);
                     }
                     //update bucket array
@@ -170,20 +172,25 @@ public class BucketSort {
                     //create animation for insertion
                     Pair<Transition, Transition> transition = PlaceIntoBucket(i, k - 1, newIndex);
                     stage = new AlgoState(transition);
+                    stage.StoreArrayStatus(sortedArrayStatus);
                     //store animation
                     transitions.add(stage);
                     break;
                 }
             }
         }
+        int sortedArrayIndex = 0;
         //loop through the bucket containers to color nodes in order and store their animation
         for (int[] bucketContainer : bucketContainers) {
             for (int val = 0; val < bucketContainer.length; val++) {
                 int nodeIndex = GetNode(bucketContainer[val]);
+                sortedArrayStatus[sortedArrayIndex]=bucketContainer[val];
                 Pair<Transition, Transition> transition = SecondaryHighlightNode(nodeIndex);
                 stage = new AlgoState(transition);
                 stage.StoreVariable("i", val);
+                stage.StoreArrayStatus(sortedArrayStatus);
                 transitions.add(stage);
+                sortedArrayIndex++;
             }
         }
         return transitions;
