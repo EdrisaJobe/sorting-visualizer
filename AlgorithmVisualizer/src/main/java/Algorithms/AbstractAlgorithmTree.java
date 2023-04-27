@@ -1,6 +1,7 @@
 package Algorithms;
 
 import javafx.animation.*;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
@@ -16,22 +17,28 @@ public abstract class AbstractAlgorithmTree {
 
     public String pseudoCode = "";
 
-    public static String bestTime = "Ω(1)";
-    public static String averageTime = "θ(log n)";
-    public static String worstTime = "O(log n)";
-    public static String spaceComplexity = "O(1)";
+    public static String bestTime = "";
+    public static String averageTime = "";
+    public static String worstTime = "";
+    public static String spaceComplexity = "";
 
 
     //Highlight Colors.
     private final Color BASE_COLOR = Color.web("#000000");
     private final Color PRIMARY_COLOR = Color.web("#aeff80");
     private final Color SECONDARY_COLOR = Color.web("#fc6868");
-    private final Color TARGET_COLOR = Color.web("#96f6ff");
+    private final Color TARGET_COLOR = Color.INDIANRED;
 
 
 
-    public Circle[] nodes;
-    public int[] values;
+    //circles which are nodes
+    public double vizzWidth;
+    //circles which are nodes
+    public double vizzHeight;
+    //stackpane which holds both the nodes and the text
+    public StackPane[] nodes;
+    //actual int values of nodes
+    public int[] nodeValues;
     public Line[] connection;
 
     //List containing all the transitions that this algorithm makes.
@@ -53,9 +60,9 @@ public abstract class AbstractAlgorithmTree {
      * Constructor, sets the array of nodes.
      * @param nodes Array of boxes
      */
-    public AbstractAlgorithmTree(Circle[] nodes, int[] values, Line[] connection){
+    public AbstractAlgorithmTree(StackPane[] nodes, int[] values, Line[] connection){
         this.nodes = nodes.clone();
-        this.values = values.clone();
+        this.nodeValues = values.clone();
         this.connection = connection.clone();
     }
 
@@ -67,62 +74,23 @@ public abstract class AbstractAlgorithmTree {
     final public Pair<Transition, Transition> ConnectNodes(int index1){
 
         Line connect = connection[index1-1];
-        StrokeTransition lineToChild = new StrokeTransition(Duration.millis(1000),connect,BASE_COLOR,SECONDARY_COLOR);
-
+        StrokeTransition lineToChild = new StrokeTransition(Duration.seconds(FILL_ANIM_DURATION),connect,BASE_COLOR,SECONDARY_COLOR);
+        StrokeTransition lineToParent = new StrokeTransition(Duration.seconds(FILL_ANIM_DURATION),connect,SECONDARY_COLOR,BASE_COLOR);
         ParallelTransition forward = new ParallelTransition(lineToChild);
-        ParallelTransition reverse = new ParallelTransition(lineToChild);
-
-        Pair<Transition, Transition> anims = new Pair<>(forward, reverse);
+        ParallelTransition reverse = new ParallelTransition(lineToParent);
 
         //Think of it as storing multiple transitions in one transition.
-        return anims;
+        return new Pair<>(forward, reverse);
     }
-
-    /**
-     * Returns a transition of highlighting a node with the base color.
-     * @param index Index of the node to highlight.
-     * @return The transition highlighting the node.
-     */
-    final public Pair<Transition, Transition> BaseColorNode(int index){
-        return ColorNode(BASE_COLOR, nodes[index]);
-    }
-
-
-    /**
-     * Returns a transition of highlighting a node with the primary color.
-     * @param index Index of the node to highlight.
-     * @return The transition highlighting the node.
-     */
-    final public Pair<Transition, Transition> PrimaryHighlightNode(int index){
-        return ColorNode(PRIMARY_COLOR, nodes[index]);
-    }
-
     /**
      * Returns a transition of highlighting a node with the primary color.
      * @param index Index of the node to highlight.
      * @return The transition highlighting the node.
      */
     final public Pair<Transition, Transition> SearchTargetHighlightNode(int index){
-        return ColorNode(TARGET_COLOR, nodes[index]);
-    }
 
-    /**
-     * Returns a transition of highlighting a node with the secondary color.
-     * @param index Index of the node to highlight.
-     * @return The transition highlighting the node.
-     */
-    final public Pair<Transition, Transition> SecondaryHighlightNode(int index){
-        return ColorNode(SECONDARY_COLOR, nodes[index]);
-    }
-
-
-    /** UTILITY FUNCTION
-     * Does a full swap procedure with swap animations and highlights between nodes i and j.
-     * @param nodeOne Index of the node to swap.
-     * @param nodeTwo Index of the node to swap.
-     */
-    final public ArrayList<AlgoState> FullSwapProcedure(int nodeOne, int nodeTwo){
-        return null;
+        Circle nodeToColor = (Circle) nodes[index].lookup("#myCircle");
+        return ColorNode(TARGET_COLOR, nodeToColor);
     }
 
     /**
@@ -145,9 +113,7 @@ public abstract class AbstractAlgorithmTree {
 
         //node.setFill(color);
 
-        reverse.setOnFinished(evnt -> {
-            node.setFill(currentColor);
-        });
+        reverse.setOnFinished(evnt -> node.setFill(currentColor));
 
         return new Pair<>(forward, reverse);
     }
@@ -158,12 +124,11 @@ public abstract class AbstractAlgorithmTree {
      * @return The transition containing the filling of the node.
      */
     public Pair<Transition, Transition> HighlightRing(int index1){
-
-        Circle currentNode = nodes[index1];
-        StrokeTransition strokeChange = new StrokeTransition(Duration.millis(2000),currentNode,BASE_COLOR,SECONDARY_COLOR);
-
-        ParallelTransition forward = new ParallelTransition(strokeChange);
-        ParallelTransition reverse = new ParallelTransition(strokeChange);
+        Circle nodeToHighLight = (Circle) nodes[index1].lookup("#myCircle");
+        StrokeTransition strokeChangeForward = new StrokeTransition(Duration.seconds(FILL_ANIM_DURATION),nodeToHighLight,BASE_COLOR,SECONDARY_COLOR);
+        ParallelTransition forward = new ParallelTransition(strokeChangeForward);
+        StrokeTransition strokeChangeReverse = new StrokeTransition(Duration.seconds(FILL_ANIM_DURATION),nodeToHighLight,SECONDARY_COLOR,BASE_COLOR);
+        ParallelTransition reverse = new ParallelTransition(strokeChangeReverse);
 
         return new Pair<>(forward, reverse);
     }

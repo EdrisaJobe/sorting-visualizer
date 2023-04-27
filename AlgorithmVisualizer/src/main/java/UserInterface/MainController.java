@@ -33,9 +33,6 @@ public class MainController implements Initializable {
 
     @FXML
     private Button doneBtn, btnNext, btnSkip;
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
     private int tutorialStage = 0;
 
     @FXML
@@ -55,6 +52,9 @@ public class MainController implements Initializable {
 
     @FXML
     MenuItem about;
+
+    public MainController() {
+    }
 
     /**
      * Initializes the UI elements.
@@ -110,51 +110,36 @@ public class MainController implements Initializable {
         searchingMenu.getItems().setAll(new MenuItem("Linear Search"), new MenuItem("Binary Search"));
 
         // Add an action event handler to the context menu
-        sortingMenu.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                MenuItem menuItem = (MenuItem) event.getTarget();
-                String menuItemText = menuItem.getText();
-                if (speedMenu != event.getTarget()) {
-                    visualizerController.sortDropdown.setValue(menuItemText);
-                    visualizerController.SortDropdownHandler();
-                }
+        sortingMenu.setOnAction(this::handle);
+
+        // Add an action event handler to the context menu
+        searchingMenu.setOnAction(event -> {
+            MenuItem menuItem = (MenuItem) event.getTarget();
+            String menuItemText = menuItem.getText();
+            if (speedMenu != event.getTarget()) {
+                visualizerController.searchDropdown.setValue(menuItemText);
+                visualizerController.SearchDropdownHandler();
             }
         });
 
         // Add an action event handler to the context menu
-        searchingMenu.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                MenuItem menuItem = (MenuItem) event.getTarget();
-                String menuItemText = menuItem.getText();
-                if (speedMenu != event.getTarget()) {
-                    visualizerController.searchDropdown.setValue(menuItemText);
-                    visualizerController.SearchDropdownHandler();
-                }
+        speedMenu.setOnAction(event -> {
+            MenuItem menuItem;
+            menuItem = (MenuItem) event.getTarget();
+            String menuItemText = menuItem.getText();
+            if (speedMenu != event.getTarget()) {
+                visualizerController.speedDropdown.setValue(menuItemText);
+                visualizerController.SpeedDropdownHandler();
             }
         });
 
         // Add an action event handler to the context menu
-        speedMenu.setOnAction(new EventHandler<ActionEvent>() {
+        sizeMenu.setOnAction(new EventHandler<>() {
             @Override
             public void handle(ActionEvent event) {
                 MenuItem menuItem = (MenuItem) event.getTarget();
                 String menuItemText = menuItem.getText();
-                if (speedMenu != event.getTarget()) {
-                    visualizerController.speedDropdown.setValue(menuItemText);
-                    visualizerController.SpeedDropdownHandler();
-                }
-            }
-        });
-
-        // Add an action event handler to the context menu
-        sizeMenu.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                MenuItem menuItem = (MenuItem) event.getTarget();
-                String menuItemText = menuItem.getText();
-                if (sizeMenu != event.getTarget()) {
+                if (event.getTarget() != sizeMenu) {
                     visualizerController.nDropdown.setValue(menuItemText);
                     visualizerController.nDropdownHandler();
                 }
@@ -163,7 +148,7 @@ public class MainController implements Initializable {
     }
 
     public void SetupVisualizer() {
-        visualizerController.SetUpBarGraph();
+        visualizerController.LoadNewVisualizerPane();
     }
 
     public void Play() {
@@ -190,11 +175,11 @@ public class MainController implements Initializable {
         visualizerController.GenerateBinaryTree();
     }
 
-    public void hideTutorial(ActionEvent actionEvent) throws IOException {
+    public void hideTutorial(ActionEvent actionEvent) {
         tutorialPane.setVisible(false);
     }
 
-    public void nextWelcome(ActionEvent actionEvent) throws IOException {
+    public void nextWelcome(ActionEvent actionEvent) {
 
         switch (tutorialStage) {
             case 0:
@@ -233,5 +218,14 @@ public class MainController implements Initializable {
                 break;
         }
 
+    }
+
+    private void handle(ActionEvent event) {
+        MenuItem menuItem = (MenuItem) event.getTarget();
+        String menuItemText = menuItem.getText();
+        if (speedMenu != event.getTarget()) {
+            visualizerController.sortDropdown.setValue(menuItemText);
+            visualizerController.SortDropdownHandler();
+        }
     }
 }
