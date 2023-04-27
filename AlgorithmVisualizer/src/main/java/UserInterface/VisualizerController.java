@@ -372,7 +372,7 @@ public class VisualizerController implements Initializable {
                 algorithm = new BinarySearch(boxes, x_gap, box_width);
                 break;
             case "Counting Sort":
-                algorithmCounting = new CountingSort(stackPaneInputNodes, stackPanePossibleValues, stackPaneCountValues, stackPaneSortedArray, nodeValuesInput, possibleCountSortValues, stackPaneIndexValues, stackPaneShiftedIndex);
+                algorithmCounting = new CountingSort(stackPaneInputNodes, stackPanePossibleValues, stackPaneCountValues, stackPaneSortedArray, nodeValuesInput, stackPaneIndexValues, stackPaneShiftedIndex);
                 break;
         }
         boolean ifThereIsAlgorithm = false;

@@ -20,20 +20,18 @@ public class CountingSort {
 
 
     //circles which are nodes
-    private StackPane[] inputArray;
-    private StackPane[] shiftedIndex;
-    private StackPane[] possibleValuesStackPane;
-    private StackPane[] countedValues;
-    private StackPane[] sortedArray;
-    private StackPane[] indexValues;
+    private final StackPane[] inputArray;
+    private final StackPane[] shiftedIndex;
+    private final StackPane[] possibleValuesStackPane;
+    private final StackPane[] countedValues;
+    private final StackPane[] sortedArray;
+    private final StackPane[] indexValues;
     //actual int values of nodes
-    private int[] nodeValues;
-    //possible values
-    private int[] possibleValues;
+    private final int[] nodeValues;
     //transitions
     //List containing all the transitions that this algorithm makes.
     //This allows us to go backwards and forwards.
-    private ArrayList<AlgoState> transitions = new ArrayList<>();
+    private final ArrayList<AlgoState> transitions = new ArrayList<>();
     //Duration of the transitions.
 
     public static String bestTime = "Ω(n)";
@@ -61,17 +59,22 @@ public class CountingSort {
 
 
     /**
-     * Constructor, sets the array of nodes.
      *
-     * @param nodes Array of boxes
+     * @param inputArray stack pane of input array
+     * @param possibleValuesStackPane   stack pane of possible values in the input
+     * @param countedValues ...
+     * @param sortedArray ...
+     * @param nodeValues ...
+     * @param indexValues ...
+     * @param shiftedIndex ...
      */
-    public CountingSort(StackPane[] inputArray, StackPane[] possibleValuesStackPane, StackPane[] countedValues, StackPane[] sortedArray, int[] nodeValues, int[] possibleValues, StackPane[] indexValues, StackPane[] shiftedIndex) {
+    public CountingSort(StackPane[] inputArray, StackPane[] possibleValuesStackPane, StackPane[] countedValues, StackPane[] sortedArray, int[] nodeValues, StackPane[] indexValues, StackPane[] shiftedIndex) {
         this.inputArray = inputArray;
         this.possibleValuesStackPane = possibleValuesStackPane;
         this.countedValues = countedValues;
         this.sortedArray = sortedArray;
         this.nodeValues = nodeValues;
-        this.possibleValues = possibleValues;
+        //possible values
         this.indexValues = indexValues;
         this.shiftedIndex = shiftedIndex;
     }
@@ -197,9 +200,7 @@ public class CountingSort {
 
 
         int[] indexInsert = new int[shiftedValue.length];
-        for (int x = 0; x < shiftedValue.length; x++) {
-            indexInsert[x] = shiftedValue[x];
-        }
+        System.arraycopy(shiftedValue, 0, indexInsert, 0, shiftedValue.length);
 
         for (int k = 0; k < nodeValues.length; k++) {
             int val = 0;
@@ -274,18 +275,19 @@ public class CountingSort {
 
 
     /**
-     * Returns a transition of highlighting a node with the secondary color.
      *
-     * @param index Index of the node to highlight.
-     * @return The transition highlighting the node.
+     * @param node node to highlight
+     * @param from start color
+     * @param to   to color
+     * @return return pair transition
      */
     final public Pair<Transition, Transition> CustomHighlightNode(Rectangle[] node, Color from, Color to) {
         ParallelTransition forward = new ParallelTransition();
         ParallelTransition reverse = new ParallelTransition();
 
-        for (int i = 0; i < node.length; i++) {
-            StrokeTransition strokeChangeForward = new StrokeTransition(Duration.seconds(ANIM_DURATION), node[i], from, to);
-            StrokeTransition strokeChangeReverse = new StrokeTransition(Duration.seconds(ANIM_DURATION), node[i], to, from);
+        for (Rectangle rectangle : node) {
+            StrokeTransition strokeChangeForward = new StrokeTransition(Duration.seconds(ANIM_DURATION), rectangle, from, to);
+            StrokeTransition strokeChangeReverse = new StrokeTransition(Duration.seconds(ANIM_DURATION), rectangle, to, from);
             forward.getChildren().add(strokeChangeForward);
             reverse.getChildren().add(strokeChangeReverse);
         }
@@ -295,10 +297,9 @@ public class CountingSort {
     }
 
     /**
-     * Returns a transition of highlighting a node with the secondary color.
      *
-     * @param index Index of the node to highlight.
-     * @return The transition highlighting the node.
+     * @param node node to highlight
+     * @return return pair transition
      */
     final public Pair<Transition, Transition> ResetHighlightNode(Rectangle node) {
         StrokeTransition strokeChangeForward = new StrokeTransition(Duration.seconds(ANIM_DURATION), node, SECONDARY_COLOR, STROKE_BASE);
@@ -352,9 +353,7 @@ public class CountingSort {
 
         //node.setFill(color);
 
-        reverse.setOnFinished(evnt -> {
-            node.setFill(currentColor);
-        });
+        reverse.setOnFinished(evnt -> node.setFill(currentColor));
 
         return new Pair<>(forward, reverse);
     }
