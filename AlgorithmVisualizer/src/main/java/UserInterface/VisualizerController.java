@@ -28,8 +28,6 @@ public class VisualizerController implements Initializable {
     //Duration of the transitions
     protected final static float ANIM_DURATION = .95f;
     @FXML
-    private MainController mainController;
-    @FXML
     private Label statusLabel;
     @FXML
     private Label sortedArrayLabel;
@@ -72,7 +70,6 @@ public class VisualizerController implements Initializable {
     MenuItem arrayMenuItem;
 
 
-    private int treeSize = 9;
     private int numBuckets = 2;
     private Circle[] treeNodes;
     private Line[] treeNodeLines;
@@ -87,9 +84,7 @@ public class VisualizerController implements Initializable {
     private StackPane[] stackPaneShiftedIndex;
     private StackPane[] stackPaneSortedArray;
     //range of values in counting sort
-    private int[] possibleCountSortValues = new int[]{0, 1, 2, 3, 4, 5};
-    private Text[] nodeLabels;
-
+    private final int[] possibleCountSortValues = new int[]{0, 1, 2, 3, 4, 5};
 
 
     private Rectangle[] boxes;
@@ -110,12 +105,6 @@ public class VisualizerController implements Initializable {
     private int box_width;
     private int numOfBoxes = 10;
     private int[] nodeValuesInput = new int[numOfBoxes];
-
-    private final float BOX_WIDTH_RATIO = 2 / 3F;
-    private final float PANE_HEIGHT_RATIO = 5 / 6F;
-    private final float MIN_BAR_HEIGHT = 1 / 6F;
-
-    private final float HORIZONTAL_BUFFER = 4;
 
 
     /**
@@ -282,9 +271,7 @@ public class VisualizerController implements Initializable {
         if (lastTransitionsIsRunning()) {
             if (currentTransitionIndex < transitions.size()) {
                 // Waits until currently running transition is finished
-                transitions.get(currentTransitionIndex - 1).forwardTransition.setOnFinished(e -> {
-                    this.speed = value;
-                });
+                transitions.get(currentTransitionIndex - 1).forwardTransition.setOnFinished(e -> this.speed = value);
             } else
                 this.speed = value;
         } else {
@@ -311,14 +298,20 @@ public class VisualizerController implements Initializable {
      * Using the current state of the algorithm this draws the right visualization
      */
     public void DrawInitialVisualization() {
-        if (algorithmName.equals("Tree Sort")) {
-            GenerateBinaryTree();
-        } else if (algorithmName.equals("Bucket Sort")) {
-            SetUpBucketSort(nodeValuesInput, numBuckets);
-        } else if (algorithmName.equals("Counting Sort")) {
-            SetUpCountingSort(nodeValuesInput);
-        } else
-            SetUpBarGraph();
+        switch (algorithmName) {
+            case "Tree Sort":
+                GenerateBinaryTree();
+                break;
+            case "Bucket Sort":
+                SetUpBucketSort(nodeValuesInput, numBuckets);
+                break;
+            case "Counting Sort":
+                SetUpCountingSort(nodeValuesInput);
+                break;
+            default:
+                SetUpBarGraph();
+                break;
+        }
     }
 
     /**
@@ -398,29 +391,29 @@ public class VisualizerController implements Initializable {
         } else if (algorithmTree != null) {
             statusLabel.setText("Selected Algorithm: " + algorithmName);
             pseudoText.setText(algorithmTree.pseudoCode);
-            bestTimeLabel.setText(algorithmTree.bestTime);
-            avgTimeLabel.setText(algorithmTree.averageTime);
-            worstTimeLabel.setText(algorithmTree.worstTime);
-            spaceCompLabel.setText(algorithmTree.spaceComplexity);
+            bestTimeLabel.setText(AbstractAlgorithmTree.bestTime);
+            avgTimeLabel.setText(AbstractAlgorithmTree.averageTime);
+            worstTimeLabel.setText(AbstractAlgorithmTree.worstTime);
+            spaceCompLabel.setText(AbstractAlgorithmTree.spaceComplexity);
             this.transitions = algorithmTree.RunAlgorithm();
             ifThereIsAlgorithm = true;
         } else if (algorithmBucket != null) {
 
             statusLabel.setText("Selected Algorithm: " + algorithmName);
             pseudoText.setText(algorithmBucket.pseudoCode);
-            bestTimeLabel.setText(algorithmBucket.bestTime);
-            avgTimeLabel.setText(algorithmBucket.averageTime);
-            worstTimeLabel.setText(algorithmBucket.worstTime);
-            spaceCompLabel.setText(algorithmBucket.spaceComplexity);
+            bestTimeLabel.setText(BucketSort.bestTime);
+            avgTimeLabel.setText(BucketSort.averageTime);
+            worstTimeLabel.setText(BucketSort.worstTime);
+            spaceCompLabel.setText(BucketSort.spaceComplexity);
             this.transitions = algorithmBucket.RunAlgorithm();
             ifThereIsAlgorithm = true;
         } else if (algorithmCounting != null) {
             statusLabel.setText("Selected Algorithm: " + algorithmName);
             pseudoText.setText(algorithmCounting.pseudoCode);
-            bestTimeLabel.setText(algorithmCounting.bestTime);
-            avgTimeLabel.setText(algorithmCounting.averageTime);
-            worstTimeLabel.setText(algorithmCounting.worstTime);
-            spaceCompLabel.setText(algorithmCounting.spaceComplexity);
+            bestTimeLabel.setText(CountingSort.bestTime);
+            avgTimeLabel.setText(CountingSort.averageTime);
+            worstTimeLabel.setText(CountingSort.worstTime);
+            spaceCompLabel.setText(CountingSort.spaceComplexity);
             this.transitions = algorithmCounting.RunAlgorithm();
             ifThereIsAlgorithm = true;
         }
@@ -437,20 +430,16 @@ public class VisualizerController implements Initializable {
 
                 }
 
-                if (variables.size() > 0) {
-                    StringBuilder vars = new StringBuilder("Algo State: ");
+                StringBuilder vars = new StringBuilder("Algo State: ");
 
-                    for (int i = 0; i < variables.size() - 1; i++) {
-                        vars.append(variables.get(i).toString()).append(", ");
-                    }
-                    vars.append(variables.get(variables.size() - 1).toString());
-                    algoStateLabel.setText(String.valueOf(vars));
+                for (int i = 0; i < variables.size() - 1; i++) {
+                    vars.append(variables.get(i).toString()).append(", ");
                 }
+                vars.append(variables.get(variables.size() - 1).toString());
+                algoStateLabel.setText(String.valueOf(vars));
             }
             if (nodeValuesInput != null) {
-                StringBuilder input = new StringBuilder("");
-                input.append(ConvertArrayToString(nodeValuesInput));
-                inputArraySatusLabel.setText(String.valueOf(input));
+                inputArraySatusLabel.setText(String.valueOf(ConvertArrayToString(nodeValuesInput)));
                 sortedArrayLabel.setText("");
             }
 
@@ -493,12 +482,16 @@ public class VisualizerController implements Initializable {
 
         int size = this.nodeValuesInput.length;
         boolean userInput = !arrayInputText.getText().equals("");
+        float HORIZONTAL_BUFFER = 4;
         double b = visualizerPane.getWidth() - HORIZONTAL_BUFFER;
+        float BOX_WIDTH_RATIO = 2 / 3F;
         this.box_width = (int) (b / size * BOX_WIDTH_RATIO);
         this.x_gap = (int) b / size - box_width;
         if (box_width == 0)
             this.box_width = 1;
+        float PANE_HEIGHT_RATIO = 5 / 6F;
         int paneHeight = (int) (visualizerPane.getHeight() * PANE_HEIGHT_RATIO);
+        float MIN_BAR_HEIGHT = 1 / 6F;
         int minHeight = (int) (visualizerPane.getHeight() * MIN_BAR_HEIGHT);
         boxes = new Rectangle[size];
 
@@ -510,15 +503,14 @@ public class VisualizerController implements Initializable {
         }
         //put into array list
         ArrayList<Integer> vals_list = new ArrayList<>();
-        for (int k = 0; k < this.nodeValuesInput.length; k++) {
-            vals_list.add(this.nodeValuesInput[k]);
+        for (int j : this.nodeValuesInput) {
+            vals_list.add(j);
         }
         if (!isSearchMode && arrayInputText.getText().equals("")) {
             //shuffle the order of the sizes
             Collections.shuffle(vals_list);
         }
-        float adj = 0;
-        if (x_gap != 0) ;
+        float adj;
         adj = x_gap / 2.0F;
         nodeValuesInput = new int[this.nodeValuesInput.length];
         for (int i = 0; i < this.nodeValuesInput.length; i++) {
@@ -538,8 +530,8 @@ public class VisualizerController implements Initializable {
     /**
      * Converts comma delimited string into int array
      *
-     * @param input
-     * @return
+     * @param input String of numbers to be converted
+     * @return return int array
      */
     public static int[] convertToIntArray(String input) {
         String[] stringArray = input.split(","); // Split input string by comma
@@ -575,6 +567,7 @@ public class VisualizerController implements Initializable {
     @FXML
     protected int[] GenerateRandomTreeValues() {
 
+        int treeSize = 9;
         int[] newValues = new int[treeSize];
 
         //possible root values
@@ -775,7 +768,7 @@ public class VisualizerController implements Initializable {
         int padding = 50;
         //set bottom layer of buckets
         Rectangle base = new Rectangle(visualizerPane.getWidth() - padding, 5);
-        base.setX(padding / 2);
+        base.setX(padding / (double)2);
         base.setY(visualizerPane.getHeight() - 10);
         visualizerPane.getChildren().add(base);
         //draw dividers to break up base
@@ -784,7 +777,7 @@ public class VisualizerController implements Initializable {
         int dividerWidth = 5;
         for (int i = 0; i < numBuckets + 1; i++) {
             Rectangle divider = new Rectangle(dividerWidth, dividerHeight + 5);
-            divider.setX(padding / 2 + (bucketIncrement * i));
+            divider.setX((padding / ((float) 2)) + (bucketIncrement * i));
             divider.setY(base.getY() - dividerHeight);
             visualizerPane.getChildren().add(divider);
             Text bucketLabel = new Text(String.valueOf(bucketLabels[i]));
@@ -800,7 +793,6 @@ public class VisualizerController implements Initializable {
 
         //circle and text nodes
         stackPaneInputNodes = new StackPane[input.length];
-        Text[] treeText = new Text[input.length];
 
         //place the root node
         double firstX = 50;
@@ -808,15 +800,12 @@ public class VisualizerController implements Initializable {
         //set radius and x/y offset
         double radius = 20;
         double xOffset = (radius * 2) + 5;
-        double yOffset = xOffset;
 
         //calculate max number of nodes per row
-        int maxNPR = (int) ((visualizerPane.getWidth() - firstX) / (xOffset));
+        int maxNPR = (int) ((visualizerPane.getWidth() - firstX) / xOffset);
 
         int r = 0;
         int pos = 0;
-
-        nodeLabels = new Text[input.length];
         for (int i = 0; i < input.length; i++) {
             //create circle
             Circle newCircle = new Circle(radius);
@@ -842,12 +831,11 @@ public class VisualizerController implements Initializable {
 
             // palce the stackPane
             stackPane.setTranslateX(firstX + (pos * xOffset));
-            stackPane.setTranslateY(firstY + (r * yOffset));
+            stackPane.setTranslateY(firstY + (r * xOffset));
             //store stackPane
             stackPaneInputNodes[i] = stackPane;
             //draw stackpane
             visualizerPane.getChildren().add(stackPane);
-            nodeLabels[i] = newText;
             pos++;
             if (i + 1 >= maxNPR * (r + 1)) {
                 r++;
@@ -859,9 +847,9 @@ public class VisualizerController implements Initializable {
     /**
      * this function returns all the integer values that represent the bucket ranges
      *
-     * @param input
-     * @param numBuckets
-     * @return
+     * @param input Input array
+     * @param numBuckets number of buckets
+     * @return returns an integer array containing the diving integer values for the buckets
      */
     @FXML
     protected int[] GetBucketLabels(int[] input, int numBuckets) {
@@ -871,11 +859,11 @@ public class VisualizerController implements Initializable {
         //get min and max from array
         int min = input[0];
         int max = 0;
-        for (int i = 0; i < input.length; i++) {
-            if (input[i] > max)
-                max = input[i];
-            if (input[i] < min)
-                min = input[i];
+        for (int j : input) {
+            if (j > max)
+                max = j;
+            if (j < min)
+                min = j;
         }
         //calculate range of values
         int diff = max - min;
@@ -901,7 +889,7 @@ public class VisualizerController implements Initializable {
     }
 
     public void SetNumBuckets() {
-        numBuckets = Integer.valueOf(bucketSizeDropdown.getValue());
+        numBuckets = Integer.parseInt(bucketSizeDropdown.getValue());
         LoadNewVisualizerPane();
     }
 
@@ -974,7 +962,7 @@ public class VisualizerController implements Initializable {
                 newRect.setStrokeWidth(strokeWidth);
                 newRect.setId("myRect");
                 newRect.setStroke(Color.WHITESMOKE);
-                Text newText = null;
+                Text newText;
                 if (row == 0) newText = new Text(String.valueOf(nodeValuesInput[i]));
                 else if (row == 1) newText = new Text(String.valueOf(possibleCountSortValues[i]));
                 else newText = new Text("0");
@@ -998,9 +986,9 @@ public class VisualizerController implements Initializable {
                 });
 
                 if (row == 2 || row == 4) {
-                    stackPane.setTranslateY((padding * (row - skipPadding) + (squareSize + strokeWidth) / 2));
+                    stackPane.setTranslateY((padding * (row - skipPadding) + (squareSize + strokeWidth) / ((float) 2)));
                     if (i == arraySizes[row] - 1) skipPadding += 1;
-                } else stackPane.setTranslateY((padding * (row + 1 - skipPadding)) - (squareSize + strokeWidth) / 2);
+                } else stackPane.setTranslateY((padding * (row + 1 - skipPadding)) - (squareSize + strokeWidth) / ((float) 2));
 
                 stackPane.setTranslateX(nodeStartX + i * (squareSize + strokeWidth));
 
@@ -1011,7 +999,8 @@ public class VisualizerController implements Initializable {
                 else if (row == 2) stackPaneCountValues[i] = stackPane;
                 else if (row == 3) stackPaneIndexValues[i] = stackPane;
                 else if (row == 4) stackPaneShiftedIndex[i] = stackPane;
-                else if (row == 5) stackPaneSortedArray[i] = stackPane;
+                else stackPaneSortedArray[i] = stackPane;
+
 
             }
         }
