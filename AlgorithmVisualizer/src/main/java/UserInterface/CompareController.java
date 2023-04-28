@@ -33,7 +33,7 @@ public class CompareController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         dropDown.getItems().setAll("Bubble Sort", "Insertion Sort", "Quick Sort",
-                "Selection Sort", "Merge Sort", "Bucket Sort", "Heap Sort","Tree Sort");
+                "Selection Sort", "Merge Sort", "Bucket Sort", "Heap Sort","Tree Sort", "Counting Sort");
         dropDown.setValue("Bubble Sort");
 //        dropDownHandler();
     }
@@ -68,6 +68,13 @@ public class CompareController implements Initializable {
                 avg = BucketSort.averageTime;
                 worst = BucketSort.worstTime;
                 space = BucketSort.spaceComplexity;
+                break;
+            case "Counting Sort":
+                //Only do besttime for bucket since other times can't be graphed
+                best = CountingSort.bestTime;
+                avg = CountingSort.averageTime;
+                worst = CountingSort.worstTime;
+                space = CountingSort.spaceComplexity;
                 break;
             case "Heap Sort":
                 algo = new HeapSort();

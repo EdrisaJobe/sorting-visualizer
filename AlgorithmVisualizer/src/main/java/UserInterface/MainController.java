@@ -95,7 +95,7 @@ public class MainController implements Initializable {
 
         // Add the menu items to the context menu
         speedMenu.getItems().addAll(new MenuItem("1x"), new MenuItem("2x"),
-                new MenuItem("3x"), new MenuItem("5x"), new MenuItem("10x"), new MenuItem("100x"));// Add the menu items
+                new MenuItem("5x"), new MenuItem("10x"), new MenuItem("100x"));// Add the menu items
                                                                                                    // to the context
                                                                                                    // menu
 
@@ -171,11 +171,11 @@ public class MainController implements Initializable {
     }
 
     public void GenerateArray() {
-        visualizerController.SetUpBarGraph();
+        visualizerController.ResizeVisualizerPaneNodes();
     }
 
     public void GenerateTree() {
-        visualizerController.GenerateBinaryTree();
+        visualizerController.LoadNewVisualizerPane();
     }
 
     public void hideTutorial(ActionEvent actionEvent) {

@@ -93,7 +93,7 @@ public class VisualizerController implements Initializable {
     private BucketSort algorithmBucket;
     private AbstractAlgorithmTree algorithmTree;
     private CountingSort algorithmCounting;
-    private String algorithmName = "Bubble Sort";
+    public String algorithmName = "Bubble Sort";
     private ArrayList<AlgoState> transitions = null;
     private int currentTransitionIndex = 0;
     private float speed = 1;
@@ -271,9 +271,13 @@ public class VisualizerController implements Initializable {
         if (algorithmName.equals("Tree Sort")) {
             btnGenTree.setDisable(false);
             btnGenArray.setDisable(true);
+            treeMenuItem.setDisable(false);
+            arrayMenuItem.setDisable(true);
         } else {
             btnGenTree.setDisable(true);
             btnGenArray.setDisable(false);
+            treeMenuItem.setDisable(true);
+            arrayMenuItem.setDisable(false);
         }
         if (algorithmName.equals("Tree Sort") || algorithmName.equals("Bucket Sort") || algorithmName.equals("Counting Sort")) {
             arrayInputText.setDisable(true);
@@ -296,7 +300,10 @@ public class VisualizerController implements Initializable {
         btnGenTree.setDisable(true);
         btnGenArray.setDisable(false);
         nDropdown.setDisable(false);
+        treeMenuItem.setDisable(true);
+        arrayMenuItem.setDisable(false);
         isSearchMode = true;
+
         String dropDownVal = searchDropdown.getValue();
         if (!algorithmName.equals(dropDownVal)) {
             algorithmName = searchDropdown.getValue();
@@ -760,7 +767,7 @@ public class VisualizerController implements Initializable {
      * creates an array of Circles, Lines, Text and calls a function to draw them to the pane
      */
     @FXML
-    protected void GenerateBinaryTree() {
+    public void GenerateBinaryTree() {
 
         visualizerPane.getChildren().clear();
         stackPaneInputNodes = new StackPane[nodeValuesInput.length];
@@ -1019,7 +1026,7 @@ public class VisualizerController implements Initializable {
         LoadNewVisualizerPane();
     }
 
-    private void SetUpCountingSort(int[] inputArray) {
+    public void SetUpCountingSort(int[] inputArray) {
         visualizerPane.getChildren().clear();
         nodeValuesInput = inputArray;
         stackPaneInputNodes = new StackPane[nodeValuesInput.length];

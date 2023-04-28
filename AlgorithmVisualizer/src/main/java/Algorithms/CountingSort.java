@@ -34,10 +34,10 @@ public class CountingSort {
     private final ArrayList<AlgoState> transitions = new ArrayList<>();
     //Duration of the transitions.
 
-    public static String bestTime = "Ω(n)";
-    public static String averageTime = "θ(n + n^2/k + k)";
-    public static String worstTime = "O(n*k)";
-    public static String spaceComplexity = "O(n+k)";
+    public static String bestTime = "Ω(n+k)";
+    public static String averageTime = "θ(n+k)";
+    public static String worstTime = "O(n+k)";
+    public static String spaceComplexity = "O(k)";
 
     public String pseudoCode = "Count the number of occurrences for each value \n\n" +
             "Add the previous count to each current count\n\n" +
