@@ -382,6 +382,10 @@
     -fx-background-color: #7ECEFD; /* Set increment/decrement button color on press */
 }
 
-#main-pane{
+/*#main-pane{*/
+/*    -fx-background-color: red;*/
+/*}*/
+
+#paneContainer{
     -fx-background-color: #32A852;
 }

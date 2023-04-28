@@ -8,7 +8,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Bounds;
 import javafx.geometry.VPos;
+import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -66,6 +68,9 @@ public class VisualizerController implements Initializable {
     private Label arrayInputTextFieldLabel;
     @FXML
     private ComboBox<String> bucketSizeDropdown;
+    @FXML
+    private HBox containerPane;
+
 
     MenuItem treeMenuItem;
     MenuItem arrayMenuItem;
@@ -98,6 +103,8 @@ public class VisualizerController implements Initializable {
     private int currentTransitionIndex = 0;
     private float speed = 1;
     private boolean isSearchMode = false;
+    private double curr_xscale = 1;
+    private double curr_yscale = 1;
 
     //Gap between blocks.
     private int x_gap;
@@ -132,23 +139,28 @@ public class VisualizerController implements Initializable {
 
         bucketSizeDropdown.getItems().setAll("2", "3", "4", "5");
         bucketSizeDropdown.setValue("2");
-
         timer = new AnimTimer();
+
         //add a listener for window resizing
-        visualizerPane.widthProperty().addListener((observableValue, oldWidth, newWidth) -> {
-            if (oldWidth != newWidth) {
-                stateLock = true;
-                ResizeVisualizerPaneNodes();
-                stateLock = false;
+        containerPane.widthProperty().addListener((observableValue, oldWidth, newWidth) -> {
+            if (oldWidth != newWidth && oldWidth.doubleValue() != 0.0) {
+                double ratio = newWidth.doubleValue() / oldWidth.doubleValue();
+                curr_xscale *= ratio;
+                visualizerPane.setScaleX(curr_xscale);
+                Rectangle clipRect = new Rectangle(0, 0, containerPane.getWidth(), containerPane.getHeight());
+                containerPane.setClip(clipRect);
+
             }
         });
-        visualizerPane.heightProperty().addListener((observableValue, oldHeight, newHeight) -> {
-            if (oldHeight != newHeight) {
-                stateLock = true;
-                ResizeVisualizerPaneNodes();
-                stateLock = false;
+        containerPane.heightProperty().addListener((observableValue, oldHeight, newHeight) -> {
+            if (oldHeight != newHeight && oldHeight.doubleValue() != 0.0) {
+                double ratio = newHeight.doubleValue() / oldHeight.doubleValue();
+                curr_yscale *= ratio;
+                visualizerPane.setScaleY(curr_yscale);
+                Rectangle clipRect = new Rectangle(0, 0, containerPane.getWidth(), containerPane.getHeight());
+                containerPane.setClip(clipRect);
+                visualizerPane.setTranslateY((visualizerPane.getTranslateY() + oldHeight.doubleValue()/2.1 - newHeight.doubleValue()/2.1));
             }
-
         });
 
     }

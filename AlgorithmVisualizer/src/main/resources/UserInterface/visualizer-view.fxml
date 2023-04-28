@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="1000.0" prefWidth="1800.0" spacing="30.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserInterface.VisualizerController">
+<HBox fx:id="containerBox" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="1000.0" prefWidth="1800.0" spacing="30.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserInterface.VisualizerController">
                   <children>
                           <VBox alignment="TOP_CENTER" maxWidth="-Infinity" prefWidth="300.0" style="-fx-background-color: #1D1D1D;">
                              <children>
@@ -89,9 +89,9 @@
             </HBox>
                              </children>
                           </VBox>
-                        <VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="900.0" prefWidth="786.0" spacing="20.0" HBox.hgrow="ALWAYS">
+                        <VBox alignment="CENTER" maxHeight="1250.0" maxWidth="1.7976931348623157E308" prefHeight="900.0" prefWidth="786.0" spacing="20.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <Label id="algo-label" fx:id="statusLabel" alignment="CENTER" contentDisplay="CENTER" maxWidth="1200.0" prefHeight="40.0" prefWidth="1200.0" text="Selected Algorithm: Bubble Sort" textAlignment="CENTER" textFill="WHITE">
+                              <Label id="algo-label" fx:id="statusLabel" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="40.0" prefWidth="1200.0" text="Selected Algorithm: Bubble Sort" textAlignment="CENTER" textFill="WHITE">
                                  <VBox.margin>
                                     <Insets bottom="-20.0" />
                                  </VBox.margin>
@@ -99,10 +99,18 @@
                                     <Font name="Calibri Light" size="16.0" />
                                  </font>
                               </Label>
-
-      
-                                    <Pane id="main-pane" fx:id="visualizerPane" maxHeight="1200.0" maxWidth="1200.0" minHeight="378.0" minWidth="780.0" prefHeight="669.0" prefWidth="1151.0" />
-            <Label id="algo-state" fx:id="algoStateLabel" alignment="CENTER" contentDisplay="CENTER" maxWidth="1200.0" prefHeight="35.0" prefWidth="1200.0" text="Algo State:" textAlignment="CENTER">
+            <HBox id="paneContainer" fx:id="containerPane" alignment="CENTER" maxHeight="1.7976931348623157E308" prefHeight="431.0" prefWidth="1151.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <VBox alignment="BOTTOM_CENTER">
+                     <children>
+            
+                                                
+                                                                  <Pane id="main-pane" fx:id="visualizerPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="367.0" minWidth="721.0" prefHeight="367.0" prefWidth="721.0" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <Label id="algo-state" fx:id="algoStateLabel" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="35.0" prefWidth="1200.0" text="Algo State:" textAlignment="CENTER">
                <font>
                   <Font name="Calibri Light" size="17.0" />
                </font>
@@ -134,7 +142,7 @@
                   </HBox>
                </children>
                <VBox.margin>
-                  <Insets top="5.0" />
+                  <Insets top="25.0" />
                </VBox.margin>
             </HBox>
                                 <HBox id="visui_container" alignment="CENTER" fillHeight="false" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="63.0" prefWidth="688.0" spacing="15.0">
@@ -210,6 +218,9 @@
                </VBox.margin>
                                 </HBox>
                            </children>
+         <HBox.margin>
+            <Insets top="40.0" />
+         </HBox.margin>
                         </VBox>
                         <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="682.0" prefWidth="289.0" style="-fx-background-color: #1D1D1D;">
                      <children>
